@@ -1,4 +1,4 @@
-package com.master.navdrawerbottomnva;
+package com.master.navdrawerbottomnva.bookmark;
 
 import android.os.Bundle;
 
@@ -8,13 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class accountFragment extends Fragment {
+import com.master.navdrawerbottomnva.R;
 
+
+public class bookmarkFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        return inflater.inflate(R.layout.fragment_bookmark, container, false);
     }
 }

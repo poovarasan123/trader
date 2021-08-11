@@ -1,4 +1,4 @@
-package com.master.navdrawerbottomnva;
+package com.master.navdrawerbottomnva.term;
 
 import android.os.Bundle;
 
@@ -8,7 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class shareFragment extends Fragment {
+import com.master.navdrawerbottomnva.R;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link termFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class termFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,7 +26,7 @@ public class shareFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public shareFragment() {
+    public termFragment() {
         // Required empty public constructor
     }
 
@@ -29,11 +36,11 @@ public class shareFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment shareFragment.
+     * @return A new instance of fragment termFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static shareFragment newInstance(String param1, String param2) {
-        shareFragment fragment = new shareFragment();
+    public static termFragment newInstance(String param1, String param2) {
+        termFragment fragment = new termFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -54,6 +61,6 @@ public class shareFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_share, container, false);
+        return inflater.inflate(R.layout.fragment_term, container, false);
     }
 }

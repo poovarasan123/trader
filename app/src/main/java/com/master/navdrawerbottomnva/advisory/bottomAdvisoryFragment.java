@@ -1,4 +1,4 @@
-package com.master.navdrawerbottomnva;
+package com.master.navdrawerbottomnva.advisory;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.master.navdrawerbottomnva.R;
 
 
 public class bottomAdvisoryFragment extends Fragment {

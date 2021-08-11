@@ -1,4 +1,4 @@
-package com.master.navdrawerbottomnva;
+package com.master.navdrawerbottomnva.livefeed;
 
 import android.os.Bundle;
 
@@ -8,13 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.master.navdrawerbottomnva.R;
 
-public class bottomHomeFragment extends Fragment {
+public class bottomLiveFeedFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bottom_home, container, false);
+        return inflater.inflate(R.layout.fragment_bottom_live_feed, container, false);
     }
 }

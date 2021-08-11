@@ -6,68 +6,62 @@
     app:startDestination="@id/bottomHomeFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.master.navdrawerbottomnva.homeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
         android:id="@+id/bookmarkFragment"
-        android:name="com.master.navdrawerbottomnva.bookmarkFragment"
+        android:name="com.master.navdrawerbottomnva.bookmark.bookmarkFragment"
         android:label="My Bookmarks"
         tools:layout="@layout/fragment_bookmark" />
 
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.master.navdrawerbottomnva.accountFragment"
+        android:name="com.master.navdrawerbottomnva.account.accountFragment"
         android:label="Open Demat Account"
         tools:layout="@layout/fragment_account" />
 
     <fragment
         android:id="@+id/privacyFragment"
-        android:name="com.master.navdrawerbottomnva.privacyFragment"
+        android:name="com.master.navdrawerbottomnva.privacy.privacyFragment"
         android:label="Privacy Policy"
         tools:layout="@layout/fragment_privacy"/>
 
     <fragment
         android:id="@+id/termFragment"
-        android:name="com.master.navdrawerbottomnva.termFragment"
+        android:name="com.master.navdrawerbottomnva.term.termFragment"
         android:label="Terms of use"
         tools:layout="@layout/fragment_term" />
 
     <fragment
         android:id="@+id/supportFragment"
-        android:name="com.master.navdrawerbottomnva.supportFragment"
+        android:name="com.master.navdrawerbottomnva.support.supportFragment"
         android:label="Support"
         tools:layout="@layout/fragment_support" />
 
     <fragment
         android:id="@+id/shareFragment"
-        android:name="com.master.navdrawerbottomnva.shareFragment"
+        android:name="com.master.navdrawerbottomnva.share.shareFragment"
         android:label="Share"
         tools:layout="@layout/fragment_share" />
 
     <fragment
         android:id="@+id/bottomHomeFragment"
-        android:name="com.master.navdrawerbottomnva.bottomHomeFragment"
+        android:name="com.master.navdrawerbottomnva.home.bottomHomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_bottom_home" />
 
     <fragment
         android:id="@+id/bottomMarketFragment"
-        android:name="com.master.navdrawerbottomnva.bottomMarketFragment"
+        android:name="com.master.navdrawerbottomnva.market.bottomMarketFragment"
         android:label="Market"
         tools:layout="@layout/fragment_bottom_market" />
 
     <fragment
         android:id="@+id/bottomAdvisoryFragment"
-        android:name="com.master.navdrawerbottomnva.bottomAdvisoryFragment"
+        android:name="com.master.navdrawerbottomnva.advisory.bottomAdvisoryFragment"
         android:label="Advisory"
         tools:layout="@layout/fragment_bottom_advisory" />
 
     <fragment
         android:id="@+id/bottomLiveFeedFragment"
-        android:name="com.master.navdrawerbottomnva.bottomLiveFeedFragment"
+        android:name="com.master.navdrawerbottomnva.livefeed.bottomLiveFeedFragment"
         android:label="Live Feed"
         tools:layout="@layout/fragment_bottom_live_feed" />
 

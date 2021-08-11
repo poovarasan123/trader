@@ -1,14 +1,21 @@
 package com.master.navdrawerbottomnva;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Switch;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,9 +23,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.master.navdrawerbottomnva.bookmark.bookmarkFragment;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private static final float END_SCALE = 0.85f;
 
@@ -52,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         contentView = findViewById(R.id.content_view);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.homeFragment, R.id.bookmarkFragment, R.id.accountFragment, R.id.privacyFragment, R.id.termFragment, R.id.supportFragment,
-                R.id.shareFragment, R.id.bottomHomeFragment, R.id.bottomMarketFragment, R.id.bottomAdvisoryFragment, R.id.bottomLiveFeedFragment)
+                R.id.bookmarkFragment, R.id.accountFragment, R.id.privacyFragment, R.id.termFragment, R.id.supportFragment, R.id.shareFragment,
+                R.id.bottomHomeFragment, R.id.bottomMarketFragment, R.id.bottomAdvisoryFragment, R.id.bottomLiveFeedFragment)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -87,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -96,4 +102,12 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+    }
 }
