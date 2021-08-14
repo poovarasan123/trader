@@ -64,5 +64,10 @@
         android:name="com.master.navdrawerbottomnva.livefeed.bottomLiveFeedFragment"
         android:label="Live Feed"
         tools:layout="@layout/fragment_bottom_live_feed" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.master.navdrawerbottomnva.profileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
 
 </navigation>

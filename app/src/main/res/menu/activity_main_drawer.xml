@@ -7,6 +7,11 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/profileFragment"
+            android:icon="@drawable/ic_account"
+            android:title="Profile" />
+
+        <item
             android:id="@+id/bookmarkFragment"
             android:icon="@drawable/ic_collections_bookmark"
             android:title="My Bookmark" />

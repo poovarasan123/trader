@@ -1,113 +1,143 @@
 package com.master.navdrawerbottomnva;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Switch;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-import com.master.navdrawerbottomnva.bookmark.bookmarkFragment;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.master.navdrawerbottomnva.advisory.bottomAdvisoryFragment;
+import com.master.navdrawerbottomnva.home.bottomHomeFragment;
+import com.master.navdrawerbottomnva.livefeed.bottomLiveFeedFragment;
+import com.master.navdrawerbottomnva.market.bottomMarketFragment;
 
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
-    private static final float END_SCALE = 0.85f;
+    private BottomSheetDialog moreMenuSheet;
+    //private Switch themeSwitch;
 
-    private AppBarConfiguration mAppBarConfiguration;
-    private DrawerLayout drawer;
-    private CoordinatorLayout contentView;
+    BottomNavigationView bottomNavView;
+
+    UserSettings userSettings;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        intiToolbar();
-        intiNavigation();
+
+        bottomNavView = findViewById(R.id.bottom_nav_bar);
+
+        bottomNavView.setOnNavigationItemSelectedListener(navListener);
+
+        userSettings = new UserSettings();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(UserSettings.PREFERANCES, MODE_PRIVATE);
+        String theme = sharedPreferences.getString(UserSettings.CUSTOME_THEME, UserSettings.LIGHT_THEME);
+        userSettings.setCustomeTheme(theme);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                new bottomHomeFragment()).commit();
 
     }
 
-    private void intiToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
+    private final BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
+                Fragment selectedFragment = null;
 
+                switch (item.getItemId()) {
+                    case R.id.bottomHomeFragment:
+                        selectedFragment = new bottomHomeFragment();
+                        break;
+                    case R.id.bottomMarketFragment:
+                        selectedFragment = new bottomMarketFragment();
+                        break;
+                    case R.id.bottomAdvisoryFragment:
+                        selectedFragment = new bottomAdvisoryFragment();
+                        break;
 
-    private void intiNavigation() {
+                    case R.id.bottomLiveFeedFragment:
+                        selectedFragment = new bottomLiveFeedFragment();
+                        break;
+                }
 
-        drawer = findViewById(R.id.drawer_layout);
+        assert selectedFragment != null;
+        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                        selectedFragment).commit();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        BottomNavigationView bottomNavView = findViewById(R.id.bottom_nav_bar);
+                return true;
+            };
 
-        contentView = findViewById(R.id.content_view);
-
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.bookmarkFragment, R.id.accountFragment, R.id.privacyFragment, R.id.termFragment, R.id.supportFragment, R.id.shareFragment,
-                R.id.bottomHomeFragment, R.id.bottomMarketFragment, R.id.bottomAdvisoryFragment, R.id.bottomLiveFeedFragment)
-                .setDrawerLayout(drawer)
-                .build();
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-
-        NavigationUI.setupWithNavController(navigationView, navController);
-        NavigationUI.setupWithNavController(bottomNavView, navController);
-
-        //animateNavigationDrawer();
-    }
-
-    private void animateNavigationDrawer() {
-//        drawerLayout.setScrimColor(getResources().getColor(R.color.text_brown));
-        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-
-                // Scale the View based on current slide offset
-                final float diffScaledOffset = slideOffset * (1 - END_SCALE);
-                final float offsetScale = 1 - diffScaledOffset;
-                contentView.setScaleX(offsetScale);
-                contentView.setScaleY(offsetScale);
-
-                // Translate the View, accounting for the scaled width
-                final float xOffset = drawerView.getWidth() * slideOffset;
-                final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
-                final float xTranslation = xOffset - xOffsetDiff;
-                contentView.setTranslationX(xTranslation);
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_more, menu);
+        return true;
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.more) {
+            openBottomSheet();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)){
-            drawer.closeDrawer(GravityCompat.START);
+    private void openBottomSheet() {
+        moreMenuSheet = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialogTheme);
+        View loginSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet, findViewById(R.id.more_menu_sheet));
+
+        //themeSwitch = loginSheetView.findViewById(R.id.theme_switch);
+
+
+//        themeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked)
+//
+//                    Toast.makeText(getApplicationContext(), "checked!..", Toast.LENGTH_SHORT).show();
+//                    themeSwitch.setText("Dark");
+//
+//                    userSettings.setCustomeTheme(UserSettings.DARKTHEME);
+//
+//                 else
+//                    Toast.makeText(getApplicationContext(), "unchecked!...", Toast.LENGTH_SHORT).show();
+//                    themeSwitch.setText("Light");
+//
+//                    userSettings.setCustomeTheme(UserSettings.LIGHT_THEME);
+//
+//                SharedPreferences.Editor editor = getSharedPreferences(UserSettings.PREFERANCES, MODE_PRIVATE).edit();
+//                editor.putString(UserSettings.CUSTOME_THEME, userSettings.getCustomeTheme());
+//                editor.apply();
+//
+//                changeTheme();
+//            }
+//        });
+
+        //AppCompatDelegate.MODE_NIGHT_NO -- light
+        //AppCompatDelegate.MODE_NIGHT_YES -- dark
+
+        moreMenuSheet.setContentView(loginSheetView);
+        moreMenuSheet.show();
+    }
+
+    private void changeTheme() {
+        if (userSettings.getCustomeTheme().equals(UserSettings.DARKTHEME)){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            //themeSwitch.setChecked(true);
         }else{
-            super.onBackPressed();
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            //themeSwitch.setChecked(false);
         }
     }
 }

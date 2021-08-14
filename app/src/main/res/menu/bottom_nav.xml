@@ -5,22 +5,22 @@
     <group>
         <item
             android:id="@+id/bottomHomeFragment"
-            android:title="Home"
+            android:title=""
             android:icon="@drawable/ic_home"/>
 
         <item
             android:id="@+id/bottomMarketFragment"
-            android:title="Market"
+            android:title=""
             android:icon="@drawable/ic_insert_chart_outlined"/>
 
         <item
             android:id="@+id/bottomAdvisoryFragment"
-            android:title="Advisory"
+            android:title=""
             android:icon="@drawable/round_business_center_24"/>
 
         <item
             android:id="@+id/bottomLiveFeedFragment"
-            android:title="Live Feed"
+            android:title=""
             android:icon="@drawable/ic_auto_awesome_motion"/>
 
     </group>

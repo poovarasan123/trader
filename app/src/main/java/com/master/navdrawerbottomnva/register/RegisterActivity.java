@@ -82,13 +82,13 @@ public class RegisterActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validate();
+                validator();
             }
         });
 
     }
 
-    private void validate() {
+    private void validator() {
 
         String Name = name.getText().toString();
         String Mail = mail.getText().toString();
