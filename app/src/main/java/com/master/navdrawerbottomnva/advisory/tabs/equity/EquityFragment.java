@@ -5,10 +5,13 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -18,49 +21,61 @@ import com.master.navdrawerbottomnva.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EquityFragment extends Fragment {
 
     RecyclerView recyclerView;
-    ArrayList<EquityModel> list = new ArrayList<>();
 
     ImageView filterbtn;
     HorizontalScrollView scrollbar;
+
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    List<EquityModel> data;
+    List<EquityModel> datasearch;
+
+    ImageView imageView;
+
+    EditText search_filter;
 
     EquityAdapter adapter;
 
     int value=0;
 
 
+    private static final String TAG = "equity fregment";
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View root = inflater.inflate(R.layout.fragment_equity, container, false);
 
         recyclerView = root.findViewById(R.id.recyclerView);
         filterbtn = root.findViewById(R.id.filter);
         scrollbar = root.findViewById(R.id.hscroll);
 
-        list.add(new EquityModel("interglobe aviation ltd", "buy", "close", "", "", 2005.0f,1550.78f,33.0f));
-        list.add(new EquityModel("Indian Railway Ctrng nd Trsm Corp Ltd", "sell", "open", "", "", 1220.50f,1550.78f,75.0f));
-        list.add(new EquityModel("interglobe aviation ltd", "buy", "close", "", "", 1580.06f,1550.78f,33.0f));
-        list.add(new EquityModel("Indian Railway Ctrng nd Trsm Corp Ltd", "sell", "close", "", "", 1220.50f,1550.78f,33.0f));
-        list.add(new EquityModel("interglobe aviation ltd", "buy", "open", "", "", 1420.50f,1550.78f,33.0f));
-        list.add(new EquityModel("Indian Railway Ctrng nd Trsm Corp Ltd", "sell", "close", "", "", 1220.50f,1550.78f,156.0f));
-        list.add(new EquityModel("interglobe aviation ltd", "buy", "open", "", "", 1520.59f,1550.78f,33.0f));
-        list.add(new EquityModel("Indian Railway Ctrng nd Trsm Corp Ltd", "sell", "close", "", "", 1220.50f,1550.78f,33.0f));
-        list.add(new EquityModel("interglobe aviation ltd", "sell", "open", "", "", 1720.50f,1550.78f,33.0f));
-        list.add(new EquityModel("interglobe aviation ltd", "sell", "open", "", "", 1720.50f,1550.78f,33.0f));
-        list.add(new EquityModel("Indian Railway Ctrng nd Trsm Corp Ltd", "sell", "close", "", "", 1220.50f,1550.78f,33.0f));
+        imageView = root.findViewById(R.id.no_record_img);
 
-        adapter = new EquityAdapter(getContext(),list);
+        search_filter = root.findViewById(R.id.search_bar);
+
+        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
 
-        Collections.reverse(list);
+        setdata();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setdata();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         filterbtn.setOnClickListener(v -> {
             value++;
@@ -73,6 +88,48 @@ public class EquityFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void setdata() {
+
+        Call<List<EquityModel>> call = apiController
+                .getInstance()
+                .getapi()
+                .getdata();
+
+        call.enqueue(new Callback<List<EquityModel>>() {
+            @Override
+            public void onResponse(Call<List<EquityModel>> call, Response<List<EquityModel>> response) {
+
+                data = response.body();
+
+                Log.d(TAG, "onResponse: " + data.size());
+
+                if (data.size() != 0 ){
+                    recyclerView.setVisibility(View.VISIBLE);
+                    adapter = new EquityAdapter(data);
+
+                    imageView.setVisibility(View.GONE);
+
+                    adapter.notifyDataSetChanged();
+                    recyclerView.setAdapter(adapter);
+                    Collections.reverse(data);
+                }else {
+                    imageView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }
+
+                Log.d(TAG, "onResponse: data" + data);
+                Log.d(TAG, "onResponse: response" + response);
+                Log.d(TAG, "onResponse: call" + call);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<EquityModel>> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

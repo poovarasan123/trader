@@ -14,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.master.navdrawerbottomnva.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<EquityModel> equityList;
+    List<EquityModel> data;
 
-    public EquityAdapter(Context context, ArrayList<EquityModel> equityList) {
-        this.context = context;
-        this.equityList = equityList;
+    public EquityAdapter(List<EquityModel> data) {
+        this.data = data;
     }
 
     @NonNull
@@ -30,6 +30,7 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.equity_adapter, parent, false);
+        context = parent.getContext();
 
         return new ViewHolder(view);
     }
@@ -38,7 +39,7 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         //TODO: buy and sell color
-        if (equityList.get(position).getRate_status().equals("buy")){
+        if (data.get(position).getRate_status().equals("buy")){
             holder.bsStatus.setTextColor(context.getResources().getColor(R.color.green));
             holder.bsStatus.setBackgroundResource(R.drawable.buy_stroke);
         }else{
@@ -46,12 +47,12 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
             holder.bsStatus.setBackgroundResource(R.drawable.sell_stroke);
         }
 
-        Log.d("TAG", "onBindViewHolder: " + equityList.get(position).getRate_status());
-        Log.d("TAG", "onBindViewHolder: " + equityList.get(position).getStock_status());
+        Log.d("TAG", "onBindViewHolder: " + data.get(position).getRate_status());
+        Log.d("TAG", "onBindViewHolder: " + data.get(position).getStock_status());
 
 
         //TODO: open and close status
-        if (equityList.get(position).getStock_status().equals("open")){
+        if (data.get(position).getStock_status().equals("open")){
             holder.opStatus.setTextColor(context.getResources().getColor(R.color.orange));
 
             holder.tcTxt.setText("TARGET PRICE");
@@ -64,20 +65,27 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
             holder.tagStatus.setBackgroundColor(context.getResources().getColor(R.color.red));
         }
 
-        holder.name_ltd.setText(equityList.get(position).getName());
-        holder.bsStatus.setText(equityList.get(position).getRate_status());
-        holder.opStatus.setText(equityList.get(position).getStock_status());
-        holder.reco_price.setText(String.valueOf(equityList.get(position).getReco_value()));
-        holder.tcValue.setText(String.valueOf(equityList.get(position).getTc_price()));
-        holder.apValue.setText(String.valueOf(equityList.get(position).getAp_return()));
+        holder.name_ltd.setText(data.get(position).getName());
+        holder.bsStatus.setText(data.get(position).getRate_status());
+        holder.opStatus.setText(data.get(position).getStock_status());
+        holder.reco_price.setText(String.valueOf(data.get(position).getReco_value()));
+        holder.tcValue.setText(String.valueOf(data.get(position).getTc_price()));
+        //holder.apValue.setText(String.valueOf(data.get(position).getAp_return()));
 
+        //TODO: percentage calculation
+        float min = data.get(position).getTc_price() - data.get(position).getReco_value();
 
+        float total = min / data.get(position).getReco_value();
+
+        float percent = total * 100;
+
+        holder.apValue.setText(percent + "%");
 
     }
 
     @Override
     public int getItemCount() {
-        return equityList.size();
+        return data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
