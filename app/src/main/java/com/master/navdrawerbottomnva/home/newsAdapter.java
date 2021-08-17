@@ -38,8 +38,6 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
         itemClickListener= listener;
     }
 
-    int pos=0;
-
     public newsAdapter(Context context, ArrayList<newsModel> newses) {
         this.context = context;
         this.newses = newses;

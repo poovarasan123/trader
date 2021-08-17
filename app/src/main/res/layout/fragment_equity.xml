@@ -76,28 +76,28 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="LONG TERM 1 YEAR" />
+                    android:text="LONG TERM" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnI"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="INTRADAY 1 DAY" />
+                    android:text="INTRADAY" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnS"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="SHORT TERM 2 - 30 DAYS" />
+                    android:text="SHORT TERM" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnM"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="MONTH TERM 30 TO 90 DAYS" />
+                    android:text="MONTH TERM" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -158,14 +158,12 @@
                     android:visibility="gone"
                     android:src="@drawable/no_record_found"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </RelativeLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

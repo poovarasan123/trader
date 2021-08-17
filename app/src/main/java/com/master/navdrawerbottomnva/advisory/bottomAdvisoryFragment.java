@@ -16,16 +16,16 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.master.navdrawerbottomnva.R;
 
+import java.util.Objects;
+
 
 public class bottomAdvisoryFragment extends Fragment {
 
+    private static final String TAG = "advisory fragment";
     TabLayout tabLayout;
     ViewPager viewPager;
-
     TabItem equity, derivative;
-
     AdvisoryTabAdapter tabAdapter;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,18 +39,15 @@ public class bottomAdvisoryFragment extends Fragment {
         equity = root.findViewById(R.id.equity_tab);
         derivative = root.findViewById(R.id.derivative_tab);
 
-        tabAdapter = new AdvisoryTabAdapter(getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+        tabAdapter = new AdvisoryTabAdapter(requireActivity().getSupportFragmentManager(), tabLayout.getTabCount());
 
         viewPager.setAdapter(tabAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-
-                if (tab.getPosition() == 0 || tab.getPosition() == 1){
-                    tabAdapter.notifyDataSetChanged();
-                }
             }
 
             @Override
@@ -63,6 +60,7 @@ public class bottomAdvisoryFragment extends Fragment {
 
             }
         });
+
 
         return root;
     }

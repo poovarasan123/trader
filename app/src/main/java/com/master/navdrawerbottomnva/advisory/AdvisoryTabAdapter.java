@@ -1,6 +1,7 @@
 package com.master.navdrawerbottomnva.advisory;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,8 @@ public class AdvisoryTabAdapter extends FragmentPagerAdapter {
 
     Context context;
 
+    private static final String TAG = "adivisory tab adapter";
+
     public AdvisoryTabAdapter(FragmentManager fragmentManager, int tabs){
         super(fragmentManager);
         this.tabs = tabs;
@@ -27,15 +30,17 @@ public class AdvisoryTabAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
+        try {
+            switch (position) {
+                case 0: return new EquityFragment();
 
-        Fragment fragment = null;
-        switch (position) {
-            case 0: return new EquityFragment();
-
-            case 1: return new DerivativeFragment();
-
-            default: return null;
+                case 1: return new DerivativeFragment();
+            }
         }
+        catch (Exception e){
+            Log.d(TAG, "getItem: " + e.getMessage());
+        }
+        return null;
     }
 
     @Override

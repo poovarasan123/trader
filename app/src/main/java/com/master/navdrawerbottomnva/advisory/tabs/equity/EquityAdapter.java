@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.master.navdrawerbottomnva.R;
+import com.master.navdrawerbottomnva.home.newsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,18 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         this.data = data;
     }
 
+    private EquityAdapter.ItemClickListener itemClickListener;
+
+
+    public interface ItemClickListener{
+        void onItemClickListener(int position);
+        void onDeleteClick(int position);
+    }
+
+    public void setItemClickListener(EquityAdapter.ItemClickListener listener){
+        itemClickListener= listener;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,7 +47,7 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.equity_adapter, parent, false);
         context = parent.getContext();
 
-        return new ViewHolder(view);
+        return new ViewHolder(view,itemClickListener);
     }
 
     @Override
@@ -54,7 +69,6 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         //TODO: open and close status
         if (data.get(position).getStock_status().equals("open")){
             holder.opStatus.setTextColor(context.getResources().getColor(R.color.orange));
-
             holder.tcTxt.setText("TARGET PRICE");
             holder.apTxt.setText("POTENTIAL RETURN");
             holder.tagStatus.setBackgroundColor(context.getResources().getColor(R.color.orange));
@@ -70,7 +84,7 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         holder.opStatus.setText(data.get(position).getStock_status());
         holder.reco_price.setText(String.valueOf(data.get(position).getReco_value()));
         holder.tcValue.setText(String.valueOf(data.get(position).getTc_price()));
-        //holder.apValue.setText(String.valueOf(data.get(position).getAp_return()));
+        holder.term.setText(String.valueOf(data.get(position).getFilter()));
 
         //TODO: percentage calculation
         float min = data.get(position).getTc_price() - data.get(position).getReco_value();
@@ -80,6 +94,13 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         float percent = total * 100;
 
         holder.apValue.setText(percent + "%");
+
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "position :" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -101,9 +122,10 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         View tagStatus;
-        TextView name_ltd, bsStatus, opStatus, reco_price, tcTxt, tcValue, apTxt, apValue;
+        TextView name_ltd, bsStatus, opStatus, reco_price, tcTxt, tcValue, apTxt, apValue, term;
+        CardView card;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, final  ItemClickListener listener) {
             super(itemView);
 
             tagStatus = itemView.findViewById(R.id.tag_status_view);
@@ -116,6 +138,8 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
             tcValue = itemView.findViewById(R.id.target_or_close_value);
             apTxt = itemView.findViewById(R.id.pot_or_act_txt);
             apValue = itemView.findViewById(R.id.pot_or_act_value);
+            term = itemView.findViewById(R.id.term_txt);
+            card = itemView.findViewById(R.id.card_adapter);
 
 
             name_ltd.setEllipsize(TextUtils.TruncateAt.MARQUEE);
@@ -123,6 +147,15 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
 
             apTxt.setEllipsize(TextUtils.TruncateAt.MARQUEE);
             apTxt.setSelected(true);
+
+            itemView.setOnClickListener(v -> {
+                if(listener != null){
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        listener.onItemClickListener(position);
+                    }
+                }
+            });
 
         }
     }
