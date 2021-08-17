@@ -99,6 +99,34 @@
                     android:layout_height="match_parent"
                     android:text="MONTH TERM" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnO"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="open" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnC"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="close" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSell"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="sell" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBuy"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Buy" />
+
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
         </LinearLayout>

@@ -33,26 +33,17 @@ import retrofit2.Response;
 
 public class EquityFragment extends Fragment {
 
+    private static final String TAG = "equity fregment";
     RecyclerView recyclerView;
-
     ImageView filterbtn;
     HorizontalScrollView scrollbar;
-
     SwipeRefreshLayout swipeRefreshLayout;
-
     List<EquityModel> data;
-
     ImageView imageView;
-
     EditText search_filter;
-
     EquityAdapter adapter;
-
     MaterialButtonToggleGroup toggleGroup;
-
-    int value=0;
-
-    private static final String TAG = "equity fregment";
+    int value = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,9 +82,9 @@ public class EquityFragment extends Fragment {
 
         filterbtn.setOnClickListener(v -> {
             value++;
-            if (value % 2 != 0){
+            if (value % 2 != 0) {
                 scrollbar.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 scrollbar.setVisibility(View.GONE);
                 toggleGroup.clearChecked();
                 setdata();
@@ -107,9 +98,11 @@ public class EquityFragment extends Fragment {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 filter(s.toString());
@@ -121,9 +114,9 @@ public class EquityFragment extends Fragment {
         toggleGroup.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
             @Override
             public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
 
-                    switch(checkedId){
+                    switch (checkedId) {
 
                         case R.id.btnL:
                             String longTerm = "LONG TERM";
@@ -148,9 +141,33 @@ public class EquityFragment extends Fragment {
                             // TODO: filter long term
                             fliterTerm(monthterm);
                             break;
+
+                        case R.id.btnO:
+                            String openterm = "open";
+                            // TODO: filter long term
+                            fliterstock(openterm);
+                            break;
+
+                        case R.id.btnC:
+                            String closeterm = "close";
+                            // TODO: filter long term
+                            fliterstock(closeterm);
+                            break;
+
+                        case R.id.btnSell:
+                            String sellterm = "sell";
+                            // TODO: filter long term
+                            fliterrate(sellterm);
+                            break;
+
+                        case R.id.btnBuy:
+                            String buyterm = "buy";
+                            // TODO: filter long term
+                            fliterrate(buyterm);
+                            break;
                     }
 
-                }else
+                } else
                     adapter.notifyDataSetChanged();
             }
         });
@@ -158,10 +175,33 @@ public class EquityFragment extends Fragment {
         return root;
     }
 
+    //TODO: rate filter
+    private void fliterrate(String buyterm) {
+        List<EquityModel> rateList = new ArrayList<>();
+        for (EquityModel term : data) {
+            if (term.getRate_status().contains(buyterm)) {
+                rateList.add(term);
+            }
+        }
+        adapter.rateList(rateList);
+    }
+
+    //TODO: stock filter
+    private void fliterstock(String openterm) {
+        List<EquityModel> stockList = new ArrayList<>();
+        for (EquityModel term : data) {
+            if (term.getStock_status().contains(openterm)) {
+                stockList.add(term);
+            }
+        }
+        adapter.stockList(stockList);
+    }
+
+    // TODO: term filter
     private void fliterTerm(String longTerm) {
         List<EquityModel> termList = new ArrayList<>();
-        for (EquityModel term: data){
-            if (term.getFilter().contains(longTerm)){
+        for (EquityModel term : data) {
+            if (term.getFilter().contains(longTerm)) {
                 termList.add(term);
             }
         }
@@ -169,10 +209,11 @@ public class EquityFragment extends Fragment {
     }
 
 
+    // TODO: search input filter
     private void filter(String filter) {
         List<EquityModel> flist = new ArrayList<>();
-        for (EquityModel ad: data){
-            if (ad.getName().contains(filter)){
+        for (EquityModel ad : data) {
+            if (ad.getName().contains(filter)) {
                 flist.add(ad);
             }
         }
@@ -194,7 +235,7 @@ public class EquityFragment extends Fragment {
 
                 Log.d(TAG, "onResponse: " + data.size());
 
-                if (data.size() != 0 ){
+                if (data.size() != 0) {
                     recyclerView.setVisibility(View.VISIBLE);
                     adapter = new EquityAdapter(data);
 
@@ -203,7 +244,7 @@ public class EquityFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                     recyclerView.setAdapter(adapter);
                     Collections.reverse(data);
-                }else {
+                } else {
                     imageView.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                 }
@@ -216,11 +257,11 @@ public class EquityFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<EquityModel>> call, Throwable t) {
-                Toast.makeText(getContext(), "error"+ t.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "error" + t.toString(), Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "onFailure: " + t.toString());
 
-                Toast.makeText(getContext(), "error"+ call, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "error" + call, Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "onFailure: " + call.toString());
             }

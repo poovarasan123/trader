@@ -24,6 +24,8 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
     Context context;
     List<EquityModel> data;
 
+    private static final String TAG = "EquityAdapter";
+
     public EquityAdapter(List<EquityModel> data) {
         this.data = data;
     }
@@ -31,9 +33,10 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
     private EquityAdapter.ItemClickListener itemClickListener;
 
 
+
+
     public interface ItemClickListener{
         void onItemClickListener(int position);
-        void onDeleteClick(int position);
     }
 
     public void setItemClickListener(EquityAdapter.ItemClickListener listener){
@@ -52,6 +55,7 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
 
         //TODO: buy and sell color
         if (data.get(position).getRate_status().equals("buy")){
@@ -98,7 +102,8 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "position :" + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "position :" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onClick: " + data.get(holder.getAdapterPosition()).getPost_time());
             }
         });
 
@@ -116,6 +121,17 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
 
     public void TermList(List<EquityModel> termList) {
         data = termList;
+        notifyDataSetChanged();
+    }
+
+    public void stockList(List<EquityModel> stockList) {
+        data = stockList;
+        notifyDataSetChanged();
+
+    }
+
+    public void rateList(List<EquityModel> rateList) {
+        data = rateList;
         notifyDataSetChanged();
     }
 
