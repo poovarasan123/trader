@@ -93,6 +93,11 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
+    public void TermList(List<EquityModel> termList) {
+        data = termList;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         View tagStatus;

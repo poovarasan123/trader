@@ -3,10 +3,11 @@ package com.master.navdrawerbottomnva.advisory.tabs.equity;
 public class EquityModel {
     String name, rate_status, stock_status, tc_price_txt, ap_return_txt;
     float reco_value, tc_price, ap_return;
+    String filter;
 
     public EquityModel(){}
 
-    public EquityModel(String name, String rate_status, String stock_status, String tc_price_txt, String ap_return_txt, float reco_value, float tc_price, float ap_return) {
+    public EquityModel(String name, String rate_status, String stock_status, String tc_price_txt, String ap_return_txt, float reco_value, float tc_price, float ap_return, String filter) {
         this.name = name;
         this.rate_status = rate_status;
         this.stock_status = stock_status;
@@ -15,6 +16,7 @@ public class EquityModel {
         this.reco_value = reco_value;
         this.tc_price = tc_price;
         this.ap_return = ap_return;
+        this.filter = filter;
     }
 
     public String getName() {
@@ -81,5 +83,11 @@ public class EquityModel {
         this.ap_return = ap_return;
     }
 
+    public String getFilter() {
+        return filter;
+    }
 
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
 }

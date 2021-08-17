@@ -18,6 +18,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.master.navdrawerbottomnva.R;
 
@@ -46,6 +48,8 @@ public class EquityFragment extends Fragment {
 
     EquityAdapter adapter;
 
+    MaterialButtonToggleGroup toggleGroup;
+
     int value=0;
 
     private static final String TAG = "equity fregment";
@@ -65,11 +69,15 @@ public class EquityFragment extends Fragment {
 
         swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
 
+        toggleGroup = root.findViewById(R.id.btnstoggle);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         recyclerView.setAdapter(adapter);
 
         setdata();
+
+        //TODO: swipe to refresh
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -79,35 +87,87 @@ public class EquityFragment extends Fragment {
             }
         });
 
+        // TODO: show filter buttons
+
         filterbtn.setOnClickListener(v -> {
             value++;
             if (value % 2 != 0){
                 scrollbar.setVisibility(View.VISIBLE);
             }else{
                 scrollbar.setVisibility(View.GONE);
+                toggleGroup.clearChecked();
+                setdata();
             }
 
         });
 
+        // TODO: search from input
+
         search_filter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 filter(s.toString());
             }
         });
 
+        //TODO: buttons filter by term wise
+
+        toggleGroup.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
+            @Override
+            public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
+                if (isChecked){
+
+                    switch(checkedId){
+
+                        case R.id.btnL:
+                            String longTerm = "LONG TERM";
+                            // TODO: filter long term
+                            fliterTerm(longTerm);
+                            break;
+
+                        case R.id.btnI:
+                            String intradayterm = "INTRADAY";
+                            // TODO: filter long term
+                            fliterTerm(intradayterm);
+                            break;
+
+                        case R.id.btnS:
+                            String shortterm = "SHORT TERM";
+                            // TODO: filter long term
+                            fliterTerm(shortterm);
+                            break;
+
+                        case R.id.btnM:
+                            String monthterm = "MONTH TERM";
+                            // TODO: filter long term
+                            fliterTerm(monthterm);
+                            break;
+                    }
+
+                }else
+                    adapter.notifyDataSetChanged();
+            }
+        });
+
         return root;
     }
+
+    private void fliterTerm(String longTerm) {
+        List<EquityModel> termList = new ArrayList<>();
+        for (EquityModel term: data){
+            if (term.getFilter().contains(longTerm)){
+                termList.add(term);
+            }
+        }
+        adapter.TermList(termList);
+    }
+
 
     private void filter(String filter) {
         List<EquityModel> flist = new ArrayList<>();
@@ -166,5 +226,4 @@ public class EquityFragment extends Fragment {
             }
         });
     }
-
 }
