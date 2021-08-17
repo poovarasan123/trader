@@ -6,4 +6,90 @@
     android:layout_height="match_parent"
     tools:context=".home.NewsExtendActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/d" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="WFI suspends Vinesh Phogat for indiscipline, notice issued to Sonam Malik for misconduct"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/comment_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="comment"
+                    android:textAlignment="textEnd"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/datetxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="05 Nov 1999"
+                    android:textAlignment="textEnd"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/full_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="30dp"
+                android:text="Edelweiss Financial Services share price added over 4 percent intraday on August 12 after Edelweiss Wealth Management launched the next series of its pre-initial public offering (IPO) Edelweiss Crossover Opportunities Fund to raise Rs 1,500 crore. This comes after Edelweiss Wealth Management successfully raised more than Rs 3,700 crore in its first three series, Mint has reported. The fund plans to raise up to Rs 7,500 crore through the crossover fund series, the person added.With Rs 150-300 crore in each company, it is looking to invest in 10-15 firms that are IPO bound in nearly four years or are planning to launch an IPO soon, the report added.Edelweiss Wealth Management is an arm of Edelweiss Financial Services, a non-banking financial company.Edelweiss Wealth Fund reported net sales at Rs 106.00 crore in June 2021, up 55.68 percent from Rs. 68.09 crore in June 2020 and a quarterly net profit at Rs. 71.61 crore in June 2021, up 155.43 percent from Rs. 129.18 crore in June 2020.Edelweiss Wealth Fund is backed by PAG Group, one of the largest private investment firms in Asia. The amount of Rs 2,366 crore, pumped into EWM by PAG Group, includes primary and secondary investment. Pursuant to these transactions, PAG Group and EFSL (Edelweiss Financial Services Ltd) will be the shareholders in EWM, of which PAG will hold a controlling stake, it further added. At 1052 hrs Edelweiss Financial Services was quoting at Rs 83.90, up Rs 3.15, or 3.90 percent, on the BSE."
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

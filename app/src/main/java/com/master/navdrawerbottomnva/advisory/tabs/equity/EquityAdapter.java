@@ -88,6 +88,11 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         return data.size();
     }
 
+    public void updateList(List<EquityModel> flist) {
+        data = flist;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         View tagStatus;

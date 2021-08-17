@@ -11,13 +11,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.NavdrawerBottomnva">
-
-
+        android:theme="@style/Theme.NavdrawerBottomnva"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".home.NewsExtendActivity"
+            android:exported="true" />
         <activity
             android:name=".login.LoginActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".register.RegisterActivity"
             android:exported="true" />

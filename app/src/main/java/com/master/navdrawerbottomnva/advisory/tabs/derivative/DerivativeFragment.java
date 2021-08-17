@@ -23,10 +23,5 @@ public class DerivativeFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
 
-        Toast.makeText(getContext(), "derivative", Toast.LENGTH_SHORT).show();
-    }
 }

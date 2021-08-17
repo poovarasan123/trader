@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface apiset {
 
-    @GET("get_data_equity")
+    @GET("get_data_equity.php")
     Call<List<EquityModel>> getdata();
 
 }

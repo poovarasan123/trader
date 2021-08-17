@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +39,6 @@ public class EquityFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
 
     List<EquityModel> data;
-    List<EquityModel> datasearch;
 
     ImageView imageView;
 
@@ -46,7 +47,6 @@ public class EquityFragment extends Fragment {
     EquityAdapter adapter;
 
     int value=0;
-
 
     private static final String TAG = "equity fregment";
 
@@ -66,6 +66,8 @@ public class EquityFragment extends Fragment {
         swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerView.setAdapter(adapter);
 
         setdata();
 
@@ -87,7 +89,34 @@ public class EquityFragment extends Fragment {
 
         });
 
+        search_filter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+
         return root;
+    }
+
+    private void filter(String filter) {
+        List<EquityModel> flist = new ArrayList<>();
+        for (EquityModel ad: data){
+            if (ad.getName().contains(filter)){
+                flist.add(ad);
+            }
+        }
+        adapter.updateList(flist);
     }
 
     private void setdata() {
@@ -127,16 +156,15 @@ public class EquityFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<EquityModel>> call, Throwable t) {
+                Toast.makeText(getContext(), "error"+ t.toString(), Toast.LENGTH_SHORT).show();
 
+                Log.d(TAG, "onFailure: " + t.toString());
+
+                Toast.makeText(getContext(), "error"+ call, Toast.LENGTH_SHORT).show();
+
+                Log.d(TAG, "onFailure: " + call.toString());
             }
         });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        Toast.makeText(getContext(), "equity", Toast.LENGTH_SHORT).show();
     }
 
 }
