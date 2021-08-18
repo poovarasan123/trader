@@ -1,6 +1,7 @@
 package com.master.navdrawerbottomnva.advisory.tabs.equity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,15 +15,15 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.master.navdrawerbottomnva.R;
-import com.master.navdrawerbottomnva.home.newsAdapter;
+import com.master.navdrawerbottomnva.advisory.tabs.equity.extendView.EquityExtendViewActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder> {
+public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder>  implements View.OnClickListener {
 
     Context context;
     List<EquityModel> data;
+    RecyclerView recyclerView;
 
     private static final String TAG = "EquityAdapter";
 
@@ -30,9 +31,21 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         this.data = data;
     }
 
-    private EquityAdapter.ItemClickListener itemClickListener;
+    public EquityAdapter(RecyclerView rcv){
+        this.recyclerView = rcv;
+    }
 
+    private ItemClickListener itemClickListener;
 
+    @Override
+    public void onClick(View v) {
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: " + v);
+            }
+        });
+    }
 
 
     public interface ItemClickListener{
@@ -55,7 +68,6 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
 
         //TODO: buy and sell color
         if (data.get(position).getRate_status().equals("buy")){
@@ -103,7 +115,24 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "position :" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onClick: " + data.get(holder.getAdapterPosition()).getPost_time());
+                Log.d(TAG, "onClick: time ->" + data.get(holder.getAdapterPosition()).getPost_time());
+                Log.d(TAG, "onClick: date ->" + data.get(holder.getAdapterPosition()).getPost_date());
+
+                Intent i = new Intent(v.getContext(), EquityExtendViewActivity.class);
+
+                i.putExtra("name", data.get(position).getName());
+                i.putExtra("rateStatus", data.get(position).getRate_status());
+                i.putExtra("stockStatus", data.get(position).getStock_status());
+                i.putExtra("recoValue", data.get(position).getReco_value());
+                i.putExtra("tcValue", data.get(position).getTc_price());
+                i.putExtra("term", data.get(position).getFilter());
+                i.putExtra("apValue", percent);
+                i.putExtra("date", data.get(position).getPost_date());
+                i.putExtra("time", data.get(position).getPost_time());
+
+                v.getContext().startActivity(i);
+
+
             }
         });
 
@@ -137,12 +166,14 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        View tagStatus;
+        View tagStatus, rootView;
         TextView name_ltd, bsStatus, opStatus, reco_price, tcTxt, tcValue, apTxt, apValue, term;
         CardView card;
 
         public ViewHolder(@NonNull View itemView, final  ItemClickListener listener) {
             super(itemView);
+
+            rootView = itemView;
 
             tagStatus = itemView.findViewById(R.id.tag_status_view);
 

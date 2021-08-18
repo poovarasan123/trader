@@ -97,7 +97,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="MONTH TERM" />
+                    android:text="MEDIUM TERM" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnO"

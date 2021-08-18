@@ -14,6 +14,9 @@
         android:theme="@style/Theme.NavdrawerBottomnva"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".advisory.tabs.equity.extendView.EquityExtendViewActivity"
+            android:exported="true" />
+        <activity
             android:name=".home.NewsExtendActivity"
             android:exported="true" />
         <activity

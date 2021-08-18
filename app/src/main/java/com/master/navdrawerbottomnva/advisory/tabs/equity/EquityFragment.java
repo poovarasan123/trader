@@ -137,7 +137,7 @@ public class EquityFragment extends Fragment {
                             break;
 
                         case R.id.btnM:
-                            String monthterm = "MONTH TERM";
+                            String monthterm = "MEDIUM TERM";
                             // TODO: filter long term
                             fliterTerm(monthterm);
                             break;
