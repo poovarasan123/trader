@@ -2,6 +2,7 @@ package com.master.navdrawerbottomnva.advisory;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.master.navdrawerbottomnva.R;
+import com.master.navdrawerbottomnva.advisory.tabs.derivative.DerivativeFragment;
+import com.master.navdrawerbottomnva.advisory.tabs.equity.EquityFragment;
 
 import java.util.Objects;
 
@@ -36,18 +39,20 @@ public class bottomAdvisoryFragment extends Fragment {
         viewPager = root.findViewById(R.id.view_pager);
 
 
-        equity = root.findViewById(R.id.equity_tab);
-        derivative = root.findViewById(R.id.derivative_tab);
+        return root;
+    }
 
-        tabAdapter = new AdvisoryTabAdapter(requireActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        viewPager.setAdapter(tabAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        setUpViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+
             }
 
             @Override
@@ -60,9 +65,14 @@ public class bottomAdvisoryFragment extends Fragment {
 
             }
         });
-
-
-        return root;
     }
 
+    private void setUpViewPager(ViewPager viewPager) {
+        AdvisoryTabAdapter adapter = new AdvisoryTabAdapter(getChildFragmentManager());
+
+        adapter.addFragment(new EquityFragment(),"Equity");
+        adapter.addFragment(new DerivativeFragment(), "Derivative");
+
+        viewPager.setAdapter(adapter);
+    }
 }

@@ -19,11 +19,10 @@ import com.master.navdrawerbottomnva.advisory.tabs.equity.extendView.EquityExten
 
 import java.util.List;
 
-public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder>  implements View.OnClickListener {
+public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder>{
 
     Context context;
     List<EquityModel> data;
-    RecyclerView recyclerView;
 
     private static final String TAG = "EquityAdapter";
 
@@ -31,22 +30,7 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         this.data = data;
     }
 
-    public EquityAdapter(RecyclerView rcv){
-        this.recyclerView = rcv;
-    }
-
     private ItemClickListener itemClickListener;
-
-    @Override
-    public void onClick(View v) {
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: " + v);
-            }
-        });
-    }
-
 
     public interface ItemClickListener{
         void onItemClickListener(int position);

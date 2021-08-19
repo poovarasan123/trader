@@ -2,8 +2,10 @@ package com.master.navdrawerbottomnva.advisory;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -14,37 +16,42 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.master.navdrawerbottomnva.advisory.tabs.derivative.DerivativeFragment;
 import com.master.navdrawerbottomnva.advisory.tabs.equity.EquityFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AdvisoryTabAdapter extends FragmentPagerAdapter {
 
+    private static final String TAG = "adivisory tab adapter";
     int tabs;
 
-    Context context;
+    private List<Fragment> listFragment = new ArrayList<>();
+    private List<String> listFragmentName = new ArrayList<>();
 
-    private static final String TAG = "adivisory tab adapter";
-
-    public AdvisoryTabAdapter(FragmentManager fragmentManager, int tabs){
+    public AdvisoryTabAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
-        this.tabs = tabs;
+
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        try {
-            switch (position) {
-                case 0: return new EquityFragment();
-
-                case 1: return new DerivativeFragment();
-            }
-        }
-        catch (Exception e){
-            Log.d(TAG, "getItem: " + e.getMessage());
-        }
-        return null;
+        return listFragment.get(position);
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return listFragment.size();
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return listFragmentName.get(position);
+
+    }
+
+    public void addFragment(Fragment fragment, String title){
+        listFragment.add(fragment);
+        listFragmentName.add(title);
     }
 }

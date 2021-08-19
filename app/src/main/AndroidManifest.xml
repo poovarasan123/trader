@@ -14,6 +14,18 @@
         android:theme="@style/Theme.NavdrawerBottomnva"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".termOfuse.TermofUseActivity"
+            android:exported="true" />
+        <activity
+            android:name=".privacypolicy.PrivacyPolicyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".openAccount.OpenAccountActivity"
+            android:exported="true" />
+        <activity
+            android:name=".bookmark.BookmarkActivity"
+            android:exported="true" />
+        <activity
             android:name=".advisory.tabs.equity.extendView.EquityExtendViewActivity"
             android:exported="true" />
         <activity
