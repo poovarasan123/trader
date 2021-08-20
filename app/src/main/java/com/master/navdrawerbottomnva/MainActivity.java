@@ -1,17 +1,25 @@
 package com.master.navdrawerbottomnva;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -26,6 +34,14 @@ import com.master.navdrawerbottomnva.market.bottomMarketFragment;
 import com.master.navdrawerbottomnva.openAccount.OpenAccountActivity;
 import com.master.navdrawerbottomnva.privacypolicy.PrivacyPolicyActivity;
 import com.master.navdrawerbottomnva.termOfuse.TermofUseActivity;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
     UserSettings userSettings;
 
-    public LinearLayout bookmark, openDematAccpunt, privacypolicy, termsOfuse, support, share, logout;
+    CircleImageView circleImageView, setPic;
+
+    LinearLayout bookmark, openDematAccpunt, privacypolicy, termsOfuse, support, share, logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
         //themeSwitch = loginSheetView.findViewById(R.id.theme_switch);
 
+        circleImageView = loginSheetView.findViewById(R.id.profile_image);
+
         bookmark = loginSheetView.findViewById(R.id.bookmark_menu);
         openDematAccpunt = loginSheetView.findViewById(R.id.open_account_menu);
         privacypolicy = loginSheetView.findViewById(R.id.privacy_menu);
@@ -116,6 +136,38 @@ public class MainActivity extends AppCompatActivity {
         support = loginSheetView.findViewById(R.id.support_menu);
         share = loginSheetView.findViewById(R.id.share_menu);
         logout = loginSheetView.findViewById(R.id.logout_menu);
+
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startCrop();
+//                LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+//                View view = inflater.inflate(R.layout.set_profile_layout,null);
+//                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+//                dialog.setView(view);
+//                dialog.setCancelable(false);
+//
+//
+//                AlertDialog alert = dialog.create();
+//                alert.show();
+//
+//                Button cancel = view.findViewById(R.id.cancel);
+//                setPic = view.findViewById(R.id.profile_image);
+//                setPic.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//
+//                    }
+//                });
+//
+//                cancel.setOnClickListener(v1 -> {
+//                    setPic.setImageBitmap(null);
+//                    alert.dismiss();
+//                });
+            }
+        });
 
 
         bookmark.setOnClickListener(new View.OnClickListener() {
@@ -176,33 +228,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        themeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked)
-//
-//                    Toast.makeText(getApplicationContext(), "checked!..", Toast.LENGTH_SHORT).show();
-//                    themeSwitch.setText("Dark");
-//
-//                    userSettings.setCustomeTheme(UserSettings.DARKTHEME);
-//
-//                 else
-//                    Toast.makeText(getApplicationContext(), "unchecked!...", Toast.LENGTH_SHORT).show();
-//                    themeSwitch.setText("Light");
-//
-//                    userSettings.setCustomeTheme(UserSettings.LIGHT_THEME);
-//
-//                SharedPreferences.Editor editor = getSharedPreferences(UserSettings.PREFERANCES, MODE_PRIVATE).edit();
-//                editor.putString(UserSettings.CUSTOME_THEME, userSettings.getCustomeTheme());
-//                editor.apply();
-//
-//                changeTheme();
-//            }
-//        });
-
-        //AppCompatDelegate.MODE_NIGHT_NO -- light
-        //AppCompatDelegate.MODE_NIGHT_YES -- dark
-
         moreMenuSheet.setContentView(loginSheetView);
         moreMenuSheet.show();
     }
@@ -215,13 +240,28 @@ public class MainActivity extends AppCompatActivity {
         supportSheet.show();
     }
 
-    private void changeTheme() {
-        if (userSettings.getCustomeTheme().equals(UserSettings.DARKTHEME)){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            //themeSwitch.setChecked(true);
-        }else{
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            //themeSwitch.setChecked(false);
+
+
+    private void startCrop() {
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri uri = result.getUri();
+                circleImageView.setImageURI(uri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
+                Exception error = result.getError();
+                Toast.makeText(getApplicationContext(), "" + error, Toast.LENGTH_SHORT).show();
+            }
         }
     }
+
 }

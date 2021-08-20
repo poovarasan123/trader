@@ -93,7 +93,9 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
 
         float percent = total * 100;
 
-        holder.apValue.setText(percent + "%");
+        int percent_int = (int) percent;
+
+        holder.apValue.setText(String.valueOf(percent_int));
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +112,7 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
                 i.putExtra("recoValue", data.get(position).getReco_value());
                 i.putExtra("tcValue", data.get(position).getTc_price());
                 i.putExtra("term", data.get(position).getFilter());
-                i.putExtra("apValue", percent);
+                i.putExtra("apValue", percent_int);
                 i.putExtra("date", data.get(position).getPost_date());
                 i.putExtra("time", data.get(position).getPost_time());
 

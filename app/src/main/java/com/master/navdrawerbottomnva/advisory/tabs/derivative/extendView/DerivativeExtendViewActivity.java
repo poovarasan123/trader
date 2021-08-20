@@ -1,4 +1,4 @@
-package com.master.navdrawerbottomnva.advisory.tabs.equity.extendView;
+package com.master.navdrawerbottomnva.advisory.tabs.derivative.extendView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,9 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class EquityExtendViewActivity extends AppCompatActivity {
+public class DerivativeExtendViewActivity extends AppCompatActivity {
 
-    TextView name, rate, stock, tcTxet, apText, recoValue, tcValue, apValue;
+    TextView name, rate, stock, tcTxet, apText, recoValue, targetStart, targetEnd;
     TextView opc, term, dateDetails, targetDetails, date, time;
     TextView opcl, name2, reduceValue, tcText2, tcValue2, date2, time2;
 
@@ -30,18 +30,17 @@ public class EquityExtendViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_equity_extend_view);
+        setContentView(R.layout.activity_derivative_extend_view);
 
         tag = findViewById(R.id.tag_status_view);
 
         name = findViewById(R.id.name_ltd_txt);
         rate = findViewById(R.id.buy_or_sell);
         stock = findViewById(R.id.open_or_close);
-        tcTxet = findViewById(R.id.target_or_close_txt);
         apText = findViewById(R.id.pot_or_act_txt);
         recoValue = findViewById(R.id.reco_value);
-        tcValue = findViewById(R.id.target_or_close_value);
-        apValue = findViewById(R.id.pot_or_act_value);
+        targetStart = findViewById(R.id.target_start_value);
+        targetEnd = findViewById(R.id.target_end_value);
 
         opc = findViewById(R.id.op_or_cl);
         term = findViewById(R.id.term_days);
@@ -63,8 +62,8 @@ public class EquityExtendViewActivity extends AppCompatActivity {
         String ratei = intent.getStringExtra("rateStatus");
         String stocki = intent.getStringExtra("stockStatus");
         float recopricei = intent.getFloatExtra("recoValue",0);
-        float targetclosei = intent.getFloatExtra("tcValue", 0);
-        int apvaluei = intent.getIntExtra("apValue",0);
+        float targetopeni = intent.getFloatExtra("tcValueStart", 0);
+        float targetclosei = intent.getFloatExtra("tcValueEnd", 0);
         String termi = intent.getStringExtra("term");
         String datei = intent.getStringExtra("date");
         String timei = intent.getStringExtra("time");
@@ -73,8 +72,8 @@ public class EquityExtendViewActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: rate - " + ratei);
         Log.d(TAG, "onCreate: stock - " + stocki);
         Log.d(TAG, "onCreate: reco - " + recopricei);
-        Log.d(TAG, "onCreate: tc - " + targetclosei);
-        Log.d(TAG, "onCreate: ap - " + apvaluei);
+        Log.d(TAG, "onCreate: tcopen - " + targetopeni);
+        Log.d(TAG, "onCreate: tcclose - " + targetclosei);
         Log.d(TAG, "onCreate: term - " + termi);
         Log.d(TAG, "onCreate: date - " + datei);
         Log.d(TAG, "onCreate: time - " + timei);
@@ -112,20 +111,18 @@ public class EquityExtendViewActivity extends AppCompatActivity {
             stock.setTextColor(getResources().getColor(R.color.orange));
             opcl.setTextColor(getResources().getColor(R.color.orange));
             tag.setBackgroundColor(getResources().getColor(R.color.orange));
-            tcTxet.setText("TARGET PRICE");
-            apText.setText("POTENTIAL RETURN");
+
         }else{
             stock.setText(stocki);
             opcl.setText(stocki);
             stock.setTextColor(getResources().getColor(R.color.red));
             opcl.setTextColor(getResources().getColor(R.color.red));
             tag.setBackgroundColor(getResources().getColor(R.color.red));
-            tcTxet.setText("CLOSED PRICE");
-            apText.setText("ACTUAL RETURN");
         }
         recoValue.setText(String.valueOf(recopricei));
-        tcValue.setText(String.valueOf(targetclosei));
-        apValue.setText(String.valueOf(apvaluei));
+        targetStart.setText(String.valueOf(targetopeni));
+        targetEnd.setText(String.valueOf(targetclosei));
+
 
         if (stocki.equals("open")){
             opc.setText(stocki);

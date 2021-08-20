@@ -121,6 +121,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="reco. price"
+                                android:textAlignment="center"
                                 android:fontFamily="@font/open_sans"
                                 android:textAllCaps="true"/>
 
@@ -130,6 +131,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:text="0"
+                                android:textAlignment="center"
                                 android:fontFamily="@font/open_sans"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
@@ -146,16 +148,16 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/target_or_close_txt"
+                                android:id="@+id/target_start_txt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="close price"
+                                android:text="Target One"
                                 android:fontFamily="@font/open_sans"
                                 android:textAlignment="center"
                                 android:textAllCaps="true" />
 
                             <TextView
-                                android:id="@+id/target_or_close_value"
+                                android:id="@+id/target_start_value"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -177,13 +179,13 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/pot_or_act_txt"
+                                android:id="@+id/target_end_txt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="actual return"
+                                android:text="Target Two"
                                 android:fontFamily="@font/open_sans"
                                 android:singleLine="true"
-                                android:textAlignment="textEnd"
+                                android:textAlignment="center"
                                 android:textAllCaps="true" />
 
                             <LinearLayout
@@ -193,7 +195,7 @@
                                 android:weightSum="10">
 
                                 <TextView
-                                    android:id="@+id/pot_or_act_value"
+                                    android:id="@+id/target_end_value"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
@@ -202,21 +204,21 @@
                                     android:fontFamily="@font/open_sans"
                                     android:textColor="@color/black"
                                     android:textStyle="bold"
-                                    android:textAlignment="textEnd"
+                                    android:textAlignment="center"
                                     android:textAllCaps="true"
                                     android:textSize="16sp" />
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:text="%"
-                                    android:layout_weight="9"
-                                    android:textColor="@color/black"
-                                    android:textStyle="bold"
-                                    android:textAlignment="textEnd"
-                                    android:textAllCaps="true"
-                                    android:textSize="16sp" />
+<!--                                <TextView-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_marginTop="5dp"-->
+<!--                                    android:text="%"-->
+<!--                                    android:layout_weight="9"-->
+<!--                                    android:textColor="@color/black"-->
+<!--                                    android:textStyle="bold"-->
+<!--                                    android:textAlignment="textEnd"-->
+<!--                                    android:textAllCaps="true"-->
+<!--                                    android:textSize="16sp" />-->
 
                             </LinearLayout>
 

@@ -3,7 +3,7 @@ package com.master.navdrawerbottomnva.advisory.tabs.derivative;
 public class DerivativeModel {
 
     String name, rate_status, stock_status, tc_price_txt, ap_return_txt;
-    float stock_loss, reco_price, target_value_start, Target_value_end, ap_return;
+    float stock_loss, reco_price, target_value_start, target_value_end, ap_return;
     String terms,post_date,post_time;
 
     public DerivativeModel(String name, String rate_status, String stock_status, String tc_price_txt, String ap_return_txt, float stock_loss, float reco_price, float target_value_start, float target_value_end, float ap_return, String terms, String post_date, String post_time) {
@@ -15,7 +15,7 @@ public class DerivativeModel {
         this.stock_loss = stock_loss;
         this.reco_price = reco_price;
         this.target_value_start = target_value_start;
-        Target_value_end = target_value_end;
+        this.target_value_end = target_value_end;
         this.ap_return = ap_return;
         this.terms = terms;
         this.post_date = post_date;
@@ -87,11 +87,11 @@ public class DerivativeModel {
     }
 
     public float getTarget_value_end() {
-        return Target_value_end;
+        return target_value_end;
     }
 
     public void setTarget_value_end(float target_value_end) {
-        Target_value_end = target_value_end;
+        target_value_end = target_value_end;
     }
 
     public float getAp_return() {
