@@ -2,6 +2,8 @@ package com.master.navdrawerbottomnva;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -26,6 +28,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.master.navdrawerbottomnva.advisory.bottomAdvisoryFragment;
 import com.master.navdrawerbottomnva.bookmark.BookmarkActivity;
 import com.master.navdrawerbottomnva.home.bottomHomeFragment;
@@ -46,10 +49,10 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity {
 
+    Context context;
+
     private BottomSheetDialog moreMenuSheet;
     private BottomSheetDialog supportSheet;
-
-    private Switch themeSwitch;
 
     BottomNavigationView bottomNavView;
 
@@ -57,12 +60,26 @@ public class MainActivity extends AppCompatActivity {
 
     CircleImageView circleImageView, setPic;
 
-    LinearLayout bookmark, openDematAccpunt, privacypolicy, termsOfuse, support, share, logout;
+    LinearLayout theme, bookmark, openDematAccpunt, privacypolicy, termsOfuse, support, share, logout;
+
+    MaterialAlertDialogBuilder dialogBuilder;
+
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+
+    private  int checkedItem;
+    private String selected;
+
+    private final String CHECKEDITEM = "checked_item";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferences = this.getSharedPreferences("themes", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
 
 
         bottomNavView = findViewById(R.id.bottom_nav_bar);
@@ -104,7 +121,9 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment).commit();
 
                 return true;
-            };
+    };
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,10 +144,9 @@ public class MainActivity extends AppCompatActivity {
         moreMenuSheet = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialogTheme);
         View loginSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet, findViewById(R.id.more_menu_sheet));
 
-        //themeSwitch = loginSheetView.findViewById(R.id.theme_switch);
-
         circleImageView = loginSheetView.findViewById(R.id.profile_image);
 
+        theme = loginSheetView.findViewById(R.id.theme_menu);
         bookmark = loginSheetView.findViewById(R.id.bookmark_menu);
         openDematAccpunt = loginSheetView.findViewById(R.id.open_account_menu);
         privacypolicy = loginSheetView.findViewById(R.id.privacy_menu);
@@ -140,35 +158,17 @@ public class MainActivity extends AppCompatActivity {
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startCrop();
-//                LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-//                View view = inflater.inflate(R.layout.set_profile_layout,null);
-//                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-//                dialog.setView(view);
-//                dialog.setCancelable(false);
-//
-//
-//                AlertDialog alert = dialog.create();
-//                alert.show();
-//
-//                Button cancel = view.findViewById(R.id.cancel);
-//                setPic = view.findViewById(R.id.profile_image);
-//                setPic.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//
-//                    }
-//                });
-//
-//                cancel.setOnClickListener(v1 -> {
-//                    setPic.setImageBitmap(null);
-//                    alert.dismiss();
-//                });
             }
         });
 
+        theme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "theme clicked!...", Toast.LENGTH_SHORT).show();
+                themeDialodBox();
+            }
+        });
 
         bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,6 +230,65 @@ public class MainActivity extends AppCompatActivity {
 
         moreMenuSheet.setContentView(loginSheetView);
         moreMenuSheet.show();
+    }
+
+    private void themeDialodBox() {
+
+        String[] themes = this.getResources().getStringArray(R.array.themes);
+
+        dialogBuilder = new MaterialAlertDialogBuilder(this);
+
+        dialogBuilder.setTitle("Select Theme");
+        dialogBuilder.setSingleChoiceItems(R.array.themes, getCheckedItem(), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                selected = themes[i];
+                checkedItem = i;
+            }
+        });
+
+        dialogBuilder.setPositiveButton("Set", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+
+                if(selected == null){
+                    selected = themes[i];
+                    checkedItem = i;
+                }
+
+                switch(getCheckedItem()){
+                    case 0:
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        break;
+                    case 1:
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        break;
+                }
+
+                setCheckedItem(checkedItem);
+            }
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog themeDialog = dialogBuilder.create();
+        themeDialog.show();
+
+
+    }
+
+    public int getCheckedItem(){
+        return sharedPreferences.getInt(CHECKEDITEM, 0);
+    }
+
+    public void setCheckedItem(int i){
+        editor.putInt(CHECKEDITEM, i);
+        editor.apply();
     }
 
     private void SupportSheet() {

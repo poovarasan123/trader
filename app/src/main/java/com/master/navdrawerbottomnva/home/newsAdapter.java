@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -93,7 +94,7 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;    //, share, bookmark;
         TextView title, date, comment;
-        LinearLayout layout;
+        CardView layout;
 
         public ViewHolder(@NonNull View itemView, final ItemClickListener listener) {
             super(itemView);

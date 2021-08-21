@@ -117,8 +117,8 @@
                 android:layout_weight="1">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:src="@drawable/ic_bookmark"/>
 
                 <TextView
@@ -137,8 +137,8 @@
                 android:layout_weight="1">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:src="@drawable/ic_chat"/>
 
                 <TextView
@@ -157,8 +157,8 @@
                 android:layout_weight="1">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:src="@drawable/ic_share"/>
 
                 <TextView
