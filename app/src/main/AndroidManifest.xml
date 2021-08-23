@@ -18,49 +18,44 @@
         tools:targetApi="m">
 
         <activity
-            android:name=".openAccount.WebviewActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:name=".login.LoginActivity"
             android:exported="true" />
-
+        <activity
+            android:name=".openAccount.WebviewActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".advisory.tabs.derivative.extendView.DerivativeExtendViewActivity"
             android:exported="true" />
-
         <activity
             android:name=".termOfuse.TermofUseActivity"
             android:exported="true" />
-
         <activity
             android:name=".privacypolicy.PrivacyPolicyActivity"
             android:exported="true" />
-
         <activity
             android:name=".openAccount.OpenAccountActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-
         <activity
             android:name=".bookmark.BookmarkActivity"
             android:exported="true" />
-
         <activity
             android:name=".advisory.tabs.equity.extendView.EquityExtendViewActivity"
             android:exported="true" />
-
         <activity
             android:name=".home.NewsExtendActivity"
             android:exported="true" />
-
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".MainActivity"
             android:exported="true" />
-
         <activity
             android:name=".register.RegisterActivity"
             android:exported="true" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashScreenActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

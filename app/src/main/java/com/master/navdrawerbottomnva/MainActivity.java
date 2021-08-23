@@ -259,9 +259,11 @@ public class MainActivity extends AppCompatActivity {
                 switch(getCheckedItem()){
                     case 0:
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        moreMenuSheet.dismiss();
                         break;
                     case 1:
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        moreMenuSheet.dismiss();
                         break;
                 }
 
@@ -323,4 +325,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
