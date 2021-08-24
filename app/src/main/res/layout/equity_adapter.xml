@@ -10,8 +10,8 @@
         android:id="@+id/card_adapter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,8 +45,7 @@
                     android:layout_marginEnd="10dp"
                     android:text="Indian Railway Ctrng nd Trsm Corp Ltd"
                     android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -80,10 +79,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="close price"
-                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textAllCaps="true"
-                    android:textSize="16sp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -128,8 +125,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="reco. price"
-                        android:textAllCaps="true"
-                        android:textSize="16sp" />
+                        android:fontFamily="@font/open_sans"
+                        android:textAllCaps="true"/>
 
                     <TextView
                         android:id="@+id/reco_value"
@@ -137,10 +134,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="0"
-                        android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:textSize="16sp" />
+                        android:textAllCaps="true"/>
 
                 </LinearLayout>
 
@@ -157,8 +152,7 @@
                         android:layout_height="wrap_content"
                         android:text="close price"
                         android:textAlignment="center"
-                        android:textAllCaps="true"
-                        android:textSize="16sp" />
+                        android:textAllCaps="true"/>
 
                     <TextView
                         android:id="@+id/target_or_close_value"
@@ -167,10 +161,8 @@
                         android:layout_marginTop="5dp"
                         android:text="0"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
                         android:textAlignment="center"
-                        android:textAllCaps="true"
-                        android:textSize="16sp" />
+                        android:textAllCaps="true"/>
 
                 </LinearLayout>
 
@@ -188,8 +180,7 @@
                         android:text="actual return"
                         android:singleLine="true"
                         android:textAlignment="textEnd"
-                        android:textAllCaps="true"
-                        android:textSize="16sp" />
+                        android:textAllCaps="true"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -205,11 +196,9 @@
                             android:text="0"
                             android:layout_weight="2"
                             android:maxLength="6"
-                            android:textColor="@color/black"
                             android:textStyle="bold"
                             android:textAlignment="textEnd"
-                            android:textAllCaps="true"
-                            android:textSize="16sp" />
+                            android:textAllCaps="true" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -217,11 +206,9 @@
                             android:layout_marginTop="5dp"
                             android:text="%"
                             android:layout_weight="9"
-                            android:textColor="@color/black"
                             android:textStyle="bold"
                             android:textAlignment="textEnd"
-                            android:textAllCaps="true"
-                            android:textSize="16sp" />
+                            android:textAllCaps="true"/>
 
                     </LinearLayout>
 

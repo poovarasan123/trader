@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/relativelayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
@@ -18,21 +18,35 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:text="Want to talk to us?"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/close_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/close_stroke"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_baseline_close_24"/>
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="X"
+                android:textSize="16dp"
+                android:gravity="center"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -53,7 +67,7 @@
         android:text="Reach out to us!"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +106,6 @@
         android:layout_marginTop="5dp"
         android:text="We are glad to help anytime"
         android:textAlignment="center"
-        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_reach" />
@@ -117,8 +130,8 @@
             android:layout_weight="1">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/gmail_logo"/>
 
             <TextView
@@ -129,7 +142,7 @@
                 android:layout_marginStart="10dp"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:textSize="17sp"/>
+                android:textSize="15sp"/>
 
         </LinearLayout>
 
@@ -142,8 +155,8 @@
             android:layout_weight="1">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/whatsapp_logo"/>
 
             <TextView
@@ -155,7 +168,7 @@
                 android:layout_marginStart="10dp"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:textSize="17sp"/>
+                android:textSize="15sp"/>
 
         </LinearLayout>
 

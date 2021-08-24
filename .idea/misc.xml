@@ -5,7 +5,9 @@
       <map>
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable-xxxhdpi/top_cornor_round.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/bottom_curve_back.xml" value="0.2203125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/close_icon.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/close_stroke.xml" value="0.2703125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/comment_card.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/devider_space.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/equity_button_stroke.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/gradient_back.xml" value="0.2203125" />
@@ -29,7 +31,7 @@
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/activity_equity_extend_view.xml" value="0.264" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/activity_login.xml" value="0.24010416666666667" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/activity_main.xml" value="0.1680327868852459" />
-        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/activity_news_extend.xml" value="0.22" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/activity_news_extend.xml" value="0.20833333333333334" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/activity_open_account.xml" value="0.20416666666666666" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/activity_privacy_policy.xml" value="0.24010416666666667" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
@@ -37,7 +39,10 @@
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/activity_termof_use.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/activity_webview.xml" value="0.20416666666666666" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/app_bar_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/bookmark_sheet.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/bottom_sheet.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/comment_adapter.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/comment_sheet.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/content_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/derivative_adapter.xml" value="0.18" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/equity_adapter.xml" value="0.264" />
@@ -66,6 +71,7 @@
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/set_profile_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/support_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/theme_switch.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/theme_swith.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/menu/activity_main_drawer.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/menu/bottom_nav.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/menu/main.xml" value="0.25416666666666665" />

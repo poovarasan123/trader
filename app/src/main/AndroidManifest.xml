@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.master.navdrawerbottomnva">
+    package="com.propositive.traderwaale">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".UserSettings"
+        android:name="com.propositive.traderwaale.UserSettings"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo2"
         android:label="@string/app_name"
@@ -18,43 +18,54 @@
         tools:targetApi="m">
 
         <activity
-            android:name=".login.LoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".openAccount.WebviewActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-        <activity
-            android:name=".advisory.tabs.derivative.extendView.DerivativeExtendViewActivity"
-            android:exported="true" />
-        <activity
-            android:name=".termOfuse.TermofUseActivity"
-            android:exported="true" />
-        <activity
-            android:name=".privacypolicy.PrivacyPolicyActivity"
-            android:exported="true" />
-        <activity
-            android:name=".openAccount.OpenAccountActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-        <activity
-            android:name=".bookmark.BookmarkActivity"
-            android:exported="true" />
-        <activity
-            android:name=".advisory.tabs.equity.extendView.EquityExtendViewActivity"
-            android:exported="true" />
-        <activity
-            android:name=".home.NewsExtendActivity"
-            android:exported="true" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
-        <activity
-            android:name=".register.RegisterActivity"
+            android:name="com.propositive.traderwaale.login.LoginActivity"
             android:exported="true" />
 
         <activity
-            android:name=".SplashScreenActivity"
+            android:name="com.propositive.traderwaale.openAccount.WebviewActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+
+        <activity
+            android:name="com.propositive.traderwaale.advisory.tabs.derivative.extendView.DerivativeExtendViewActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="com.propositive.traderwaale.termOfuse.TermofUseActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="com.propositive.traderwaale.privacypolicy.PrivacyPolicyActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="com.propositive.traderwaale.openAccount.OpenAccountActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+
+        <activity
+            android:name="com.propositive.traderwaale.bookmark.BookmarkActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="com.propositive.traderwaale.advisory.tabs.equity.extendView.EquityExtendViewActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="com.propositive.traderwaale.home.NewsExtendActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="com.propositive.traderwaale.MainActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="com.propositive.traderwaale.register.RegisterActivity"
+            android:exported="true" />
+        
+
+        <activity
+            android:name="com.propositive.traderwaale.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
             <intent-filter>

@@ -12,23 +12,16 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <!-- <item name="android:textColor">@color/black</item>-->
     </style>
 
-    <style name="Theme.my_create" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+<!--    <style name="Theme.NavdrawerBottomnva.NoActionBar">-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="windowNoTitle">true</item>-->
+<!--    </style>-->
 
-        <item name="colorPrimary">#121212</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-
-<!--        <item name="colorSecondary"></item>-->
-    </style>
-
-    <style name="Theme.NavdrawerBottomnva.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.NavdrawerBottomnva.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="Theme.NavdrawerBottomnva.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+<!--    <style name="Theme.NavdrawerBottomnva.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+<!--    <style name="Theme.NavdrawerBottomnva.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
