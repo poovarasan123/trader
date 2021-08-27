@@ -17,6 +17,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
 
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
         <activity
             android:name="com.propositive.traderwaale.login.LoginActivity"
             android:exported="true" />
@@ -82,6 +84,20 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name=".FCMNotification">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+     notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/notif_color" />
 
     </application>
 

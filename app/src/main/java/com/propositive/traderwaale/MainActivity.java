@@ -20,9 +20,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceIdReceiver;
+import com.google.firebase.iid.internal.FirebaseInstanceIdInternal;
+import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.installations.FirebaseInstallationsApi;
+import com.google.firebase.installations.remote.FirebaseInstallationServiceClient;
 import com.propositive.traderwaale.advisory.bottomAdvisoryFragment;
 import com.propositive.traderwaale.bookmark.BookmarkActivity;
 import com.propositive.traderwaale.home.bottomHomeFragment;
@@ -65,6 +72,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        FirebaseApp.initializeApp(this);
+
+        FirebaseInstallations.getInstance().getId().addOnSuccessListener(new OnSuccessListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Log.d("TAG", "onSuccess: refreshed token:---> " + s);
+            }
+        });
+
+//        FirebaseInstanceIdInternal.NewTokenListener.addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+//            @Override
+//            public void onSuccess(InstanceIdResult instanceIdResult) {
+//                String token = instanceIdResult.getToken();
+//                Log.e("notification", "Refreshed token: " + token);
+//            }
+//        });
 
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
 

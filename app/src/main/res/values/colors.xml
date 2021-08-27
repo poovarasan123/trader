@@ -17,7 +17,7 @@
     <color name="blue">#0060c3</color>
 
     //dark theme colors
-    <color name="dark_theme">#121212</color>
+    <color name="notif_color">#005BBD</color>
 
 
 </resources>

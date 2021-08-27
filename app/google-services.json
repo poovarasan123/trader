@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "537802096654",
+    "project_id": "traderwaale",
+    "storage_bucket": "traderwaale.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537802096654:android:72d31c5a91c3453408bc5f",
+        "android_client_info": {
+          "package_name": "com.propositive.tradewaale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537802096654-t1ftods40s0ra3kunb44jag5cij655br.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVJ57ZNwPfaP7fXOJHArEHyc24PyIZrgE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537802096654-t1ftods40s0ra3kunb44jag5cij655br.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

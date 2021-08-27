@@ -17,6 +17,7 @@
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/ic_collections_bookmark.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/ic_light_mode.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/ic_logout.xml" value="0.2703125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/ic_notifications.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/ic_security.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/ic_share.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/ic_support_agent.xml" value="0.2703125" />
@@ -77,6 +78,11 @@
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/menu/main.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/menu/menu_more.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2203125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2703125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/mipmap-anydpi-v26/ic_logo.xml" value="0.2703125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/mipmap-anydpi-v26/ic_logo2.xml" value="0.2703125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/mipmap-anydpi-v26/ic_logo2_round.xml" value="0.2703125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/mipmap-anydpi-v26/ic_logo_round.xml" value="0.2703125" />
       </map>
     </option>
   </component>

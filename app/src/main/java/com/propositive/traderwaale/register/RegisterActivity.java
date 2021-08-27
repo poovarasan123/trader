@@ -26,12 +26,15 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final String URL = "http://192.168.120.211/trader/api/register.php";
+    private static final String URL = "http://192.168.134.211/trader/api/register.php";
 
     TextInputEditText name, mail, mobile, birth, pass, cpass;
     TextInputLayout Lname, Lmail, Lmob, Lbirth, Lpass, Lcpass;
 
     Button submit;
+
+    MaterialDatePicker.Builder materialDateBuilder;
+    MaterialDatePicker materialDatePicker;
 
 
     @Override
@@ -57,11 +60,11 @@ public class RegisterActivity extends AppCompatActivity {
         submit = findViewById(R.id.submitbtn);
 
 
-        MaterialDatePicker.Builder materialDateBuilder = MaterialDatePicker.Builder.datePicker();
+        materialDateBuilder = MaterialDatePicker.Builder.datePicker();
         long today = MaterialDatePicker.todayInUtcMilliseconds();
         materialDateBuilder.setTitleText("SELECT A DATE");
         materialDateBuilder.setSelection(today);
-        final MaterialDatePicker materialDatePicker = materialDateBuilder.build();
+        materialDatePicker = materialDateBuilder.build();
 
         birth.setOnClickListener(v -> {
             materialDatePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER");

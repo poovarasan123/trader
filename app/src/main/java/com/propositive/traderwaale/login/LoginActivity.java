@@ -1,31 +1,69 @@
 package com.propositive.traderwaale.login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.propositive.traderwaale.MainActivity;
 import com.propositive.traderwaale.R;
 import com.propositive.traderwaale.register.RegisterActivity;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+
 public class LoginActivity extends AppCompatActivity {
+
+    String tokenURL = "http://192.168.134.211/trader/api/insert_token.php";
 
     TextInputEditText mail,pass;
     Button login;
 
     TextView register, forgot;
 
+    private static final String TAG = "LoginActivity";
+
+    private static final String CHANNEL_ID = "101";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
+
+        createNotification();
+        getToken();
 
         mail = findViewById(R.id.mail_ID);
         pass = findViewById(R.id.pass);
@@ -56,5 +94,84 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void getToken(){
+
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()){
+                    Log.d(TAG, "onComplete: ");
+                }
+
+                String token = task.getResult();
+                Log.d(TAG, "onComplete: token: --> " + token);
+
+                insertToken(token);
+            }
+        });
+    }
+
+    private void insertToken(String key) {
+
+        String tag = key;
+
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                Log.e(TAG, "doInBackground: token get -----> "+ tag);
+
+
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+                nameValuePairs.add(new BasicNameValuePair("name", tag));
+
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+
+                    HttpPost httpPost = new HttpPost(tokenURL);
+
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                    HttpResponse httpResponse = httpClient.execute(httpPost);
+
+                    HttpEntity httpEntity = httpResponse.getEntity();
+
+
+                } catch (ClientProtocolException e) {
+
+                } catch (IOException e) {
+
+                }
+                return "Data Inserted Successfully";
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+
+                super.onPostExecute(result);
+
+                Toast.makeText(LoginActivity.this, "Data Submit Successfully", Toast.LENGTH_LONG).show();
+
+            }
+        }
+
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+
+        sendPostReqAsyncTask.execute(tag);
+    }
+
+    public void createNotification(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "firebaseNotification";
+            String description = "receive firebse notification";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
