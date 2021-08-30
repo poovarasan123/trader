@@ -1,6 +1,7 @@
 package com.propositive.traderwaale.login;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.NotificationChannel;
@@ -15,6 +16,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -33,28 +41,30 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public class LoginActivity extends AppCompatActivity {
 
-    String tokenURL = "http://192.168.134.211/trader/api/insert_token.php";
-
     TextInputEditText mail,pass;
     Button login;
 
-    TextView register, forgot;
+    TextView register, forgot, loginText;
 
     private static final String TAG = "LoginActivity";
 
     private static final String CHANNEL_ID = "101";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         createNotification();
         getToken();
 
+
         mail = findViewById(R.id.mail_ID);
         pass = findViewById(R.id.pass);
 
@@ -72,6 +83,8 @@ public class LoginActivity extends AppCompatActivity {
 
         register = findViewById(R.id.registertxt);
         forgot = findViewById(R.id.forgottxt);
+
+        loginText = findViewById(R.id.register_text);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,75 +106,20 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "under construction!...", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
-    public void getToken(){
-
+    private void getToken() {
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
-                if (task.isSuccessful()){
-                    Log.d(TAG, "onComplete: ");
-                }
-
                 String token = task.getResult();
-                Log.d(TAG, "onComplete: token: --> " + token);
+                Log.d(TAG, "onComplete: token: --->" + token);
 
-                insertToken(token);
             }
+
         });
     }
 
-    private void insertToken(String key) {
-
-        String tag = key;
-
-        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
-            @Override
-            protected String doInBackground(String... params) {
-
-                Log.e(TAG, "doInBackground: token get -----> "+ tag);
-
-
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-
-                nameValuePairs.add(new BasicNameValuePair("name", tag));
-
-                try {
-                    HttpClient httpClient = new DefaultHttpClient();
-
-                    HttpPost httpPost = new HttpPost(tokenURL);
-
-                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-                    HttpResponse httpResponse = httpClient.execute(httpPost);
-
-                    HttpEntity httpEntity = httpResponse.getEntity();
-
-
-                } catch (ClientProtocolException e) {
-
-                } catch (IOException e) {
-
-                }
-                return "Data Inserted Successfully";
-            }
-
-            @Override
-            protected void onPostExecute(String result) {
-
-                super.onPostExecute(result);
-
-                Toast.makeText(LoginActivity.this, "Data Submit Successfully", Toast.LENGTH_LONG).show();
-
-            }
-        }
-
-        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
-
-        sendPostReqAsyncTask.execute(tag);
-    }
 
     public void createNotification(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -174,4 +132,5 @@ public class LoginActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
 }

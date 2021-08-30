@@ -2,6 +2,7 @@ package com.propositive.traderwaale.advisory.tabs.equity;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -254,7 +255,7 @@ public class EquityFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<EquityModel>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<EquityModel>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "error" + t.toString(), Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "onFailure: " + t.toString());

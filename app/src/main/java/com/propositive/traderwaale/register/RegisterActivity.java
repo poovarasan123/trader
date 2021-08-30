@@ -1,5 +1,6 @@
 package com.propositive.traderwaale.register;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,9 +17,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.propositive.traderwaale.R;
 
 import java.util.HashMap;
@@ -26,7 +30,7 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final String URL = "http://192.168.134.211/trader/api/register.php";
+    private static final String URL = "http://192.168.159.211/trader/api/register.php";
 
     TextInputEditText name, mail, mobile, birth, pass, cpass;
     TextInputLayout Lname, Lmail, Lmob, Lbirth, Lpass, Lcpass;
@@ -35,6 +39,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     MaterialDatePicker.Builder materialDateBuilder;
     MaterialDatePicker materialDatePicker;
+
+    private static final String TAG = "registerActivity";
+
+
 
 
     @Override

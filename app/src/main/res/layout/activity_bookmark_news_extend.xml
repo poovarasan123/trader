@@ -110,7 +110,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/bookmark"
+                android:id="@+id/remove_bookmark"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -131,27 +131,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/comment_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:src="@drawable/ic_chat"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Comments"
-                    android:textSize="12sp"
-                    android:textAlignment="center"/>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

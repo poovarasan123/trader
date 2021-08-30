@@ -46,7 +46,8 @@
                     android:text="Indian Railway Ctrng nd Trsm Corp Ltd"
                     android:textAllCaps="true"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:textColor="@color/black"/>
 
             </LinearLayout>
 
@@ -69,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:padding="7dp"
                     android:text="closed"
+                    android:fontFamily="@font/open_sans"
                     android:textAllCaps="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -81,6 +83,8 @@
                     android:text="close price"
                     android:textAlignment="center"
                     android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/open_sans_semibold"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +97,7 @@
                     android:layout_marginStart="20dp"
                     android:padding="5dp"
                     android:text="BUY"
+                    android:fontFamily="@font/open_sans"
                     android:textAllCaps="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -124,9 +129,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans_condensed_light"
                         android:text="reco. price"
-                        android:fontFamily="@font/open_sans"
-                        android:textAllCaps="true"/>
+                        android:textAlignment="textStart"
+                        android:textAllCaps="true" />
 
                     <TextView
                         android:id="@+id/reco_value"
@@ -134,7 +140,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="0"
-                        android:textStyle="bold"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/open_sans_semibold"
                         android:textAllCaps="true"/>
 
                 </LinearLayout>
@@ -151,6 +159,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="close price"
+                        android:fontFamily="@font/open_sans_condensed_light"
                         android:textAlignment="center"
                         android:textAllCaps="true"/>
 
@@ -160,7 +169,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="0"
-                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/open_sans_semibold"
                         android:textAlignment="center"
                         android:textAllCaps="true"/>
 
@@ -180,6 +190,7 @@
                         android:text="actual return"
                         android:singleLine="true"
                         android:textAlignment="textEnd"
+                        android:fontFamily="@font/open_sans_condensed_light"
                         android:textAllCaps="true"/>
 
                     <LinearLayout
@@ -194,9 +205,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="0"
+                            android:textColor="@color/black"
                             android:layout_weight="2"
                             android:maxLength="6"
-                            android:textStyle="bold"
+                            android:fontFamily="@font/open_sans_semibold"
                             android:textAlignment="textEnd"
                             android:textAllCaps="true" />
 
@@ -205,8 +217,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="%"
+                            android:textColor="@color/black"
                             android:layout_weight="9"
-                            android:textStyle="bold"
+                            android:fontFamily="@font/open_sans_semibold"
                             android:textAlignment="textEnd"
                             android:textAllCaps="true"/>
 

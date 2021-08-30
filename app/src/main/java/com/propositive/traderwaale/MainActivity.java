@@ -83,56 +83,69 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        FirebaseInstanceIdInternal.NewTokenListener.addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-//            @Override
-//            public void onSuccess(InstanceIdResult instanceIdResult) {
-//                String token = instanceIdResult.getToken();
-//                Log.e("notification", "Refreshed token: " + token);
-//            }
-//        });
-
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
 
         sharedPreferences = this.getSharedPreferences("themes", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        loadFragment(new bottomHomeFragment());
         bottomNavView = findViewById(R.id.bottom_nav_bar);
-        bottomNavView.setOnNavigationItemSelectedListener(navListener);
 
-        userSettings = new UserSettings();
+        bottomNavView.setOnNavigationItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
 
-        SharedPreferences sharedPreferences = getSharedPreferences(UserSettings.PREFERANCES, MODE_PRIVATE);
-        String theme = sharedPreferences.getString(UserSettings.CUSTOME_THEME, UserSettings.LIGHT_THEME);
-        userSettings.setCustomeTheme(theme);
+            switch (item.getItemId()) {
+                case R.id.bottomHomeFragment:
+                    selectedFragment = new bottomHomeFragment();
+                    break;
+                case R.id.bottomMarketFragment:
+                    selectedFragment = new bottomMarketFragment();
+                    break;
+                case R.id.bottomAdvisoryFragment:
+                    selectedFragment = new bottomAdvisoryFragment();
+                    break;
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new bottomHomeFragment()).commit();
+                case R.id.bottomLiveFeedFragment:
+                    selectedFragment = new bottomLiveFeedFragment();
+                    break;
+            }
+            return loadFragment(selectedFragment);
+        });
 
     }
 
-    private final BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
-                Fragment selectedFragment = null;
+    private boolean loadFragment(Fragment selectedFragment) {
+        if(selectedFragment!=null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,selectedFragment).commit();
+            return true;
+        }
+        return false;
+    }
 
-                switch (item.getItemId()) {
-                    case R.id.bottomHomeFragment:
-                        selectedFragment = new bottomHomeFragment();
-                        break;
-                    case R.id.bottomMarketFragment:
-                        selectedFragment = new bottomMarketFragment();
-                        break;
-                    case R.id.bottomAdvisoryFragment:
-                        selectedFragment = new bottomAdvisoryFragment();
-                        break;
-
-                    case R.id.bottomLiveFeedFragment:
-                        selectedFragment = new bottomLiveFeedFragment();
-                        break;
-                }
-
-        assert selectedFragment != null;
-        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, selectedFragment).commit();
-
-        return true;
-    };
+//    private final BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
+//                Fragment selectedFragment = null;
+//
+//                switch (item.getItemId()) {
+//                    case R.id.bottomHomeFragment:
+//                        selectedFragment = new bottomHomeFragment();
+//                        break;
+//                    case R.id.bottomMarketFragment:
+//                        selectedFragment = new bottomMarketFragment();
+//                        break;
+//                    case R.id.bottomAdvisoryFragment:
+//                        selectedFragment = new bottomAdvisoryFragment();
+//                        break;
+//
+//                    case R.id.bottomLiveFeedFragment:
+//                        selectedFragment = new bottomLiveFeedFragment();
+//                        break;
+//                }
+//
+//        assert selectedFragment != null;
+//        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, selectedFragment).commit();
+//
+//        return true;
+//    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -156,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
         circleImageView = loginSheetView.findViewById(R.id.profile_image);
 
         //theme = loginSheetView.findViewById(R.id.theme_menu);
-
 
         bookmark = loginSheetView.findViewById(R.id.bookmark_menu);
         openDematAccpunt = loginSheetView.findViewById(R.id.open_account_menu);

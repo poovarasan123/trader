@@ -4,11 +4,12 @@
     package="com.propositive.traderwaale">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.propositive.traderwaale.UserSettings"
+        android:name=".UserSettings"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo2"
         android:label="@string/app_name"
@@ -16,67 +17,59 @@
         android:theme="@style/Theme.NavdrawerBottomnva"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
-
         <activity
-            android:name="com.propositive.traderwaale.login.LoginActivity"
+            android:name=".bookmark.BookmarkNewsExtendActivity"
             android:exported="true" />
 
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <activity
-            android:name="com.propositive.traderwaale.openAccount.WebviewActivity"
+            android:name=".login.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".openAccount.WebviewActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-
         <activity
-            android:name="com.propositive.traderwaale.advisory.tabs.derivative.extendView.DerivativeExtendViewActivity"
+            android:name=".advisory.tabs.derivative.extendView.DerivativeExtendViewActivity"
             android:exported="true" />
-
         <activity
-            android:name="com.propositive.traderwaale.termOfuse.TermofUseActivity"
+            android:name=".termOfuse.TermofUseActivity"
             android:exported="true" />
-
         <activity
-            android:name="com.propositive.traderwaale.privacypolicy.PrivacyPolicyActivity"
+            android:name=".privacypolicy.PrivacyPolicyActivity"
             android:exported="true" />
-
         <activity
-            android:name="com.propositive.traderwaale.openAccount.OpenAccountActivity"
+            android:name=".openAccount.OpenAccountActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-
         <activity
-            android:name="com.propositive.traderwaale.bookmark.BookmarkActivity"
+            android:name=".bookmark.BookmarkActivity"
             android:exported="true" />
-
         <activity
-            android:name="com.propositive.traderwaale.advisory.tabs.equity.extendView.EquityExtendViewActivity"
+            android:name=".advisory.tabs.equity.extendView.EquityExtendViewActivity"
             android:exported="true" />
-
         <activity
-            android:name="com.propositive.traderwaale.home.NewsExtendActivity"
+            android:name=".home.NewsExtendActivity"
             android:exported="true" />
-
         <activity
-            android:name="com.propositive.traderwaale.MainActivity"
+            android:name=".MainActivity"
             android:exported="true" />
-
         <activity
-            android:name="com.propositive.traderwaale.register.RegisterActivity"
+            android:name=".register.RegisterActivity"
             android:exported="true" />
-        
-
         <activity
-            android:name="com.propositive.traderwaale.SplashScreenActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="true">
+            android:name=".SplashScreenActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -85,20 +78,24 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <service
-            android:name=".FCMNotification">
+        <service android:name=".FCMNotification"
+            android:exported="false" >
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-     notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/traderwaale_white" />
+        <!--
+ Set color used with incoming notification messages. This is used when no color is set for the incoming
+     notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/notif_color" />
-
     </application>
 
 </manifest>

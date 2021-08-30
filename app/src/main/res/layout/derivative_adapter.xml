@@ -45,8 +45,8 @@
                     android:text="Indian Railway Ctrng nd Trsm Corp Ltd"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                    android:fontFamily="@font/open_sans_semibold" />
 
             </LinearLayout>
 
@@ -69,6 +69,7 @@
                     android:layout_height="wrap_content"
                     android:padding="7dp"
                     android:text="closed"
+                    android:fontFamily="@font/open_sans"
                     android:textAllCaps="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -87,17 +88,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="SL" />
+                        android:text="SL"
+                        android:fontFamily="@font/open_sans"/>
 
                     <TextView
                         android:id="@+id/sl_value"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/open_sans_bold"
                         android:textColor="@color/black"
-                        android:text="10"
-                        android:textSize="16sp"/>
+                        android:text="10"/>
 
 
                 </LinearLayout>
@@ -109,6 +110,7 @@
                     android:layout_marginStart="20dp"
                     android:padding="5dp"
                     android:text="BUY"
+                    android:fontFamily="@font/open_sans"
                     android:textAllCaps="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -141,9 +143,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="reco. price"
-                        android:textAlignment="center"
-                        android:textAllCaps="true"
-                        android:textSize="16sp" />
+                        android:fontFamily="@font/open_sans_condensed_light"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="true" />
 
                     <TextView
                         android:id="@+id/reco_value"
@@ -151,11 +153,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="0"
-                        android:textAlignment="center"
+                        android:textAlignment="textStart"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:textSize="16sp" />
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textAllCaps="true" />
 
                 </LinearLayout>
 
@@ -171,9 +172,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Target One"
+                        android:fontFamily="@font/open_sans_condensed_light"
                         android:textAlignment="center"
-                        android:textAllCaps="true"
-                        android:textSize="16sp" />
+                        android:textAllCaps="true"/>
 
                     <TextView
                         android:id="@+id/target_value_start"
@@ -181,11 +182,10 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:layout_marginTop="5dp"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/open_sans_bold"
                         android:textColor="@color/black"
                         android:textAlignment="center"
-                        android:textAllCaps="true"
-                        android:textSize="16sp" />
+                        android:textAllCaps="true"/>
 
                 </LinearLayout>
 
@@ -201,10 +201,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Target Two "
+                        android:fontFamily="@font/open_sans_condensed_light"
                         android:singleLine="true"
-                        android:textAlignment="center"
-                        android:textAllCaps="true"
-                        android:textSize="16sp" />
+                        android:textAlignment="textEnd"
+                        android:textAllCaps="true" />
 
                     <TextView
                         android:id="@+id/target_value_end"
@@ -212,11 +212,10 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:layout_marginTop="5dp"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/open_sans_bold"
                         android:textColor="@color/black"
-                        android:textAlignment="center"
-                        android:textAllCaps="true"
-                        android:textSize="16sp" />
+                        android:textAlignment="textEnd"
+                        android:textAllCaps="true" />
 
 
                 </LinearLayout>

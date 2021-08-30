@@ -3,14 +3,32 @@ package com.propositive.traderwaale;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.propositive.traderwaale.login.LoginActivity;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -18,6 +36,9 @@ public class SplashScreenActivity extends AppCompatActivity {
     TextView name;
 
     Animation top, bottom;
+
+    private static final String TAG = "splash screen";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
