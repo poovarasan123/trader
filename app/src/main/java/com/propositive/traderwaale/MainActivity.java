@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavView;
 
-    UserSettings userSettings;
 
     CircleImageView circleImageView, setPic;
 
