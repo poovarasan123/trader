@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.propositive.traderwaale">
+    package="com.propositive.tradewaale">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".UserSettings"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo2"
         android:label="@string/app_name"
@@ -18,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".bookmark.BookmarkNewsExtendActivity"
+            android:name="com.propositive.tradewaale.bookmark.BookmarkNewsExtendActivity"
             android:exported="true" />
 
         <uses-library
@@ -26,42 +25,42 @@
             android:required="false" />
 
         <activity
-            android:name=".login.LoginActivity"
+            android:name="com.propositive.tradewaale.login.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".openAccount.WebviewActivity"
+            android:name="com.propositive.tradewaale.openAccount.WebviewActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
-            android:name=".advisory.tabs.derivative.extendView.DerivativeExtendViewActivity"
+            android:name="com.propositive.tradewaale.advisory.tabs.derivative.extendView.DerivativeExtendViewActivity"
             android:exported="true" />
         <activity
-            android:name=".termOfuse.TermofUseActivity"
+            android:name="com.propositive.tradewaale.termOfuse.TermofUseActivity"
             android:exported="true" />
         <activity
-            android:name=".privacypolicy.PrivacyPolicyActivity"
+            android:name="com.propositive.tradewaale.privacypolicy.PrivacyPolicyActivity"
             android:exported="true" />
         <activity
-            android:name=".openAccount.OpenAccountActivity"
+            android:name="com.propositive.tradewaale.openAccount.OpenAccountActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
-            android:name=".bookmark.BookmarkActivity"
+            android:name="com.propositive.tradewaale.bookmark.BookmarkActivity"
             android:exported="true" />
         <activity
-            android:name=".advisory.tabs.equity.extendView.EquityExtendViewActivity"
+            android:name="com.propositive.tradewaale.advisory.tabs.equity.extendView.EquityExtendViewActivity"
             android:exported="true" />
         <activity
-            android:name=".home.NewsExtendActivity"
+            android:name="com.propositive.tradewaale.home.NewsExtendActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.propositive.tradewaale.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".register.RegisterActivity"
+            android:name="com.propositive.tradewaale.register.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name="com.propositive.tradewaale.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -78,24 +77,36 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <service android:name=".FCMnotification.FCMNotification"
-            android:exported="false" >
+<!--        <service android:name="com.propositive.tradewaale.FCMnotification.MyFirebaseInstanceIDService">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+
+<!--        <service android:name="com.propositive.tradewaale.FCMnotification.MyFirebaseMessagingService">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+
+        <service
+            android:name=".FCMnotification.PushNotificationFCM">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/traderwaale_white" />
-        <!--
- Set color used with incoming notification messages. This is used when no color is set for the incoming
-     notification message. See README(https://goo.gl/6BKBk7) for more.
-        -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/notif_color" />
+            android:resource="@drawable/traderwaale_blue" />
+
+
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+        notification message. See README(https://goo.gl/6BKBk7) for more. -->
+<!--        <meta-data-->
+<!--            android:name="com.google.firebase.messaging.default_notification_color"-->
+<!--            android:resource="@color/notif_color" />-->
     </application>
 
 </manifest>

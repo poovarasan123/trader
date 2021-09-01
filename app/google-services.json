@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "537802096654",
-    "project_id": "traderwaale",
-    "storage_bucket": "traderwaale.appspot.com"
+    "project_number": "1095081803646",
+    "project_id": "trade-waale-83f0a",
+    "storage_bucket": "trade-waale-83f0a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:537802096654:android:72d31c5a91c3453408bc5f",
+        "mobilesdk_app_id": "1:1095081803646:android:6d750753fbec6050cf3d2f",
         "android_client_info": {
           "package_name": "com.propositive.tradewaale"
         }
       },
       "oauth_client": [
         {
-          "client_id": "537802096654-t1ftods40s0ra3kunb44jag5cij655br.apps.googleusercontent.com",
+          "client_id": "1095081803646-218ul7ctu65lf47mhr0f6t0go1soj956.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDVJ57ZNwPfaP7fXOJHArEHyc24PyIZrgE"
+          "current_key": "AIzaSyC-yCfxU_WslsqWAxrw4ge4Dlqa-bJNysk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "537802096654-t1ftods40s0ra3kunb44jag5cij655br.apps.googleusercontent.com",
+              "client_id": "1095081803646-218ul7ctu65lf47mhr0f6t0go1soj956.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
