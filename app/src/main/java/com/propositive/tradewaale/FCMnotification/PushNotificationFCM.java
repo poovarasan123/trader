@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.Image;
 import android.net.Uri;
 import android.text.Html;
 import android.util.Log;
@@ -17,6 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -92,7 +96,6 @@ public class PushNotificationFCM extends FirebaseMessagingService {
             //if there is no image
             if(imageUrl.equals("null")){
                 //displaying small notification
-                //mNotificationManager.showSmallNotification(title, message, intent);
                 //TODO: my push code
 
                 showSmallNotification(title,message, intent);
@@ -100,7 +103,6 @@ public class PushNotificationFCM extends FirebaseMessagingService {
             }else{
                 //if there is an image
                 //displaying a big notification
-                //mNotificationManager.showBigNotification(title, message, imageUrl, intent);
                 showBigNotification(title, message, imageUrl, intent);
                 Log.e(TAG, "sendPushNotification: large notification called!... " );
             }
@@ -111,48 +113,43 @@ public class PushNotificationFCM extends FirebaseMessagingService {
         }
     }
 
+
     private void showBigNotification(String title, String message, String imageUrl, Intent intent) {
-        PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(
-                        this,
-                        ID_BIG_NOTIFICATION,
-                        intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
+        PendingIntent resultPendingIntent =  PendingIntent.getActivity(this, ID_BIG_NOTIFICATION, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Uri uri = Uri.parse("android.resource://"+ this.getApplicationContext() +"/"+R.raw.confident);
 
-        NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
-        bigPictureStyle.setBigContentTitle(title);
-        bigPictureStyle.setSummaryText(Html.fromHtml(message).toString());
-        //bigPictureStyle.bigPicture(getBitmapFromURL(imageUrl));
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
-        Notification notification;
-        notification = mBuilder.setSmallIcon(R.drawable.traderwaale_white).setTicker(title).setWhen(0)
-                .setAutoCancel(true)
-                .setContentIntent(resultPendingIntent)
-                .setContentTitle(title)
-                .setStyle(bigPictureStyle)
-                .setSound(uri)
-                .setSmallIcon(R.drawable.traderwaale_blue)
-                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher))
-                .setContentText(message)
-                .build();
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
+        mBuilder.setSmallIcon(R.drawable.traderwaale_white);
+        mBuilder.setContentIntent(resultPendingIntent);
+        mBuilder.setContentTitle(title);
+        mBuilder.setSound(uri);
+        mBuilder.setSmallIcon(R.drawable.traderwaale_blue);
+        long[] pattern = {500,500,500,500,500,500,500,500,500};
+        mBuilder.setVibrate(pattern);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
+        mBuilder.setContentText(message);
+        mBuilder.build();
 
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-
-        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(ID_BIG_NOTIFICATION, notification);
+        ImageRequest imageRequest = new ImageRequest(imageUrl, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                mBuilder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(response));
+                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                notificationManager.notify(0, mBuilder.build());
+            }
+        }, 0, 0, null, Bitmap.Config.RGB_565, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "onErrorResponse: error " + error );
+            }
+        });
+        MySingleton.getMySingleton(this).addToRequestQue(imageRequest);
     }
 
     private void showSmallNotification(String title, String message, Intent intent) {
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this,
-                        ID_SMALL_NOTIFICATION,
-                        intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, ID_SMALL_NOTIFICATION, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Log.d(TAG, "onMessageReceived: if block runed!...");
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
         builder.setSmallIcon(R.drawable.traderwaale_blue);
@@ -165,25 +162,7 @@ public class PushNotificationFCM extends FirebaseMessagingService {
         long[] pattern = {500,500,500,500,500,500,500,500,500};
         builder.setVibrate(pattern);
         builder.setPriority(NotificationCompat.PRIORITY_HIGH);
-
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
         notificationManagerCompat.notify(1, builder.build());
-    }
-
-    //The method will return Bitmap from an image URL
-    private Bitmap getBitmapFromURL(String strURL) {
-        Log.e("image uri from bitmap", "getBitmapFromURL: " + strURL );
-        try {
-            URL url = new URL(strURL);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }

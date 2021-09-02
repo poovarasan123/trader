@@ -36,21 +36,15 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity{
-
-    TextInputEditText mail,pass;
-    Button login;
-
-    TextView register, forgot, loginText;
+public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
-
     private static final String CHANNEL_ID = "101";
-
-    private ProgressDialog progressDialog;
-
+    TextInputEditText mail, pass;
+    Button login;
+    TextView register, forgot, loginText;
     String token;
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,57 +69,58 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                //startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
-//                progressDialog = new ProgressDialog(LoginActivity.this);
-//                progressDialog.setMessage("Registering Device...");
-//                progressDialog.show();
-//
-//                //final String token = SharedPreference.getInstance(getApplicationContext()).getDeviceToken();
-//                final String token = getToken();
-//                final String email = mail.getText().toString();
-//
-//                Log.e(TAG, "onClick: mail from input " + email );
-//                Log.e(TAG, "onClick: token new fcm --->" + token );
-//
-//                if (token == null) {
-//                    progressDialog.dismiss();
-//                    Toast.makeText(LoginActivity.this, "Token not generated", Toast.LENGTH_LONG).show();
-//                    return;
-//                }
-//
-//                StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REGISTER_DEVICE,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                Log.e("error from response1",response);
-//                                progressDialog.dismiss();
-//                                try {
-//                                    JSONObject obj = new JSONObject(response);
-//                                    Toast.makeText(LoginActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-//                                Log.e("error from response2",response);
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                progressDialog.dismiss();
-//                                Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-//                            }
-//                        }) {
-//
-//                    @Override
-//                    protected Map<String, String> getParams() throws AuthFailureError {
-//                        Map<String, String> params = new HashMap<>();
-//                        params.put("email", email);
-//                        params.put("token", token);
-//                        return params;
-//                    }
-//                };
-//                FcmVolley.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+                progressDialog = new ProgressDialog(LoginActivity.this);
+                progressDialog.setMessage("Registering Device...");
+                progressDialog.show();
+
+                //final String token = SharedPreference.getInstance(getApplicationContext()).getDeviceToken();
+                final String token = getToken();
+                final String email = mail.getText().toString();
+
+                Log.e(TAG, "onClick: mail from input " + email);
+                Log.e(TAG, "onClick: token new fcm --->" + token);
+
+                if (token == null) {
+                    progressDialog.dismiss();
+                    Toast.makeText(LoginActivity.this, "Token not generated", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REGISTER_DEVICE,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.e("error from response1", response);
+                                progressDialog.dismiss();
+                                try {
+                                    JSONObject obj = new JSONObject(response);
+                                    Toast.makeText(LoginActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                Log.e("error from response2", response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                progressDialog.dismiss();
+                                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                                Log.e(TAG, "onErrorResponse: volley error" + error.getMessage());
+                            }
+                        }) {
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("email", email);
+                        params.put("token", token);
+                        return params;
+                    }
+                };
+                FcmVolley.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
             }
         });
@@ -133,7 +128,8 @@ public class LoginActivity extends AppCompatActivity{
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                //startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                Toast.makeText(LoginActivity.this, "under construction!...", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -158,8 +154,8 @@ public class LoginActivity extends AppCompatActivity{
     }
 
 
-    public void createNotification(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+    public void createNotification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "firebaseNotification";
             String description = "receive firebse notification";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
