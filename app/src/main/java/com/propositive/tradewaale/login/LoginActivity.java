@@ -52,9 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
 
-        createNotification();
-        getToken();
-
         mail = findViewById(R.id.username);
         pass = findViewById(R.id.pass);
 
@@ -69,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
                 progressDialog = new ProgressDialog(LoginActivity.this);
                 progressDialog.setMessage("Registering Device...");
@@ -151,19 +148,6 @@ public class LoginActivity extends AppCompatActivity {
 
         });
         return token;
-    }
-
-
-    public void createNotification() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "firebaseNotification";
-            String description = "receive firebse notification";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 
 }

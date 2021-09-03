@@ -18,6 +18,7 @@
 
     //dark theme colors
     <color name="notif_color">#005BBD</color>
+    <color name="dark_blue_color">#002558</color>
 
 
 </resources>
