@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/relativelayout"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
@@ -30,10 +30,11 @@
         <LinearLayout
             android:id="@+id/close_img"
             android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_height="20dp"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/close_stroke"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -43,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="X"
-                android:textSize="16dp"
+                android:textSize="14sp"
                 android:gravity="center"/>
 
         </LinearLayout>

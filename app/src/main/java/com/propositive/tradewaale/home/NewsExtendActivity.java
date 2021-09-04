@@ -22,15 +22,15 @@ public class NewsExtendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_extend);
 
-        comment = findViewById(R.id.comment_layout);
+//        comment = findViewById(R.id.comment_layout);
         bookmark = findViewById(R.id.bookmark);
 
-        comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCommentBox();
-            }
-        });
+//        comment.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //openCommentBox();
+//            }
+//        });
 
         bookmark.setOnClickListener(new View.OnClickListener() {
             @Override

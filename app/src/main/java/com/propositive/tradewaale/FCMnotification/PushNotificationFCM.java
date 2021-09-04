@@ -27,6 +27,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.propositive.tradewaale.R;
+import com.propositive.tradewaale.SplashScreenActivity;
 import com.propositive.tradewaale.login.LoginActivity;
 
 import org.json.JSONException;
@@ -91,7 +92,7 @@ public class PushNotificationFCM extends FirebaseMessagingService {
             MyNotificationManager mNotificationManager = new MyNotificationManager(getApplicationContext());
 
             //creating an intent for the notification
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SplashScreenActivity.class);
 
             //if there is no image
             if(imageUrl.equals("null")){

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/loginBottomSheet"
+    android:background="@drawable/top_cornor_round"
+    tools:context=".login.LoginActivity">
+
+    <TextView
+        android:id="@+id/register_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/open_sans_bold"
+        android:text="Login"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="15dp"
+        android:hint="Mail ID"
+        android:padding="15dp"
+        android:background="@drawable/login_stroke"
+        android:drawableStart="@drawable/ic_mail"
+        android:drawablePadding="10dp">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textWebPassword"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:hint="Password"
+        android:padding="15dp"
+        android:background="@drawable/login_stroke"
+        android:drawableStart="@drawable/ic_lock"
+        android:drawablePadding="10dp">
+    </EditText>
+
+    <Button
+        android:id="@+id/loginbtn"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:background="@drawable/back_button"
+        android:layout_marginTop="40dp"
+        android:gravity="center"/>
+
+
+    <TextView
+        android:id="@+id/forgottxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="forgot password"
+        android:layout_marginBottom="10dp"/>
+
+</LinearLayout>
+

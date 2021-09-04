@@ -27,7 +27,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.installations.FirebaseInstallations;
 import com.propositive.tradewaale.advisory.bottomAdvisoryFragment;
-import com.propositive.tradewaale.bookmark.BookmarkActivity;
 import com.propositive.tradewaale.home.bottomHomeFragment;
 import com.propositive.tradewaale.livefeed.bottomLiveFeedFragment;
 import com.propositive.tradewaale.market.bottomMarketFragment;
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     CircleImageView circleImageView, setPic;
 
-    LinearLayout theme, bookmark, openDematAccpunt, privacypolicy, termsOfuse, support, share, logout;
+    LinearLayout theme, openDematAccpunt, privacypolicy, termsOfuse, support, share, logout;
 
     MaterialAlertDialogBuilder dialogBuilder;
 
@@ -165,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
         //theme = loginSheetView.findViewById(R.id.theme_menu);
 
-        bookmark = loginSheetView.findViewById(R.id.bookmark_menu);
+
         openDematAccpunt = loginSheetView.findViewById(R.id.open_account_menu);
         privacypolicy = loginSheetView.findViewById(R.id.privacy_menu);
         termsOfuse = loginSheetView.findViewById(R.id.term_menu);
@@ -204,14 +203,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
          **/
-
-        bookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
-                moreMenuSheet.dismiss();
-            }
-        });
 
         openDematAccpunt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,9 +261,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void SupportSheet() {
         supportSheet = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialogTheme);
-        View loginSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.support_layout, findViewById(R.id.support_sheet));
+        View supportSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.support_layout, findViewById(R.id.support_sheet));
 
-        supportSheet.setContentView(loginSheetView);
+        LinearLayout closeBox = supportSheetView.findViewById(R.id.close_img);
+
+        closeBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                supportSheet.dismiss();
+            }
+        });
+
+        supportSheet.setContentView(supportSheetView);
         supportSheet.show();
     }
 
@@ -291,8 +291,8 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 profUri = result.getUri();
 
-                // TODO: save image
-                //profUri = data.getData();
+                //TODO: save image
+//                profUri = data.getData();
 
 //                this.grantUriPermission(this.getPackageName(), profUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 //                final int takeflag = Intent.FLAG_GRANT_READ_URI_PERMISSION;

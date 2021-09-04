@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final String URL = "http://192.168.249.211/trader/api/register.php";
+    private static final String URL = "http://192.168.96.211/trader/api/register.php";
 
     TextInputEditText name, mail, mobile, birth, pass, cpass;
     TextInputLayout Lname, Lmail, Lmob, Lbirth, Lpass, Lcpass;
