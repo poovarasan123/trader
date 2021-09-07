@@ -114,7 +114,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                         gotoMain = loginSheetView.findViewById(R.id.loginbtn);
 
                         EditText mail = loginSheetView.findViewById(R.id.username);
-                        EditText password = loginSheetView.findViewById(R.id.password);
+                        EditText password = loginSheetView.findViewById(R.id.pass);
 
                         gotoMain.setOnClickListener(new View.OnClickListener() {
                             @Override

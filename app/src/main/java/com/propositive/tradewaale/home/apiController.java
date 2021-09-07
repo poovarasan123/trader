@@ -1,10 +1,10 @@
-package com.propositive.tradewaale.advisory.tabs.derivative;
+package com.propositive.tradewaale.home;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class apiController {
-    private static final String url = "http://192.168.54.211/trader/api/";
+    private static final String url = "http://192.168.251.211/trader/api/";
     private static apiController clientobject;
     private static Retrofit retrofit;
 

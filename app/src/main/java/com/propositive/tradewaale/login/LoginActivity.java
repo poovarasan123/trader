@@ -32,7 +32,6 @@ import com.propositive.tradewaale.FCMnotification.Constants;
 import com.propositive.tradewaale.FCMnotification.FcmVolley;
 import com.propositive.tradewaale.MainActivity;
 import com.propositive.tradewaale.R;
-import com.propositive.tradewaale.register.RegisterActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

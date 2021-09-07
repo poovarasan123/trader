@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.propositive.tradewaale.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -49,10 +50,10 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.imageView.setImageResource(newses.get(position).getImageNews());
-        holder.title.setText(newses.get(position).getTitle_text());
-        holder.date.setText(newses.get(position).getDate_text());
-        holder.comment.setText(newses.get(position).comment_text);
+        Picasso.get().load(newses.get(position).getNews_image()).into(holder.imageView);
+        String desc = newses.get(position).getDescription();
+        holder.title.setText(newses.get(position).getNews_title());
+        holder.date.setText(newses.get(position).getPost_date());
 
 //        holder.share.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -87,7 +88,7 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;    //, share, bookmark;
-        TextView title, date, comment;
+        TextView title, date;
         CardView layout;
 
         public ViewHolder(@NonNull View itemView, final ItemClickListener listener) {
@@ -96,7 +97,6 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
             imageView = itemView.findViewById(R.id.news_image);
             title = itemView.findViewById(R.id.text_title);
             date = itemView.findViewById(R.id.text_date);
-            comment = itemView.findViewById(R.id.text_comment);
 
 //            share = itemView.findViewById(R.id.share_link);
 //            bookmark = itemView.findViewById(R.id.bookmark_news);

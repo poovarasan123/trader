@@ -1,7 +1,9 @@
 package com.propositive.tradewaale.advisory.tabs.derivative;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -227,7 +229,7 @@ public class DerivativeFragment extends Fragment {
 
         call.enqueue(new Callback<List<DerivativeModel>>() {
             @Override
-            public void onResponse(Call<List<DerivativeModel>> call, Response<List<DerivativeModel>> response) {
+            public void onResponse(@NonNull Call<List<DerivativeModel>> call, @NonNull Response<List<DerivativeModel>> response) {
 
                 data = response.body();
 

@@ -2,45 +2,47 @@ package com.propositive.tradewaale.home;
 
 public class newsModel {
 
-    int imageNews;
-    String title_text, date_text, comment_text;
+    String news_image;
+    String news_title, post_date, description;
 
-    public newsModel(int imageNews, String title_text, String date_text, String comment_text) {
-        this.imageNews = imageNews;
-        this.title_text = title_text;
-        this.date_text = date_text;
-        this.comment_text = comment_text;
+    public newsModel(){}
+
+    public newsModel(String news_image, String news_title, String post_date, String description) {
+        this.news_image = news_image;
+        this.news_title = news_title;
+        this.post_date = post_date;
+        this.description = description;
     }
 
-    public int getImageNews() {
-        return imageNews;
+    public String getNews_image() {
+        return news_image;
     }
 
-    public void setImageNews(int imageNews) {
-        this.imageNews = imageNews;
+    public void setNews_image(String news_image) {
+        this.news_image = news_image;
     }
 
-    public String getTitle_text() {
-        return title_text;
+    public String getNews_title() {
+        return news_title;
     }
 
-    public void setTitle_text(String title_text) {
-        this.title_text = title_text;
+    public void setNews_title(String news_title) {
+        this.news_title = news_title;
     }
 
-    public String getDate_text() {
-        return date_text;
+    public String getPost_date() {
+        return post_date;
     }
 
-    public void setDate_text(String date_text) {
-        this.date_text = date_text;
+    public void setPost_date(String post_date) {
+        this.post_date = post_date;
     }
 
-    public String getComment_text() {
-        return comment_text;
+    public String getDescription() {
+        return description;
     }
 
-    public void setComment_text(String comment_text) {
-        this.comment_text = comment_text;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
