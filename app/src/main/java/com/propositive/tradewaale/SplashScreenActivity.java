@@ -37,6 +37,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.propositive.tradewaale.FCMnotification.Constants;
 import com.propositive.tradewaale.FCMnotification.FcmVolley;
 import com.propositive.tradewaale.login.LoginActivity;
+import com.propositive.tradewaale.register.RegisterActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -166,7 +167,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 register.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "Under construction!...", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
                     }
                 });
 
