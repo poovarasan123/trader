@@ -29,6 +29,7 @@ import com.google.firebase.installations.FirebaseInstallations;
 import com.propositive.tradewaale.advisory.bottomAdvisoryFragment;
 import com.propositive.tradewaale.home.bottomHomeFragment;
 import com.propositive.tradewaale.livefeed.bottomLiveFeedFragment;
+import com.propositive.tradewaale.login.LoginActivity;
 import com.propositive.tradewaale.market.bottomMarketFragment;
 import com.propositive.tradewaale.openAccount.OpenAccountActivity;
 import com.propositive.tradewaale.privacypolicy.PrivacyPolicyActivity;
@@ -250,6 +251,8 @@ public class MainActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                moreMenuSheet.dismiss();
+                startActivity(new Intent(MainActivity.this, SplashScreenActivity.class));
                 finish();
             }
         });
@@ -275,8 +278,6 @@ public class MainActivity extends AppCompatActivity {
         supportSheet.setContentView(supportSheetView);
         supportSheet.show();
     }
-
-
 
     private void startCrop() {
         CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(this);
@@ -314,4 +315,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 }

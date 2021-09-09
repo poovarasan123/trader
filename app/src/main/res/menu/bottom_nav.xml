@@ -20,8 +20,8 @@
 
         <item
             android:id="@+id/bottomLiveFeedFragment"
-            android:title="Live Feed"
-            android:icon="@drawable/ic_auto_awesome_motion"/>
+            android:title="Challenge"
+            android:icon="@drawable/ic_events"/>
 
     </group>
 

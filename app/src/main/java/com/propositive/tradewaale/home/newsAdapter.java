@@ -2,6 +2,7 @@ package com.propositive.tradewaale.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
     ArrayList<newsModel> newses;
 
     private newsAdapter.ItemClickListener itemClickListener;
+
+    private static final String TAG = "News Adapter";
 
 
     public interface ItemClickListener{
@@ -54,6 +57,11 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
         String desc = newses.get(position).getDescription();
         holder.title.setText(newses.get(position).getNews_title());
         holder.date.setText(newses.get(position).getPost_date());
+
+        Log.e(TAG, "onBindViewHolder: image " + newses.get(position).getNews_image() );
+        Log.e(TAG, "onBindViewHolder: title " + newses.get(position).getNews_title() );
+        Log.e(TAG, "onBindViewHolder: desc " + newses.get(position).getDescription() );
+        Log.e(TAG, "onBindViewHolder: date" + newses.get(position).getPost_date() );
 
 //        holder.share.setOnClickListener(new View.OnClickListener() {
 //            @Override

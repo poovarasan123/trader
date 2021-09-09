@@ -135,9 +135,9 @@ public class bottomHomeFragment extends Fragment {
 //                    recyclerView.setVisibility(View.GONE);
 //                }
 
-                Log.d(TAG, "onResponse: data" + newsList);
-                Log.d(TAG, "onResponse: response" + response);
-                Log.d(TAG, "onResponse: call" + call);
+                Log.d(TAG, "onResponse: data " + newsList);
+                Log.d(TAG, "onResponse: response " + response);
+                Log.d(TAG, "onResponse: call " + call);
 
             }
 

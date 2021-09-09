@@ -19,4 +19,6 @@
         <item>Light</item>
         <item>Dark</item>
     </string-array>
+
+    <string name="channel_id">101</string>
 </resources>
