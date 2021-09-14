@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -49,10 +50,8 @@ import java.util.Map;
 public class SplashScreenActivity extends AppCompatActivity {
 
     //TextInputEditText mail, pass;
-
-    private static final String TAG = "splash screen";
     TextView forgot;
-    String token;
+
 
     ImageView logo;
     TextView name;
@@ -66,7 +65,9 @@ public class SplashScreenActivity extends AppCompatActivity {
     ProgressBar progressBar;
     EditText mail, password;
     private String LOGIN_URL = "http://192.168.239.211/trader/api/Auth_login.php";
-    private ProgressDialog progressDialog;
+
+    private static final String TAG = "splash screen";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,7 +168,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                 register.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://propositive.in/register"));
+                        startActivity(browserIntent);
+                        //startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
                     }
                 });
 
@@ -237,68 +240,4 @@ public class SplashScreenActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "under construction!...", Toast.LENGTH_SHORT).show();
     }
 
-    public void registerToken(String userMail) {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Registering Device...");
-        progressDialog.show();
-
-        //final String token = SharedPreference.getInstance(getApplicationContext()).getDeviceToken();
-        final String token = getToken();
-        final String email = mail.getText().toString();
-
-        Log.e(TAG, "onClick: mail from input " + email);
-        Log.e(TAG, "onClick: token new fcm --->" + token);
-
-        if (token == null) {
-            progressDialog.dismiss();
-            Toast.makeText(getApplicationContext(), "Token not generated", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REGISTER_DEVICE,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.e("error from response1", response);
-                        progressDialog.dismiss();
-                        try {
-                            JSONObject obj = new JSONObject(response);
-                            Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Log.e("error from response2", response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                        Log.e(TAG, "onErrorResponse: volley error" + error.getMessage());
-                    }
-                }) {
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("token", token);
-                return params;
-            }
-        };
-        FcmVolley.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-    }
-
-    private String getToken() {
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                token = task.getResult();
-                Log.d(TAG, "onComplete: token: --->" + token);
-            }
-
-        });
-        return token;
-    }
 }

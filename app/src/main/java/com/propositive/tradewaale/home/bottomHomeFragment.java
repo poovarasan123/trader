@@ -135,14 +135,14 @@ public class bottomHomeFragment extends Fragment {
 //                    recyclerView.setVisibility(View.GONE);
 //                }
 
-                Log.d(TAG, "onResponse: data " + newsList);
+                Log.d(TAG, "onResponse: data " + newsList.toString());
                 Log.d(TAG, "onResponse: response " + response);
                 Log.d(TAG, "onResponse: call " + call);
 
             }
 
             @Override
-            public void onFailure(Call<List<newsModel>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<newsModel>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "error" + t.toString(), Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "onFailure: " + t.toString());
@@ -174,7 +174,6 @@ public class bottomHomeFragment extends Fragment {
 //                        e.printStackTrace();
 //                    }
 //                }
-//
 //
 //                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //                adapter = new newsAdapter(getContext(), newsList);

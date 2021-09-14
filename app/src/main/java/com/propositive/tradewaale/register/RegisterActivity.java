@@ -2,13 +2,19 @@ package com.propositive.tradewaale.register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.propositive.tradewaale.R;
 
@@ -20,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     Activity activity;
     private ProgressDialog progDailog;
+    private String TAG = "registerActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
                 progDailog.show();
                 view.loadUrl(url);
 
-                return true;
+              return true;
             }
             @Override
             public void onPageFinished(WebView view, final String url) {
@@ -53,20 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-//        webView.setWebViewClient(new WebViewClient(){
-//            @Override
-//            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//
-//                progDailog.dismiss();
-//                final String URL = url;
-//                if (URL.contains("propositive.in"))
-//                    finish();
-//                //super.onPageStarted(view, url, favicon);
-//            }
-//        });
-
         webView.loadUrl(URL);
 
-//
     }
 }

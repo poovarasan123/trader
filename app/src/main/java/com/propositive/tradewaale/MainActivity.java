@@ -1,6 +1,7 @@
 package com.propositive.tradewaale;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,12 +21,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.propositive.tradewaale.FCMnotification.Constants;
+import com.propositive.tradewaale.FCMnotification.FcmVolley;
 import com.propositive.tradewaale.advisory.bottomAdvisoryFragment;
 import com.propositive.tradewaale.home.bottomHomeFragment;
 import com.propositive.tradewaale.livefeed.bottomLiveFeedFragment;
@@ -36,6 +47,12 @@ import com.propositive.tradewaale.privacypolicy.PrivacyPolicyActivity;
 import com.propositive.tradewaale.termOfuse.TermofUseActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -56,12 +73,23 @@ public class MainActivity extends AppCompatActivity {
 
     MaterialAlertDialogBuilder dialogBuilder;
 
+    String token;
+    private ProgressDialog progressDialog;
+    private static final String TAG = "Main Activity";
+
     private Uri profUri;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
     private int STORAGE_PERMISSION_CODE = 23;
+
+//
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        registerToken();
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String s) {
                 Log.d("TAG", "onSuccess: refreshed token:---> " + s);
+                registerToken(s);
             }
         });
 
@@ -315,9 +344,70 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-        super.onBackPressed();
+
+
+    public void registerToken(String token) {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Registering Device...");
+        progressDialog.show();
+
+        //final String token = SharedPreference.getInstance(getApplicationContext()).getDeviceToken();
+        //final String token = getToken();
+        final String email = "mail.getText().toString();";
+
+        Log.e(TAG, "onClick: mail from input " + email);
+        Log.e(TAG, "onClick: token new fcm --->" + token);
+
+        if (token == null) {
+            progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Token not generated", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REGISTER_DEVICE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e("error from response1", response);
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("error from response2", response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                        Log.e(TAG, "onErrorResponse: volley error" + error.getMessage());
+                    }
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("token", token);
+                return params;
+            }
+        };
+        FcmVolley.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+    }
+
+    private String getToken() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                token = task.getResult();
+                Log.d(TAG, "onComplete: token: --->" + token);
+            }
+
+        });
+        return token;
     }
 }
