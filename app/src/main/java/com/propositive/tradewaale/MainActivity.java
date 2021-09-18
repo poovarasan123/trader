@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String s) {
                 Log.d("TAG", "onSuccess: refreshed token:---> " + s);
-                registerToken(s);
+                //registerToken(s);
             }
         });
 
@@ -140,36 +140,24 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean loadFragment(Fragment selectedFragment) {
         if(selectedFragment!=null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,selectedFragment).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment,selectedFragment)
+                    .commit();
             return true;
         }
         return false;
     }
 
-//    private final BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
-//                Fragment selectedFragment = null;
-//
-//                switch (item.getItemId()) {
-//                    case R.id.bottomHomeFragment:
-//                        selectedFragment = new bottomHomeFragment();
-//                        break;
-//                    case R.id.bottomMarketFragment:
-//                        selectedFragment = new bottomMarketFragment();
-//                        break;
-//                    case R.id.bottomAdvisoryFragment:
-//                        selectedFragment = new bottomAdvisoryFragment();
-//                        break;
-//
-//                    case R.id.bottomLiveFeedFragment:
-//                        selectedFragment = new bottomLiveFeedFragment();
-//                        break;
-//                }
-//
-//        assert selectedFragment != null;
-//        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, selectedFragment).commit();
-//
-//        return true;
-//    };
+    @Override
+    public void onBackPressed() {
+        if (bottomNavView.getSelectedItemId() == R.id.bottomHomeFragment){
+            super.onBackPressed();
+            finish();
+        }else{
+            bottomNavView.setSelectedItemId(R.id.bottomHomeFragment);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -256,11 +256,11 @@ public class EquityFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<List<EquityModel>> call, @NonNull Throwable t) {
-                Toast.makeText(getContext(), "error" + t.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext().getApplicationContext(), "error" + t.toString(), Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "onFailure: " + t.toString());
 
-                Toast.makeText(getContext(), "error" + call, Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext().getApplicationContext(), "error" + call, Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "onFailure: " + call.toString());
             }
