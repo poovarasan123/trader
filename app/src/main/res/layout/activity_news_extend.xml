@@ -12,8 +12,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_card">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,19 +23,20 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="225dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/d" />
+                 />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/titletxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="WFI suspends Vinesh Phogat for indiscipline, notice issued to Sonam Malik for misconduct"
+
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -54,68 +54,46 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:text="05 Nov 1999"
+
                     android:textAlignment="textEnd"
                     android:textSize="12sp" />
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/full_description"
+                android:id="@+id/desctxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="30dp"
-                android:text="Edelweiss Financial Services share price added over 4 percent intraday on August 12 after Edelweiss Wealth Management launched the next series of its pre-initial public offering (IPO) Edelweiss Crossover Opportunities Fund to raise Rs 1,500 crore. This comes after Edelweiss Wealth Management successfully raised more than Rs 3,700 crore in its first three series, Mint has reported. The fund plans to raise up to Rs 7,500 crore through the crossover fund series, the person added.With Rs 150-300 crore in each company, it is looking to invest in 10-15 firms that are IPO bound in nearly four years or are planning to launch an IPO soon, the report added.Edelweiss Wealth Management is an arm of Edelweiss Financial Services, a non-banking financial company.Edelweiss Wealth Fund reported net sales at Rs 106.00 crore in June 2021, up 55.68 percent from Rs. 68.09 crore in June 2020 and a quarterly net profit at Rs. 71.61 crore in June 2021, up 155.43 percent from Rs. 129.18 crore in June 2020.Edelweiss Wealth Fund is backed by PAG Group, one of the largest private investment firms in Asia. The amount of Rs 2,366 crore, pumped into EWM by PAG Group, includes primary and secondary investment. Pursuant to these transactions, PAG Group and EFSL (Edelweiss Financial Services Ltd) will be the shareholders in EWM, of which PAG will hold a controlling stake, it further added. At 1052 hrs Edelweiss Financial Services was quoting at Rs 83.90, up Rs 3.15, or 3.90 percent, on the BSE."
+
                 android:textSize="14sp" />
 
 
         </LinearLayout>
     </ScrollView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/bottom_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/bottom_card"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:elevation="10dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent">-->
 
-        <LinearLayout
-            android:id="@+id/bookmark_comment_share"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/bookmark"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:src="@drawable/ic_bookmark"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Bookmark"
-                    android:textSize="12sp"
-                    android:textAlignment="center"/>
-
-            </LinearLayout>
+<!--        <LinearLayout-->
+<!--            android:id="@+id/bookmark_comment_share"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="?attr/actionBarSize"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_marginBottom="5dp"-->
+<!--            android:orientation="horizontal">-->
 
 <!--            <LinearLayout-->
-<!--                android:id="@+id/comment_layout"-->
+<!--                android:id="@+id/bookmark"-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="match_parent"-->
 <!--                android:orientation="vertical"-->
@@ -125,41 +103,63 @@
 <!--                <ImageView-->
 <!--                    android:layout_width="26dp"-->
 <!--                    android:layout_height="26dp"-->
-<!--                    android:src="@drawable/ic_chat"/>-->
+<!--                    android:src="@drawable/ic_bookmark"/>-->
 
 <!--                <TextView-->
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Comments"-->
+<!--                    android:text="Bookmark"-->
 <!--                    android:textSize="12sp"-->
 <!--                    android:textAlignment="center"/>-->
 
 <!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1">
+<!--&lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/comment_layout"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:orientation="vertical"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_weight="1">&ndash;&gt;-->
 
-                <ImageView
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:src="@drawable/ic_share"/>
+<!--&lt;!&ndash;                <ImageView&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="26dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="26dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:src="@drawable/ic_chat"/>&ndash;&gt;-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Share"
-                    android:textSize="12sp"
-                    android:textAlignment="center"/>
+<!--&lt;!&ndash;                <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:text="Comments"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textSize="12sp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textAlignment="center"/>&ndash;&gt;-->
 
-            </LinearLayout>
+<!--&lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
 
-        </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_weight="1">-->
 
-    </androidx.cardview.widget.CardView>
+<!--                <ImageView-->
+<!--                    android:layout_width="26dp"-->
+<!--                    android:layout_height="26dp"-->
+<!--                    android:src="@drawable/ic_share"/>-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Share"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textAlignment="center"/>-->
+
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </androidx.cardview.widget.CardView>-->
 
 
 

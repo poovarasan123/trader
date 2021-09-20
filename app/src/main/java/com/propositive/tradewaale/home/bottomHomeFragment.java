@@ -46,7 +46,7 @@ public class bottomHomeFragment extends Fragment {
 
     SwipeRefreshLayout swipeRefreshLayout;
 
-    List<newsModel> newsList = new ArrayList<>();
+    //List<newsModel> newsList = new ArrayList<>();
 
     private static final String TAG = "News Activity";
 
@@ -57,9 +57,11 @@ public class bottomHomeFragment extends Fragment {
 
         recyclerView = root.findViewById(R.id.recyclerView);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
+
         swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
 
-        newsList.clear();
+        //newsList.clear();
 
 //        newsList.add(new newsModel(R.drawable.a, "WFI suspends Vinesh Phogat for indiscipline, notice issued to Sonam Malik for misconduct", "NOV 05, 1999"));
 //        newsList.add(new newsModel(R.drawable.b, "Number of billionaires in India dropped from 141 in FY20 to 136 in FY21: FM Nirmala Sitharaman in Rajya Sabha", "DEC 15, 2000"));
@@ -72,34 +74,13 @@ public class bottomHomeFragment extends Fragment {
 //        newsList.add(new newsModel(R.drawable.i, "Swiggy launches 15-30 minute grocery deliveries, expands Instamart to 5 more cities in India", "JUY 18, 2007"));
 //        newsList.add(new newsModel(R.drawable.j, "IRB Infra reports Q1 net profit at Rs 71.91 crore", "AUG 14, 2008"));
 
-
         newsList();
-        //listNews();
-
-
-        Toast.makeText(getContext(), "initial size " + newsList.size(), Toast.LENGTH_SHORT).show();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-//                newsList.add(new newsModel(R.drawable.a, "WFI suspends Vinesh Phogat for indiscipline, notice issued to Sonam Malik for misconduct", "NOV 05, 1999"));
-//                newsList.add(new newsModel(R.drawable.b, "Number of billionaires in India dropped from 141 in FY20 to 136 in FY21: FM Nirmala Sitharaman in Rajya Sabha", "DEC 15, 2000"));
-//                newsList.add(new newsModel(R.drawable.c, "SC fines 9 political parties for failure to publish candidates' criminal background", "JAN 25, 2001"));
-//                newsList.add(new newsModel(R.drawable.d, "Confirmed! Messi to move to PSG on two-year deal", "FEB 02, 2002"));
-//                newsList.add(new newsModel(R.drawable.e, "CoinDCX Becomes India’s First Crypto Unicorn, Raises $90 Million Led By B Capital", "MAR 04, 2003"));
-//                newsList.add(new newsModel(R.drawable.f, "QR Code-Based Passes To Be Issued For Fully Vaccinated Citizens At 65 Railway Stations: Mumbai Mayor", "APR 08, 2004"));
-//                newsList.add(new newsModel(R.drawable.g, "Part Of Our World: Mermaids Mingle At US Convention", "MAY 12, 2005"));
-//                newsList.add(new newsModel(R.drawable.h, "Brookfield India REIT Q1 operating income up 4pc to Rs 170cr, to distribute Rs 182cr to unitholders", "JUN 24, 2006"));
-//                newsList.add(new newsModel(R.drawable.i, "Swiggy launches 15-30 minute grocery deliveries, expands Instamart to 5 more cities in India", "JUY 18, 2007"));
-//                newsList.add(new newsModel(R.drawable.j, "IRB Infra reports Q1 net profit at Rs 71.91 crore", "AUG 14, 2008"));
-
                 newsList();
-                //listNews();
-
                 swipeRefreshLayout.setRefreshing(false);
-
-                Toast.makeText(getContext(), "updated size " + newsList.size(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -117,7 +98,9 @@ public class bottomHomeFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<List<newsModel>> call, @NonNull retrofit2.Response<List<newsModel>> response) {
 
-                newsList = response.body();
+                List<newsModel> newsList = response.body();
+                adapter = new newsAdapter(newsList);
+                recyclerView.setAdapter(adapter);
 
                 Log.d(TAG, "onResponse: " + newsList.size());
 
@@ -145,11 +128,11 @@ public class bottomHomeFragment extends Fragment {
             public void onFailure(@NonNull Call<List<newsModel>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "error" + t.toString(), Toast.LENGTH_SHORT).show();
 
-                Log.d(TAG, "onFailure: " + t.toString());
+                Log.d(TAG, "onFailure:  t " + t.toString());
 
                 Toast.makeText(getContext(), "error" + call, Toast.LENGTH_SHORT).show();
 
-                Log.d(TAG, "onFailure: " + call.toString());
+                Log.d(TAG, "onFailure: call " + call.toString());
             }
 
         });

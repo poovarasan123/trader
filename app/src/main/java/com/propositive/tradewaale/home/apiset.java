@@ -1,7 +1,5 @@
 package com.propositive.tradewaale.home;
 
-import com.propositive.tradewaale.advisory.tabs.derivative.DerivativeModel;
-
 import java.util.List;
 
 import retrofit2.Call;

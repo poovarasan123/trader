@@ -14,19 +14,25 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.propositive.tradewaale.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<newsModel> newses;
+    List<newsModel> newsList;
 
     private newsAdapter.ItemClickListener itemClickListener;
 
     private static final String TAG = "News Adapter";
+
+    public newsAdapter(List<newsModel> newsList) {
+        this.newsList = newsList;
+    }
 
 
     public interface ItemClickListener{
@@ -37,11 +43,7 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
         itemClickListener= listener;
     }
 
-    public newsAdapter(Context context, ArrayList<newsModel> newses) {
-        this.context = context;
-        this.newses = newses;
-    }
-
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
@@ -53,15 +55,21 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Picasso.get().load(newses.get(position).getNews_image()).into(holder.imageView);
-        String desc = newses.get(position).getDescription();
-        holder.title.setText(newses.get(position).getNews_title());
-        holder.date.setText(newses.get(position).getPost_date());
+        //Picasso.get().load("http://192.168.33.211/trader/images/" +newsList.get(position).getNews_image()).into(holder.imageView);
+        String desc = newsList.get(position).getDescription();
+        holder.title.setText(newsList.get(position).getNews_title());
+        holder.date.setText(newsList.get(position).getPost_date());
+        Glide.with(holder.imageView.getContext()).load("http://192.168.33.211/trader/images/" + newsList.get(position).getNews_image()).into(holder.imageView);
 
-        Log.e(TAG, "onBindViewHolder: image " + newses.get(position).getNews_image() );
-        Log.e(TAG, "onBindViewHolder: title " + newses.get(position).getNews_title() );
-        Log.e(TAG, "onBindViewHolder: desc " + newses.get(position).getDescription() );
-        Log.e(TAG, "onBindViewHolder: date" + newses.get(position).getPost_date() );
+        Log.e(TAG, "onBindViewHolder: image " + newsList.get(position).getNews_image() );
+        Log.e(TAG, "onBindViewHolder: title " + newsList.get(position).getNews_title() );
+        Log.e(TAG, "onBindViewHolder: desc " + newsList.get(position).getDescription() );
+        Log.e(TAG, "onBindViewHolder: date" + newsList.get(position).getPost_date() );
+
+        String image = newsList.get(position).getNews_image();
+        String title = newsList.get(position).getNews_title();
+        String message = newsList.get(position).getDescription();
+        String date = newsList.get(position).getPost_date();
 
 //        holder.share.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -81,6 +89,10 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), NewsExtendActivity.class);
+                i.putExtra("image", image);
+                i.putExtra("title", title);
+                i.putExtra("message", message);
+                i.putExtra("date", date);
                 context.startActivity(i);
                 Toast.makeText(context.getApplicationContext(), "position :" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
             }
@@ -91,7 +103,7 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return newses.size();
+        return newsList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

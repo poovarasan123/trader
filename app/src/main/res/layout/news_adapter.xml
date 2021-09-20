@@ -9,7 +9,7 @@
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="3dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
                         android:id="@+id/news_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/a"/>
+                        android:scaleType="centerCrop"/>
 
                 </androidx.cardview.widget.CardView>
 
@@ -64,8 +64,8 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/open_sans_semibold"
                         android:maxLines="2"
-                        android:textColor="@color/black"
                         android:text="this line for headings"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
