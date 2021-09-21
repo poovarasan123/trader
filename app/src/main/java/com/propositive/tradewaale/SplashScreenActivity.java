@@ -1,6 +1,5 @@
 package com.propositive.tradewaale;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -46,7 +45,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     BottomSheetDialog loginSheet;
     ProgressBar progressBar;
     EditText uMail, uPassword;
-    String HttpURL = "https://192.168.33.211/traderh/session_login/user_Auth.php";
+    final String HttpURL = "https://192.168.33.211/traderh/session_login/user_Auth.php";
     String LOGIN_URL = "http://192.168.33.211/trader/api/Auth_login.php";
 
     @Override

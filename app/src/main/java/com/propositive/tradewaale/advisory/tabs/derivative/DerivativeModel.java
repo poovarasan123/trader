@@ -3,7 +3,11 @@ package com.propositive.tradewaale.advisory.tabs.derivative;
 public class DerivativeModel {
 
     String name, rate_status, stock_status, tc_price_txt, ap_return_txt;
-    float stock_loss, reco_price, target_value_start, target_value_end, ap_return;
+    float stock_loss;
+    float reco_price;
+    float target_value_start;
+    final float target_value_end;
+    float ap_return;
     String terms,post_date,post_time;
 
     public DerivativeModel(String name, String rate_status, String stock_status, String tc_price_txt, String ap_return_txt, float stock_loss, float reco_price, float target_value_start, float target_value_end, float ap_return, String terms, String post_date, String post_time) {

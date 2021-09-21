@@ -14,8 +14,8 @@ public class AdvisoryTabAdapter extends FragmentPagerAdapter {
     private static final String TAG = "adivisory tab adapter";
     int tabs;
 
-    private List<Fragment> listFragment = new ArrayList<>();
-    private List<String> listFragmentName = new ArrayList<>();
+    private final List<Fragment> listFragment = new ArrayList<>();
+    private final List<String> listFragmentName = new ArrayList<>();
 
     public AdvisoryTabAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);

@@ -16,15 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.propositive.tradewaale.R;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
 
     Context context;
-    List<newsModel> newsList;
+    final List<newsModel> newsList;
 
     private newsAdapter.ItemClickListener itemClickListener;
 
@@ -49,7 +47,7 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_adapter, parent, false);
         context = parent.getContext();
-        return new ViewHolder(v,itemClickListener);
+        return new ViewHolder(v, itemClickListener);
     }
 
     @Override
@@ -106,10 +104,11 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
         return newsList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;    //, share, bookmark;
-        TextView title, date;
-        CardView layout;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        final ImageView imageView;    //, share, bookmark;
+        final TextView title;
+        final TextView date;
+        final CardView layout;
 
         public ViewHolder(@NonNull View itemView, final ItemClickListener listener) {
             super(itemView);

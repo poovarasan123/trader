@@ -47,11 +47,13 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.equity_adapter, parent, false);
         context = parent.getContext();
 
-        return new ViewHolder(view,itemClickListener);
+        return new ViewHolder(view, itemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int pos) {
+
+         int position = pos;
 
         //TODO: buy and sell color
         if (data.get(position).getRate_status().equals("buy")){
@@ -150,11 +152,20 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        View tagStatus, rootView;
-        TextView name_ltd, bsStatus, opStatus, reco_price, tcTxt, tcValue, apTxt, apValue, term;
-        CardView card;
+        final View tagStatus;
+        final View rootView;
+        final TextView name_ltd;
+        final TextView bsStatus;
+        final TextView opStatus;
+        final TextView reco_price;
+        final TextView tcTxt;
+        final TextView tcValue;
+        final TextView apTxt;
+        final TextView apValue;
+        final TextView term;
+        final CardView card;
 
         public ViewHolder(@NonNull View itemView, final  ItemClickListener listener) {
             super(itemView);

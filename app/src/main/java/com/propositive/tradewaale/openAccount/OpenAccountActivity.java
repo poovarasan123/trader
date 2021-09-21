@@ -13,9 +13,9 @@ public class OpenAccountActivity extends AppCompatActivity {
 
     Button btn1, btn2;
 
-    String url1 = "https://www.accountopeningaliceblue.com/CBT84";
+    final String url1 = "https://www.accountopeningaliceblue.com/CBT84";
 
-    String url2 = "http://kyc.profitmart.info:8004/onboard.aspx?branch=3351&RM=6CvuwvGP1KjtWnvPULiPyg%3D%3D%0A";
+    final String url2 = "http://kyc.profitmart.info:8004/onboard.aspx?branch=3351&RM=6CvuwvGP1KjtWnvPULiPyg%3D%3D%0A";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

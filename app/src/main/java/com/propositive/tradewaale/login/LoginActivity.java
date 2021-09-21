@@ -3,41 +3,20 @@ package com.propositive.tradewaale.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.propositive.tradewaale.FCMnotification.Constants;
-import com.propositive.tradewaale.FCMnotification.FcmVolley;
-import com.propositive.tradewaale.MainActivity;
 import com.propositive.tradewaale.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 

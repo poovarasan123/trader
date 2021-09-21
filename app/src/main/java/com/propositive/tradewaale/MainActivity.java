@@ -40,7 +40,6 @@ import com.propositive.tradewaale.FCMnotification.FcmVolley;
 import com.propositive.tradewaale.advisory.bottomAdvisoryFragment;
 import com.propositive.tradewaale.home.bottomHomeFragment;
 import com.propositive.tradewaale.livefeed.bottomLiveFeedFragment;
-import com.propositive.tradewaale.login.LoginActivity;
 import com.propositive.tradewaale.market.bottomMarketFragment;
 import com.propositive.tradewaale.openAccount.OpenAccountActivity;
 import com.propositive.tradewaale.privacypolicy.PrivacyPolicyActivity;
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-    private int STORAGE_PERMISSION_CODE = 23;
+    private final int STORAGE_PERMISSION_CODE = 23;
 
 //
 //    @Override

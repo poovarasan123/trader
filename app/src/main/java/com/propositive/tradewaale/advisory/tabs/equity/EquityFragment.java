@@ -228,7 +228,7 @@ public class EquityFragment extends Fragment {
 
         call.enqueue(new Callback<List<EquityModel>>() {
             @Override
-            public void onResponse(Call<List<EquityModel>> call, Response<List<EquityModel>> response) {
+            public void onResponse(@NonNull Call<List<EquityModel>> call, @NonNull Response<List<EquityModel>> response) {
 
                 data = response.body();
 

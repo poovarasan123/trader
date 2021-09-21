@@ -47,11 +47,13 @@ public class DerivativeAdapter extends RecyclerView.Adapter<DerivativeAdapter.Vi
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.derivative_adapter, parent, false);
         context = parent.getContext();
 
-        return new ViewHolder(view,itemClickListener);
+        return new ViewHolder(view, itemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int pos) {
+
+        int position = pos;
 
         //TODO: buy and sell color
         if (data.get(position).getRate_status().equals("buy")){
@@ -139,11 +141,18 @@ public class DerivativeAdapter extends RecyclerView.Adapter<DerivativeAdapter.Vi
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        View tagStatus, rootView;
-        TextView name_ltd, bsStatus, opStatus, reco_price, tergetStart, targetEnd, stockloss;
-        CardView card;
+        final View tagStatus;
+        final View rootView;
+        final TextView name_ltd;
+        final TextView bsStatus;
+        final TextView opStatus;
+        final TextView reco_price;
+        final TextView tergetStart;
+        final TextView targetEnd;
+        final TextView stockloss;
+        final CardView card;
 
         public ViewHolder(@NonNull View itemView, final  ItemClickListener listener) {
             super(itemView);

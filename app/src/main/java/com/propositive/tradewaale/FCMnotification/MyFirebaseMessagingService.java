@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.propositive.tradewaale.MainActivity;
 import com.propositive.tradewaale.login.LoginActivity;
 
 import org.json.JSONException;

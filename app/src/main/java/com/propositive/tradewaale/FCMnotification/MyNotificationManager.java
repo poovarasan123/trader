@@ -5,17 +5,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.Html;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.propositive.tradewaale.R;
 
@@ -31,7 +27,7 @@ public class MyNotificationManager {
     public static final int ID_SMALL_NOTIFICATION = 235;
     private static final String CHANNEL_ID = "258";
 
-    private Context mCtx;
+    private final Context mCtx;
 
     public MyNotificationManager(Context mCtx) {
         this.mCtx = mCtx;

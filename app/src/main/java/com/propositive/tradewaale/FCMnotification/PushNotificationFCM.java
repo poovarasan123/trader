@@ -1,18 +1,11 @@
 package com.propositive.tradewaale.FCMnotification;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.media.Image;
 import android.net.Uri;
-import android.text.Html;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -28,15 +21,9 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.propositive.tradewaale.R;
 import com.propositive.tradewaale.SplashScreenActivity;
-import com.propositive.tradewaale.login.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class PushNotificationFCM extends FirebaseMessagingService {
 

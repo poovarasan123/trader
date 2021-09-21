@@ -1,6 +1,5 @@
 package com.propositive.tradewaale.advisory.tabs.derivative;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -256,7 +255,7 @@ public class DerivativeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<DerivativeModel>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<DerivativeModel>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "error" + t.toString(), Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "onFailure: " + t.toString());

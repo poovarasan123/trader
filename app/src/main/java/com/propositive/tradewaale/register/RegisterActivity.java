@@ -2,31 +2,23 @@ package com.propositive.tradewaale.register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import com.propositive.tradewaale.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    String URL = "http://propositive.in/register";
+    final String URL = "http://propositive.in/register";
 
     WebView webView;
 
     Activity activity;
     private ProgressDialog progDailog;
-    private String TAG = "registerActivity";
+    private final String TAG = "registerActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
