@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,6 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.propositive.tradewaale.FCMnotification.MySingleton;
+import com.propositive.tradewaale.connection.NetworkChangeListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,6 +51,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     EditText uMail, uPassword;
     final String HttpURL = "https://192.168.33.211/traderh/session_login/user_Auth.php";
     String LOGIN_URL = "http://192.168.33.211/trader/api/Auth_login.php";
+
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,10 +121,10 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 String mail = uMail.getText().toString();
                                 String password = uPassword.getText().toString();
 
-                                //FunLogin(mail, password);
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                FunLogin(mail, password);
+                                //startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 loginSheet.dismiss();
-                                finish();
+                                //finish();
 
                             }
                         });
@@ -132,7 +138,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://propositive.in/register"));
                         startActivity(browserIntent);
-                        //startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
                     }
                 });
 
@@ -147,30 +152,28 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                 Log.e(TAG, "onResponse: response -> " + response);
 
-                try{
+                try {
                     Log.e(TAG, "onResponse: response -> " + response);
                     JSONArray jsonArray = new JSONArray(response);
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
                     String code = jsonObject.getString("request_code");
 
                     Log.d(TAG, "onResponse: response_code ---> " + code);
-                }catch(Exception e){
+                } catch (Exception e) {
                     Log.d(TAG, "onResponse: error from tc ---> " + e.getMessage());
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG, "onResponse: error ---> " + error.getMessage());
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("mail",mail);
-                params.put("password",password);
+                params.put("mail", mail);
+                params.put("password", password);
                 return params;
             }
         };
@@ -180,5 +183,18 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void clearField() {
         uMail.setText("");
         uPassword.setText("");
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

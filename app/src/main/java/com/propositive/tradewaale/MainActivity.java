@@ -4,7 +4,9 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +40,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.propositive.tradewaale.FCMnotification.Constants;
 import com.propositive.tradewaale.FCMnotification.FcmVolley;
 import com.propositive.tradewaale.advisory.bottomAdvisoryFragment;
+import com.propositive.tradewaale.connection.NetworkChangeListener;
 import com.propositive.tradewaale.home.bottomHomeFragment;
 import com.propositive.tradewaale.livefeed.bottomLiveFeedFragment;
 import com.propositive.tradewaale.market.bottomMarketFragment;
@@ -82,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
 
     private final int STORAGE_PERMISSION_CODE = 23;
+
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
 //
 //    @Override
@@ -396,5 +401,18 @@ public class MainActivity extends AppCompatActivity {
 
         });
         return token;
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

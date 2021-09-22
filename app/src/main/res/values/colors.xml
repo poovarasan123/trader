@@ -23,5 +23,10 @@
     <color name="notif_color">#005BBD</color>
     <color name="dark_blue_color">#002558</color>
 
+    <color name="inter_color1">#554911</color>
+    <color name="inter_color2">#eee3ab</color>
+    <color name="inter_color3">#665815</color>
+
+
 
 </resources>

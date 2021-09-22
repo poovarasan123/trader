@@ -13,7 +13,7 @@ public class MySingleton {
     private RequestQueue requestQueue;
 
     private MySingleton(Context context){
-        this.context = context;
+        MySingleton.context = context;
         requestQueue = getRequestQueue();
     }
 

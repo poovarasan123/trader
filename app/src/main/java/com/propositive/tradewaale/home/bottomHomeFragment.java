@@ -47,19 +47,6 @@ public class bottomHomeFragment extends Fragment {
 
         swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
 
-        //newsList.clear();
-
-//        newsList.add(new newsModel(R.drawable.a, "WFI suspends Vinesh Phogat for indiscipline, notice issued to Sonam Malik for misconduct", "NOV 05, 1999"));
-//        newsList.add(new newsModel(R.drawable.b, "Number of billionaires in India dropped from 141 in FY20 to 136 in FY21: FM Nirmala Sitharaman in Rajya Sabha", "DEC 15, 2000"));
-//        newsList.add(new newsModel(R.drawable.c, "SC fines 9 political parties for failure to publish candidates' criminal background", "JAN 25, 2001"));
-//        newsList.add(new newsModel(R.drawable.d, "Confirmed! Messi to move to PSG on two-year deal", "FEB 02, 2002"));
-//        newsList.add(new newsModel(R.drawable.e, "CoinDCX Becomes India’s First Crypto Unicorn, Raises $90 Million Led By B Capital", "MAR 04, 2003"));
-//        newsList.add(new newsModel(R.drawable.f, "QR Code-Based Passes To Be Issued For Fully Vaccinated Citizens At 65 Railway Stations: Mumbai Mayor", "APR 08, 2004"));
-//        newsList.add(new newsModel(R.drawable.g, "Part Of Our World: Mermaids Mingle At US Convention", "MAY 12, 2005"));
-//        newsList.add(new newsModel(R.drawable.h, "Brookfield India REIT Q1 operating income up 4pc to Rs 170cr, to distribute Rs 182cr to unitholders", "JUN 24, 2006"));
-//        newsList.add(new newsModel(R.drawable.i, "Swiggy launches 15-30 minute grocery deliveries, expands Instamart to 5 more cities in India", "JUY 18, 2007"));
-//        newsList.add(new newsModel(R.drawable.j, "IRB Infra reports Q1 net profit at Rs 71.91 crore", "AUG 14, 2008"));
-
         newsList();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

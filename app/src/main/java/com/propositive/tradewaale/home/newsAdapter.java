@@ -59,10 +59,10 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
         holder.date.setText(newsList.get(position).getPost_date());
         Glide.with(holder.imageView.getContext()).load("http://192.168.33.211/trader/images/" + newsList.get(position).getNews_image()).into(holder.imageView);
 
-        Log.e(TAG, "onBindViewHolder: image " + newsList.get(position).getNews_image() );
-        Log.e(TAG, "onBindViewHolder: title " + newsList.get(position).getNews_title() );
-        Log.e(TAG, "onBindViewHolder: desc " + newsList.get(position).getDescription() );
-        Log.e(TAG, "onBindViewHolder: date" + newsList.get(position).getPost_date() );
+//        Log.e(TAG, "onBindViewHolder: image " + newsList.get(position).getNews_image() );
+//        Log.e(TAG, "onBindViewHolder: title " + newsList.get(position).getNews_title() );
+//        Log.e(TAG, "onBindViewHolder: desc " + newsList.get(position).getDescription() );
+//        Log.e(TAG, "onBindViewHolder: date" + newsList.get(position).getPost_date() );
 
         String image = newsList.get(position).getNews_image();
         String title = newsList.get(position).getNews_title();
