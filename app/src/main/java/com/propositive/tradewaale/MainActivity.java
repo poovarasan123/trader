@@ -39,6 +39,7 @@ import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.propositive.tradewaale.FCMnotification.Constants;
 import com.propositive.tradewaale.FCMnotification.FcmVolley;
+import com.propositive.tradewaale.FCMnotification.MySingleton;
 import com.propositive.tradewaale.advisory.bottomAdvisoryFragment;
 import com.propositive.tradewaale.connection.NetworkChangeListener;
 import com.propositive.tradewaale.home.bottomHomeFragment;
@@ -61,13 +62,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
+    final String LogClear = "http://192.168.45.211/trader/session_login/Logout.php";
+
     Context context;
 
     private BottomSheetDialog moreMenuSheet;
     private BottomSheetDialog supportSheet;
 
     BottomNavigationView bottomNavView;
-
 
     CircleImageView circleImageView, setPic;
 
@@ -88,18 +90,15 @@ public class MainActivity extends AppCompatActivity {
 
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
-//
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        registerToken();
-//    }
+    String UserMail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences shared = getSharedPreferences("Log_cred", MODE_PRIVATE);
+        UserMail = (shared.getString("mail", ""));
 
         FirebaseApp.initializeApp(this);
 
@@ -157,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (bottomNavView.getSelectedItemId() == R.id.bottomHomeFragment){
             super.onBackPressed();
+            UpdateSession(UserMail);
             finish();
         }else{
             bottomNavView.setSelectedItemId(R.id.bottomHomeFragment);
@@ -273,6 +273,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 moreMenuSheet.dismiss();
+                SharedPreferences sharedpreferences = getSharedPreferences("Log_cred", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.clear();
+                editor.apply();
+                UpdateSession(UserMail);
                 startActivity(new Intent(MainActivity.this, SplashScreenActivity.class));
                 finish();
             }
@@ -281,7 +286,6 @@ public class MainActivity extends AppCompatActivity {
         moreMenuSheet.setContentView(loginSheetView);
         moreMenuSheet.show();
     }
-
 
     private void SupportSheet() {
         supportSheet = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialogTheme);
@@ -335,8 +339,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
 
     public void registerToken(String token) {
         progressDialog = new ProgressDialog(this);
@@ -415,4 +417,31 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(networkChangeListener);
         super.onStop();
     }
+
+    //TODO: Session Management
+    private void UpdateSession(String userMail) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, LogClear, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //Toast.makeText(getApplicationContext(), "clear successfull "+ response, Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onResponse: clear response" + response );
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), "clear faild "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onResponse: clear response error" + error.getMessage() );
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", userMail);
+                return params;
+            }
+        };
+        MySingleton.getMySingleton(MainActivity.this).addToRequestQue(stringRequest);
+    }
+
+
 }

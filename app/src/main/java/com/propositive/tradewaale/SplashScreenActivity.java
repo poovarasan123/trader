@@ -3,8 +3,10 @@ package com.propositive.tradewaale;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.propositive.tradewaale.FCMnotification.MySingleton;
+import com.propositive.tradewaale.FCMnotification.SharedPreference;
 import com.propositive.tradewaale.connection.NetworkChangeListener;
 
 import org.json.JSONArray;
@@ -49,10 +52,11 @@ public class SplashScreenActivity extends AppCompatActivity {
     BottomSheetDialog loginSheet;
     ProgressBar progressBar;
     EditText uMail, uPassword;
-    final String HttpURL = "https://192.168.33.211/traderh/session_login/user_Auth.php";
-    String LOGIN_URL = "http://192.168.33.211/trader/api/Auth_login.php";
+    final String HttpURL = "http://192.168.45.211/trader/session_login/user_Auth.php";
 
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,16 +91,10 @@ public class SplashScreenActivity extends AppCompatActivity {
                         View loginSheetView = LayoutInflater.from(getApplicationContext())
                                 .inflate(R.layout.login_sheet, findViewById(R.id.loginBottomSheet));
 
-                        TextView forgotpass = loginSheetView.findViewById(R.id.forgottxt);
-                        //forgotpass.setVisibility(View.INVISIBLE);
-                        //forgotpass.setClickable(false);
-
                         progressBar = loginSheetView.findViewById(R.id.progressBar);
                         //progressBar.setVisibility(View.INVISIBLE);
 
                         forgot = loginSheetView.findViewById(R.id.forgottxt);
-                        //forgot.setVisibility(View.INVISIBLE);
-                        //forgot.setClickable(false);
 
                         gotoMain = loginSheetView.findViewById(R.id.loginbtn);
                         uMail = loginSheetView.findViewById(R.id.username);
@@ -122,9 +120,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 String password = uPassword.getText().toString();
 
                                 FunLogin(mail, password);
-                                //startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 loginSheet.dismiss();
-                                //finish();
 
                             }
                         });
@@ -152,15 +148,22 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                 Log.e(TAG, "onResponse: response -> " + response);
 
-                try {
-                    Log.e(TAG, "onResponse: response -> " + response);
-                    JSONArray jsonArray = new JSONArray(response);
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    String code = jsonObject.getString("request_code");
+                Log.e(TAG, "onResponse: username--->" + mail );
+                Log.e(TAG, "onResponse: password--->" + password );
 
-                    Log.d(TAG, "onResponse: response_code ---> " + code);
-                } catch (Exception e) {
-                    Log.d(TAG, "onResponse: error from tc ---> " + e.getMessage());
+                if (response.equals("record found")){
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                    StoreCred(mail,password);
+                    //clearField();
+                }
+
+                if (response.equals("User already active")){
+                    Toast.makeText(getApplicationContext(), "User already active!...", Toast.LENGTH_SHORT).show();
+                }
+
+                if (response.equals("no record found")){
+                    Toast.makeText(getApplicationContext(), "Enter valid mail ID and password!...", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -172,12 +175,20 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("mail", mail);
+                params.put("email", mail);
                 params.put("password", password);
                 return params;
             }
         };
         MySingleton.getMySingleton(SplashScreenActivity.this).addToRequestQue(stringRequest);
+    }
+
+    private void StoreCred(String mail, String password) {
+        SharedPreferences sharedPreference = getSharedPreferences("Log_cred", context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreference.edit();
+        editor.putString("mail",mail);
+        editor.putString("pass",password);
+        editor.commit();
     }
 
     private void clearField() {
@@ -190,11 +201,27 @@ public class SplashScreenActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeListener, filter);
         super.onStart();
+
+        checkCred();
+
     }
 
     @Override
     protected void onStop() {
         unregisterReceiver(networkChangeListener);
         super.onStop();
+    }
+
+    private void checkCred() {
+        SharedPreferences shared = getSharedPreferences("Log_cred", MODE_PRIVATE);
+        String UserMail = (shared.getString("mail", ""));
+        String UserPass = (shared.getString("pass", ""));
+
+        Log.e(TAG, "checkCred: share_user" + UserMail );
+        Log.e(TAG, "checkCred: share_pass" + UserPass );
+
+        if (!UserMail.isEmpty() && !UserPass.isEmpty()){
+            FunLogin(UserMail, UserPass);
+        }
     }
 }
