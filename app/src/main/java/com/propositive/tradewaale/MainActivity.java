@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     CircleImageView circleImageView, setPic;
 
-    LinearLayout theme, openDematAccpunt, privacypolicy, termsOfuse, support, share, logout;
+    LinearLayout theme, profile_menu, openDematAccpunt, privacypolicy, termsOfuse, support, share, logout, menusback;
 
     MaterialAlertDialogBuilder dialogBuilder;
 
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
         //theme = loginSheetView.findViewById(R.id.theme_menu);
 
-
+        profile_menu = loginSheetView.findViewById(R.id.profile_menu);
         openDematAccpunt = loginSheetView.findViewById(R.id.open_account_menu);
         privacypolicy = loginSheetView.findViewById(R.id.privacy_menu);
         termsOfuse = loginSheetView.findViewById(R.id.term_menu);
@@ -315,18 +315,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-                profUri = result.getUri();
-
-                //TODO: save image
-//                profUri = data.getData();
-
-//                this.grantUriPermission(this.getPackageName(), profUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                final int takeflag = Intent.FLAG_GRANT_READ_URI_PERMISSION;
-//                this.getContentResolver().takePersistableUriPermission(profUri, takeflag);
-
-//                SharedPreferences sharedImage = getSharedPreferences("image", MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedImage.edit();
-//                editor.putString("image", String.valueOf(profUri));
+                profUri = CropImage.getPickImageResultUri(this, data);
 
                 circleImageView.setImageURI(profUri);
 

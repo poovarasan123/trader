@@ -2,7 +2,7 @@ package com.propositive.tradewaale.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.propositive.tradewaale.R;
 
 import java.util.List;
@@ -57,24 +58,26 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
         String desc = newsList.get(position).getDescription();
         holder.title.setText(newsList.get(position).getNews_title());
         holder.date.setText(newsList.get(position).getPost_date());
-        Glide.with(holder.imageView.getContext()).load("http://192.168.33.211/trader/images/" + newsList.get(position).getNews_image()).into(holder.imageView);
+        holder.marKet.setText(newsList.get(position).getMarket());
+        //Glide.with(holder.marKet.getContext()).load("http://192.168.33.211/trader/images/" + newsList.get(position).getMarket()).into(holder.imageView);
 
 //        Log.e(TAG, "onBindViewHolder: image " + newsList.get(position).getNews_image() );
 //        Log.e(TAG, "onBindViewHolder: title " + newsList.get(position).getNews_title() );
 //        Log.e(TAG, "onBindViewHolder: desc " + newsList.get(position).getDescription() );
 //        Log.e(TAG, "onBindViewHolder: date" + newsList.get(position).getPost_date() );
 
-        String image = newsList.get(position).getNews_image();
+        String image = newsList.get(position).getMarket();
         String title = newsList.get(position).getNews_title();
         String message = newsList.get(position).getDescription();
         String date = newsList.get(position).getPost_date();
 
-//        holder.share.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Snackbar.make(v,"share under construction!", Snackbar.LENGTH_SHORT).show();
-//            }
-//        });
+        holder.share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Snackbar.make(v,"share under construction!", Snackbar.LENGTH_SHORT).show();
+                Toast.makeText(context.getApplicationContext(), "share under construction!...", Toast.LENGTH_SHORT).show();
+            }
+        });
 //
 //        holder.bookmark.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -105,7 +108,8 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final ImageView imageView;    //, share, bookmark;
+        final ImageView share;
+        final TextView marKet;
         final TextView title;
         final TextView date;
         final CardView layout;
@@ -113,11 +117,11 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView, final ItemClickListener listener) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.news_image);
+            marKet = itemView.findViewById(R.id.market);
             title = itemView.findViewById(R.id.text_title);
             date = itemView.findViewById(R.id.text_date);
 
-//            share = itemView.findViewById(R.id.share_link);
+            share = itemView.findViewById(R.id.share_link);
 //            bookmark = itemView.findViewById(R.id.bookmark_news);
 
             layout = itemView.findViewById(R.id.linear);

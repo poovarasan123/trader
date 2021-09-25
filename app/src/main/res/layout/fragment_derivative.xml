@@ -21,8 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:background="@drawable/search_stroke"
             android:drawableEnd="@drawable/ic_search"
@@ -33,12 +34,14 @@
 
         <ImageView
             android:id="@+id/filter"
-            android:layout_weight="9"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-            android:src="@drawable/ic_filter_list"/>
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:layout_weight="9"
+            android:src="@drawable/ic_more_vert" />
 
     </LinearLayout>
 
@@ -47,7 +50,7 @@
         android:id="@+id/hscroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:scrollbars="horizontal"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -132,39 +135,6 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <LinearLayout
-        android:id="@+id/refresh_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hscroll">
-
-        <View
-            android:layout_width="110dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="9dp"
-            android:background="@android:color/darker_gray" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="Pull down to refresh" />
-
-        <View
-            android:layout_width="110dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="15dp"
-            android:background="@android:color/darker_gray" />
-
-    </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
@@ -173,7 +143,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/refresh_text">
+        app:layout_constraintTop_toBottomOf="@+id/hscroll">
 
         <RelativeLayout
             android:layout_width="match_parent"

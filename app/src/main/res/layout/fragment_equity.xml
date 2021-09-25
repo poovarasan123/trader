@@ -16,15 +16,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-
         <EditText
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:background="@drawable/search_stroke"
@@ -37,11 +35,12 @@
         <ImageView
             android:id="@+id/filter"
             android:layout_weight="9"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:src="@drawable/ic_filter_list"/>
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/ic_more_vert"/>
 
     </LinearLayout>
 
@@ -70,6 +69,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
+                android:theme="@style/ButtonStyle"
                 android:divider="@drawable/devider_space"
                 android:showDividers="middle"
                 app:singleSelection="true">

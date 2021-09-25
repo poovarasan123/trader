@@ -17,6 +17,7 @@
     <color name="red">#FF0000</color>
     <color name="orange">#FFA000</color>
     <color name="gray">#808080</color>
+    <color name="gray_light">#C8C8C8</color>
     <color name="blue">#0060c3</color>
 
     //dark theme colors
@@ -26,6 +27,9 @@
     <color name="inter_color1">#554911</color>
     <color name="inter_color2">#eee3ab</color>
     <color name="inter_color3">#665815</color>
+
+
+    <color name="lightRed">#33C42B1E</color>
 
 
 

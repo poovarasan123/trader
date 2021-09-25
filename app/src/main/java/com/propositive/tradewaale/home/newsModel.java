@@ -2,24 +2,23 @@ package com.propositive.tradewaale.home;
 
 public class newsModel {
 
-    String news_image;
-    String news_title, post_date, description;
+    String market, news_title, post_date, description;
 
     public newsModel(){}
 
-    public newsModel(String news_image, String news_title, String post_date, String description) {
-        this.news_image = news_image;
+    public newsModel(String market, String news_title, String post_date, String description) {
+        this.market = market;
         this.news_title = news_title;
         this.post_date = post_date;
         this.description = description;
     }
 
-    public String getNews_image() {
-        return news_image;
+    public String getMarket() {
+        return market;
     }
 
-    public void setNews_image(String news_image) {
-        this.news_image = news_image;
+    public void setMarket(String market) {
+        this.market = market;
     }
 
     public String getNews_title() {

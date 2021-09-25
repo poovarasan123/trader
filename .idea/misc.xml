@@ -15,6 +15,7 @@
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/entry_sheet_back.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/equity_button_stroke.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/gradient_back.xml" value="0.2203125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/ic_account.xml" value="0.2203125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/ic_account_balance_wallet.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/ic_assignment.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/ic_circle.xml" value="0.2703125" />
@@ -85,7 +86,7 @@
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/news_adapter.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/no_connection.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/otp_verify_layout.xml" value="0.4" />
-        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/set_profile_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/set_profile_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/support_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/theme_switch.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/theme_swith.xml" value="0.25416666666666665" />
