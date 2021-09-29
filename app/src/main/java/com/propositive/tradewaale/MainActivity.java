@@ -47,6 +47,7 @@ import com.propositive.tradewaale.livefeed.bottomLiveFeedFragment;
 import com.propositive.tradewaale.market.bottomMarketFragment;
 import com.propositive.tradewaale.openAccount.OpenAccountActivity;
 import com.propositive.tradewaale.privacypolicy.PrivacyPolicyActivity;
+import com.propositive.tradewaale.profile.ProfileActivity;
 import com.propositive.tradewaale.termOfuse.TermofUseActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -62,7 +63,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    final String LogClear = "http://192.168.45.211/trader/session_login/Logout.php";
+    final String LogClear = "http://192.168.90.211/trader/session_login/Logout.php";
 
     Context context;
 
@@ -225,6 +226,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
          **/
+
+        profile_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                moreMenuSheet.dismiss();
+            }
+        });
 
         openDematAccpunt.setOnClickListener(new View.OnClickListener() {
             @Override
