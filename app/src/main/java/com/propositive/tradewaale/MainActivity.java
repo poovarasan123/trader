@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private static final String TAG = "Main Activity";
 
-    private Uri profUri;
-
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -195,12 +193,7 @@ public class MainActivity extends AppCompatActivity {
         share = loginSheetView.findViewById(R.id.share_menu);
         logout = loginSheetView.findViewById(R.id.logout_menu);
 
-        circleImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startCrop();
-            }
-        });
+
 
         //theme switching
         /**
@@ -311,31 +304,6 @@ public class MainActivity extends AppCompatActivity {
 
         supportSheet.setContentView(supportSheetView);
         supportSheet.show();
-    }
-
-    private void startCrop() {
-        CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(this);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                profUri = CropImage.getPickImageResultUri(this, data);
-
-                circleImageView.setImageURI(profUri);
-
-                Log.d("mainActivity", "onActivityResult: image : --> " + profUri);
-                //circleImageView.invalidate();
-
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
-                Exception error = result.getError();
-                Toast.makeText(getApplicationContext(), "" + error, Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     public void registerToken(String token) {

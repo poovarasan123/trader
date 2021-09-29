@@ -37,7 +37,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
@@ -64,18 +64,21 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
 
     //cropper library
-    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
     //easy permission
     implementation 'pub.devrel:easypermissions:3.0.0'
 
     //in app review
-    implementation 'com.google.android.play:core:1.10.1'
+    implementation 'com.google.android.play:core:1.10.2'
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     //glide library for image loading
     implementation 'com.github.bumptech.glide:glide:4.12.0'
+
+    //fast networking library
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
 
 }
