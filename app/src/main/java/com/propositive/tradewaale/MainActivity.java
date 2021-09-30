@@ -63,7 +63,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    final String LogClear = "http://192.168.90.211/trader/session_login/Logout.php";
+    final String LogClear = "http://192.168.29.40/trader/session_login/Logout.php";
 
     Context context;
 

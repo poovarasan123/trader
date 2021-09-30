@@ -81,4 +81,7 @@ dependencies {
     //fast networking library
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
 
+    //run time permission
+    implementation 'com.karumi:dexter:6.2.3'
+
 }

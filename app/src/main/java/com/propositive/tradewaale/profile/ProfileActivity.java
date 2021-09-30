@@ -1,11 +1,17 @@
 package com.propositive.tradewaale.profile;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,8 +34,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.StringRequestListener;
+import com.androidnetworking.interfaces.UploadProgressListener;
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.propositive.tradewaale.FCMnotification.MySingleton;
 import com.propositive.tradewaale.FCMnotification.SharedPreference;
 import com.propositive.tradewaale.R;
@@ -43,10 +59,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,8 +73,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "profile activity";
 
-    private static final String UPLOAD_URL = "http://192.168.90.211/trader/imageupload/upload_image.php";
-    private static final String PROFILE_URL ="http://192.168.90.211/trader/api/user_profile.php";
+    private static final String UPLOAD_URL = "http://192.168.29.40/trader/imageupload/upload_image.php";
+    private static final String PROFILE_URL ="http://192.168.29.40/trader/api/user_profile.php";
+    private static final String PROFILE_URL2 ="http://192.168.29.40/trader/imageupload/upload_profile.php";
 
     TextView musername, name, mob, umail, uplan, expire_at;
     LinearLayout exp;
@@ -73,12 +92,26 @@ public class ProfileActivity extends AppCompatActivity {
 
     FloatingActionButton fab;
 
+    private String[] permission;
+
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Log.d(TAG, "onCreate: date:--->" + getDate());
+        permission = new String[]{
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA
+        };
+
+        progressDialog = new ProgressDialog(ProfileActivity.this);
+        progressDialog.setMessage("Profile Updating!....");
+        progressDialog.setCancelable(false);
+        progressDialog.setMax(100);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
         musername = findViewById(R.id.username);
         name = findViewById(R.id.username2);
@@ -109,7 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 save = view.findViewById(R.id.save_btn);
 
-                Picasso.get().load("http://192.168.90.211/trader/imageupload/" +prof_pic).into(profile);
+                Picasso.get().load("http://192.168.29.40/trader/imageupload/" +prof_pic).into(profile);
                 dialogFirstname.setText(fname);
                 dialogLastname.setText(lname);
                 dialogMobile.setText(mobile);
@@ -117,6 +150,11 @@ public class ProfileActivity extends AppCompatActivity {
                 profile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        if (!hasPermissions(ProfileActivity.this, permission)){
+                            ActivityCompat.requestPermissions(ProfileActivity.this, permission, 1);
+
+                        }
                         startCrop();
                     }
                 });
@@ -124,7 +162,49 @@ public class ProfileActivity extends AppCompatActivity {
                 save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        UploadProfile(id, fname, lname);
+                        File file = new File(profUri.getPath());
+                        progressDialog.show();
+                        AndroidNetworking.upload(PROFILE_URL2)
+                                .addMultipartFile("profile", file)
+                                .addMultipartParameter("id", id)
+                                .setPriority(Priority.HIGH)
+                                .build()
+                                .setUploadProgressListener(new UploadProgressListener() {
+                                    @Override
+                                    public void onProgress(long bytesUploaded, long totalBytes) {
+                                        float progress = bytesUploaded / totalBytes * 100;
+                                        progressDialog.setProgress((int)progress);
+
+                                    }
+                                }).getAsString(new StringRequestListener() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    progressDialog.dismiss();
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    int status = jsonObject.getInt("status");
+                                    String message = jsonObject.getString("message");
+                                    if (status == 0 ){
+                                        Toast.makeText(getApplicationContext(), "Unable to upload image:" + message, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    progressDialog.dismiss();
+                                    e.printStackTrace();
+                                    Toast.makeText(getApplicationContext(), "Pasring error!...", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onError(ANError anError) {
+                                progressDialog.dismiss();
+                                anError.printStackTrace();
+                                Toast.makeText(getApplicationContext(), "Error Uploading Image!...", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        //UploadProfile(id, fname, lname);
                     }
                 });
 
@@ -183,14 +263,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private String imageToString(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-        byte[] imageBytes = outputStream.toByteArray();
-
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
-    }
-
     private void startCrop() {
         CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(this);
     }
@@ -203,16 +275,20 @@ public class ProfileActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
 
+                profUri = result.getUri();
+
+                /**
                 try{
                     profUri = result.getUri();
 
-                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), profUri);
+                    //bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), profUri);
 
                 }catch(Exception e){
                     Toast.makeText(getApplicationContext(), " " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 //profUri = CropImage.getPickImageResultUri(this, data);
-                profile.setImageBitmap(bitmap);
+                 **/
+                profile.setImageURI(profUri);
 
                 Log.d(TAG, "onActivityResult: image bitmap:--->" + bitmap);
 
@@ -222,6 +298,33 @@ public class ProfileActivity extends AppCompatActivity {
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
                 Exception error = result.getError();
                 Toast.makeText(getApplicationContext(), "" + error, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1){
+
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getApplicationContext(), "Read storage permissions granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Read storage permisions denied!...", Toast.LENGTH_SHORT).show();
+            }
+
+            if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getApplicationContext(), "Write storage permissions granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Write storage permisions denied!...", Toast.LENGTH_SHORT).show();
+            }
+
+            if (grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+
+                //Toast.makeText(getApplicationContext(), "Camera permissions granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Camera permisions denied!...", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -309,5 +412,17 @@ public class ProfileActivity extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    private boolean hasPermissions(Context context, String... permission){
+        if (context != null && permission != null){
+            for (String PERMISSION: permission){
+                if (ActivityCompat.checkSelfPermission(context, PERMISSION) != PackageManager.PERMISSION_GRANTED){
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }
