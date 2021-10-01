@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans"
                 android:text="Name"
+                android:singleLine="true"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -94,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
-            android:text="First Name"
+            android:text="Last Name"
             android:layout_marginStart="40dp"/>
 
         <LinearLayout
@@ -115,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans"
                 android:text="Last Name"
+                android:singleLine="true"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -157,6 +159,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans"
                 android:text="mobile number"
+                android:singleLine="true"
+                android:maxLength="10"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -168,10 +172,11 @@
 
     <Button
         android:id="@+id/save_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:background="@color/blue"
+        app:backgroundTint="@null"
+        android:background="@drawable/back_button"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="40dp"/>

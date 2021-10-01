@@ -73,9 +73,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "profile activity";
 
-    private static final String UPLOAD_URL = "http://192.168.29.40/trader/imageupload/upload_image.php";
-    private static final String PROFILE_URL ="http://192.168.29.40/trader/api/user_profile.php";
-    private static final String PROFILE_URL2 ="http://192.168.29.40/trader/imageupload/upload_profile.php";
+    private static final String UPLOAD_URL = "http://192.168.90.211/trader/imageupload/upload_profile.php";
+    private static final String PROFILE_URL ="http://192.168.90.211/trader/api/user_profile.php";
 
     TextView musername, name, mob, umail, uplan, expire_at;
     LinearLayout exp;
@@ -86,15 +85,19 @@ public class ProfileActivity extends AppCompatActivity {
     String id, prof_pic, fname, lname, mobile, maile, plan, exp_date;
 
     EditText dialogFirstname, dialogLastname, dialogMobile;
-    Button save;
 
-    Bitmap bitmap;
+    String dfname, dlname, dmobile;
+    Button save;
 
     FloatingActionButton fab;
 
     private String[] permission;
 
     private ProgressDialog progressDialog;
+
+    AlertDialog.Builder dialogBuilder;
+    View view;
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +133,8 @@ public class ProfileActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                androidx.appcompat.app.AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ProfileActivity.this);
-                View view = getLayoutInflater().inflate(R.layout.profile_dialog,null);
+                dialogBuilder = new AlertDialog.Builder(ProfileActivity.this);
+                view = getLayoutInflater().inflate(R.layout.profile_dialog,null);
                 dialogBuilder.setView(view);
 
                 profile = view.findViewById(R.id.dialog_profile_image);
@@ -142,7 +145,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 save = view.findViewById(R.id.save_btn);
 
-                Picasso.get().load("http://192.168.29.40/trader/imageupload/" +prof_pic).into(profile);
+                Picasso.get().load("http://192.168.90.211/trader/imageupload/" +prof_pic).into(profile);
                 dialogFirstname.setText(fname);
                 dialogLastname.setText(lname);
                 dialogMobile.setText(mobile);
@@ -162,53 +165,81 @@ public class ProfileActivity extends AppCompatActivity {
                 save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        File file = new File(profUri.getPath());
-                        progressDialog.show();
-                        AndroidNetworking.upload(PROFILE_URL2)
-                                .addMultipartFile("profile", file)
-                                .addMultipartParameter("id", id)
-                                .setPriority(Priority.HIGH)
-                                .build()
-                                .setUploadProgressListener(new UploadProgressListener() {
+
+                        dfname = dialogFirstname.getText().toString();
+                        dlname = dialogLastname.getText().toString();
+                        dmobile = dialogMobile.getText().toString();
+
+                        Log.d(TAG, "onClick: save fname after edit:---> " + dfname);
+                        Log.d(TAG, "onClick: save lname after edit:---> " + dlname);
+                        Log.d(TAG, "onClick: save mob after edit:---> " + dmobile);
+
+                        if (!dfname.isEmpty() && !dlname.isEmpty() && !dmobile.isEmpty()){
+                            if (profUri != null){
+                                File file = new File(profUri.getPath());
+                                progressDialog.show();
+                                AndroidNetworking.upload(UPLOAD_URL)
+                                        .addMultipartFile("profile", file)
+                                        .addMultipartParameter("id", id)
+                                        .addMultipartParameter("fname", dfname)
+                                        .addMultipartParameter("lname", dlname)
+                                        .addMultipartParameter("mob", String.valueOf(dmobile))
+                                        .addMultipartParameter("modified_date", getDate())
+                                        .setPriority(Priority.HIGH)
+                                        .build()
+                                        .setUploadProgressListener(new UploadProgressListener() {
+                                            @Override
+                                            public void onProgress(long bytesUploaded, long totalBytes) {
+                                                float progress = bytesUploaded / totalBytes * 100;
+                                                progressDialog.setProgress((int)progress);
+
+                                            }
+                                        }).getAsString(new StringRequestListener() {
                                     @Override
-                                    public void onProgress(long bytesUploaded, long totalBytes) {
-                                        float progress = bytesUploaded / totalBytes * 100;
-                                        progressDialog.setProgress((int)progress);
+                                    public void onResponse(String response) {
+                                        try {
+                                            Log.d(TAG, "onResponse: response from server: " + response);
+                                            progressDialog.dismiss();
+                                            JSONObject jsonObject = new JSONObject(response);
+                                            int status = jsonObject.getInt("status");
+                                            String message = jsonObject.getString("message");
+                                            if (status == 0 ){
+                                                Toast.makeText(getApplicationContext(), "Unable to upload image:" + message, Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                                                dialog.dismiss();
+                                                finish();
+
+                                            }
+                                        } catch (JSONException e) {
+                                            progressDialog.dismiss();
+                                            e.printStackTrace();
+                                            Toast.makeText(getApplicationContext(), "Pasring error!...", Toast.LENGTH_SHORT).show();
+                                            Log.d(TAG, "onResponse: error from response " + e.getMessage());
+                                        }
 
                                     }
-                                }).getAsString(new StringRequestListener() {
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-                                    progressDialog.dismiss();
-                                    JSONObject jsonObject = new JSONObject(response);
-                                    int status = jsonObject.getInt("status");
-                                    String message = jsonObject.getString("message");
-                                    if (status == 0 ){
-                                        Toast.makeText(getApplicationContext(), "Unable to upload image:" + message, Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+
+                                    @Override
+                                    public void onError(ANError anError) {
+                                        progressDialog.dismiss();
+                                        anError.printStackTrace();
+                                        Toast.makeText(getApplicationContext(), "Error Uploading Image!...", Toast.LENGTH_SHORT).show();
+                                        Log.d(TAG, "onError: error from image:---> " + anError);
                                     }
-                                } catch (JSONException e) {
-                                    progressDialog.dismiss();
-                                    e.printStackTrace();
-                                    Toast.makeText(getApplicationContext(), "Pasring error!...", Toast.LENGTH_SHORT).show();
-                                }
-
+                                });
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Profile modification not found!...", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
                             }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Profile details missing!...", Toast.LENGTH_SHORT).show();
+                        }
 
-                            @Override
-                            public void onError(ANError anError) {
-                                progressDialog.dismiss();
-                                anError.printStackTrace();
-                                Toast.makeText(getApplicationContext(), "Error Uploading Image!...", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        //UploadProfile(id, fname, lname);
                     }
                 });
 
-                AlertDialog dialog = dialogBuilder.create();
+                dialog = dialogBuilder.create();
                 dialog.show();
             }
         });
@@ -277,23 +308,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                 profUri = result.getUri();
 
-                /**
-                try{
-                    profUri = result.getUri();
-
-                    //bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), profUri);
-
-                }catch(Exception e){
-                    Toast.makeText(getApplicationContext(), " " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-                //profUri = CropImage.getPickImageResultUri(this, data);
-                 **/
                 profile.setImageURI(profUri);
 
-                Log.d(TAG, "onActivityResult: image bitmap:--->" + bitmap);
-
                 Log.d("mainActivity", "onActivityResult: image : --> " + profUri);
-                //circleImageView.invalidate();
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
                 Exception error = result.getError();

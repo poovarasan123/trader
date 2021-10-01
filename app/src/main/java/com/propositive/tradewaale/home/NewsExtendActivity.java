@@ -43,7 +43,7 @@ public class NewsExtendActivity extends AppCompatActivity {
         String message = i.getStringExtra("message");
         String Date = i.getStringExtra("date");
 
-        Glide.with(news_image.getContext()).load("http://192.168.33.211/trader/images/" + image).into(news_image);
+        Glide.with(news_image.getContext()).load("http://1192.168.90.211/trader/images/" + image).into(news_image);
         title.setText(Title);
         full_discription.setText(message);
         date.setText(Date);

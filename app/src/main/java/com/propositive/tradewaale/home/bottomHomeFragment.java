@@ -28,7 +28,7 @@ public class bottomHomeFragment extends Fragment {
     RecyclerView recyclerView;
     newsAdapter adapter;
 
-    public static String NEWS_URL = "http://192.168.54.211/trader/api/get_news.php";
+    public static String NEWS_URL = "http://1192.168.90.211/trader/api/get_news.php";
 
     SwipeRefreshLayout swipeRefreshLayout;
 

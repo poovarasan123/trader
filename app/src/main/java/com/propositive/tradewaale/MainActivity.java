@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -63,7 +64,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    final String LogClear = "http://192.168.29.40/trader/session_login/Logout.php";
+    final String LogClear = "http://192.168.90.211/trader/session_login/Logout.php";
 
     Context context;
 
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font>"));
 
         SharedPreferences shared = getSharedPreferences("Log_cred", MODE_PRIVATE);
         UserMail = (shared.getString("mail", ""));
@@ -174,6 +176,12 @@ public class MainActivity extends AppCompatActivity {
             openBottomSheet();
             return true;
         }
+
+        if (item.getItemId() == R.id.notification_bell) {
+            Toast.makeText(getApplicationContext(), "bell clicked!...", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
