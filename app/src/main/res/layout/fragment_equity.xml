@@ -29,6 +29,7 @@
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="10dp"
             android:hint="search"
+            android:minHeight="48dp"
             android:padding="8dp"
             android:singleLine="true" />
 
@@ -78,56 +79,56 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="INTRADAY" />
+                    android:text="INTRADAY"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnS"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="SHORT TERM" />
+                    android:text="SHORT TERM"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnM"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="MEDIUM TERM" />
+                    android:text="MEDIUM TERM"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnL"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="LONG TERM" />
+                    android:text="LONG TERM"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnO"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="open" />
+                    android:text="open"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnC"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="close" />
+                    android:text="close"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSell"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="sell" />
+                    android:text="sell"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnBuy"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Buy" />
+                    android:text="Buy"/>
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
