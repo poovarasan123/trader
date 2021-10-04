@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -42,9 +43,9 @@ public class DerivativeFragment extends Fragment {
     ImageView imageView;
     EditText search_filter;
     DerivativeAdapter adapter;
-    MaterialButtonToggleGroup toggleGroup;
+    RadioGroup toggleGroup;
 
-    MaterialButton intraday, short_term, medium_term, long_term, open, close, buy, sell;
+    //MaterialButton intraday, short_term, medium_term, long_term, open, close, buy, sell;
     int value = 0;
 
     @Override
@@ -62,16 +63,16 @@ public class DerivativeFragment extends Fragment {
 
         swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
 
-        toggleGroup = root.findViewById(R.id.btnstoggle);
+        toggleGroup = root.findViewById(R.id.radioGroup);
 
-        intraday = root.findViewById(R.id.btnI);
-        short_term = root.findViewById(R.id.btnS);
-        medium_term = root.findViewById(R.id.btnM);
-        long_term = root.findViewById(R.id.btnL);
-        open = root.findViewById(R.id.btnO);
-        close = root.findViewById(R.id.btnC);
-        sell = root.findViewById(R.id.btnSell);
-        buy = root.findViewById(R.id.btnBuy);
+//        intraday = root.findViewById(R.id.btnI);
+//        short_term = root.findViewById(R.id.btnS);
+//        medium_term = root.findViewById(R.id.btnM);
+//        long_term = root.findViewById(R.id.btnL);
+//        open = root.findViewById(R.id.btnO);
+//        close = root.findViewById(R.id.btnC);
+//        sell = root.findViewById(R.id.btnSell);
+//        buy = root.findViewById(R.id.btnBuy);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -97,7 +98,7 @@ public class DerivativeFragment extends Fragment {
                 scrollbar.setVisibility(View.VISIBLE);
             } else {
                 scrollbar.setVisibility(View.GONE);
-                toggleGroup.clearChecked();
+                //toggleGroup.clearChecked();
                 setdata();
             }
 
@@ -122,136 +123,61 @@ public class DerivativeFragment extends Fragment {
 
         //TODO: buttons filter by term wise
 
-        toggleGroup.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
+       //TODO: buttons filter
+        toggleGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
-                if (isChecked) {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                    switch (checkedId) {
+                switch(checkedId){
 
-                        case R.id.btnL:
-                            String longTerm = "LONG TERM";
-                            // TODO: filter long term
-                            long_term.setBackgroundColor(getResources().getColor(R.color.light_blue));
-                            intraday.setBackgroundColor(getResources().getColor(R.color.white));
-                            short_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            medium_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            open.setBackgroundColor(getResources().getColor(R.color.white));
-                            close.setBackgroundColor(getResources().getColor(R.color.white));
-                            buy.setBackgroundColor(getResources().getColor(R.color.white));
-                            sell.setBackgroundColor(getResources().getColor(R.color.white));
-                            fliterTerm(longTerm);
-                            break;
+                    // TODO: filter intraday
+                    case R.id.intraday:
+                        String intradayterm = "INTRADAY";
+                        fliterTerm(intradayterm);
+                        break;
 
-                        case R.id.btnI:
-                            String intradayterm = "INTRADAY";
-                            // TODO: filter long term
-                            long_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            intraday.setBackgroundColor(getResources().getColor(R.color.light_blue));
-                            short_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            medium_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            open.setBackgroundColor(getResources().getColor(R.color.white));
-                            close.setBackgroundColor(getResources().getColor(R.color.white));
-                            buy.setBackgroundColor(getResources().getColor(R.color.white));
-                            sell.setBackgroundColor(getResources().getColor(R.color.white));
-                            fliterTerm(intradayterm);
-                            break;
+                    // TODO: filter short term
+                    case R.id.short_term:
+                        String shortterm = "SHORT TERM";
+                        fliterTerm(shortterm);
+                        break;
 
-                        case R.id.btnS:
-                            String shortterm = "SHORT TERM";
-                            // TODO: filter long term
-                            long_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            intraday.setBackgroundColor(getResources().getColor(R.color.white));
-                            short_term.setBackgroundColor(getResources().getColor(R.color.light_blue));
-                            medium_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            open.setBackgroundColor(getResources().getColor(R.color.white));
-                            close.setBackgroundColor(getResources().getColor(R.color.white));
-                            buy.setBackgroundColor(getResources().getColor(R.color.white));
-                            sell.setBackgroundColor(getResources().getColor(R.color.white));
-                            fliterTerm(shortterm);
-                            break;
+                    // TODO: filter medium term
+                    case R.id.medium_term:
+                        String monthterm = "MEDIUM TERM";
+                        fliterTerm(monthterm);
+                        break;
 
-                        case R.id.btnM:
-                            String monthterm = "MEDIUM TERM";
-                            // TODO: filter long term
-                            long_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            intraday.setBackgroundColor(getResources().getColor(R.color.white));
-                            short_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            medium_term.setBackgroundColor(getResources().getColor(R.color.light_blue));
-                            open.setBackgroundColor(getResources().getColor(R.color.white));
-                            close.setBackgroundColor(getResources().getColor(R.color.white));
-                            buy.setBackgroundColor(getResources().getColor(R.color.white));
-                            sell.setBackgroundColor(getResources().getColor(R.color.white));
-                            fliterTerm(monthterm);
-                            break;
+                    // TODO: filter long term
+                    case R.id.long_term:
+                        String longTerm = "LONG TERM";
+                        fliterTerm(longTerm);
+                        break;
 
-                        case R.id.btnO:
-                            String openterm = "open";
-                            // TODO: filter long term
-                            long_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            intraday.setBackgroundColor(getResources().getColor(R.color.white));
-                            short_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            medium_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            open.setBackgroundColor(getResources().getColor(R.color.light_blue));
-                            close.setBackgroundColor(getResources().getColor(R.color.white));
-                            buy.setBackgroundColor(getResources().getColor(R.color.white));
-                            sell.setBackgroundColor(getResources().getColor(R.color.white));
-                            fliterstock(openterm);
-                            break;
+                    // TODO: filter open
+                    case R.id.open:
+                        String openterm = "open";
+                        fliterstock(openterm);
+                        break;
 
-                        case R.id.btnC:
-                            String closeterm = "close";
-                            // TODO: filter long term
-                            long_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            intraday.setBackgroundColor(getResources().getColor(R.color.white));
-                            short_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            medium_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            open.setBackgroundColor(getResources().getColor(R.color.white));
-                            close.setBackgroundColor(getResources().getColor(R.color.light_blue));
-                            buy.setBackgroundColor(getResources().getColor(R.color.white));
-                            sell.setBackgroundColor(getResources().getColor(R.color.white));
-                            fliterstock(closeterm);
-                            break;
+                    // TODO: filter close
+                    case R.id.close:
+                        String closeterm = "close";
+                        fliterstock(closeterm);
+                        break;
 
-                        case R.id.btnSell:
-                            String sellterm = "sell";
-                            // TODO: filter long term
-                            long_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            intraday.setBackgroundColor(getResources().getColor(R.color.white));
-                            short_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            medium_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            open.setBackgroundColor(getResources().getColor(R.color.white));
-                            close.setBackgroundColor(getResources().getColor(R.color.white));
-                            buy.setBackgroundColor(getResources().getColor(R.color.white));
-                            sell.setBackgroundColor(getResources().getColor(R.color.light_blue));
-                            fliterrate(sellterm);
-                            break;
+                    // TODO: filter sell
+                    case R.id.sell:
+                        String sellterm = "sell";
+                        fliterrate(sellterm);
+                        break;
 
-                        case R.id.btnBuy:
-                            String buyterm = "buy";
-                            // TODO: filter long term
-                            long_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            intraday.setBackgroundColor(getResources().getColor(R.color.white));
-                            short_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            medium_term.setBackgroundColor(getResources().getColor(R.color.white));
-                            open.setBackgroundColor(getResources().getColor(R.color.white));
-                            close.setBackgroundColor(getResources().getColor(R.color.white));
-                            buy.setBackgroundColor(getResources().getColor(R.color.light_blue));
-                            sell.setBackgroundColor(getResources().getColor(R.color.white));
-                            fliterrate(buyterm);
-                            break;
-                    }
-
-                } else
-                    adapter.notifyDataSetChanged();
-                long_term.setBackgroundColor(getResources().getColor(R.color.white));
-                intraday.setBackgroundColor(getResources().getColor(R.color.white));
-                short_term.setBackgroundColor(getResources().getColor(R.color.white));
-                medium_term.setBackgroundColor(getResources().getColor(R.color.white));
-                open.setBackgroundColor(getResources().getColor(R.color.white));
-                close.setBackgroundColor(getResources().getColor(R.color.white));
-                buy.setBackgroundColor(getResources().getColor(R.color.white));
-                sell.setBackgroundColor(getResources().getColor(R.color.white));
+                    // TODO: filter buy
+                    case R.id.buy:
+                        String buyterm = "buy";
+                        fliterrate(buyterm);
+                        break;
+                }
             }
         });
 

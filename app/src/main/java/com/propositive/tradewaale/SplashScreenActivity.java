@@ -52,7 +52,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     BottomSheetDialog loginSheet;
     ProgressBar progressBar;
     EditText uMail, uPassword;
-    final String HttpURL = "http://192.168.90.211/trader/session_login/user_Auth.php";
+    final String HttpURL = "http://192.168.4.211/trader/session_login/user_Auth.php";
 
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 

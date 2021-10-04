@@ -7,30 +7,32 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -52,9 +54,9 @@ import com.propositive.tradewaale.openAccount.OpenAccountActivity;
 import com.propositive.tradewaale.privacypolicy.PrivacyPolicyActivity;
 import com.propositive.tradewaale.profile.ProfileActivity;
 import com.propositive.tradewaale.termOfuse.TermofUseActivity;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
+import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -66,9 +68,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    final String LogClear = "http://192.168.90.211/trader/session_login/Logout.php";
+    final String LogClear = "http://192.168.4.211/trader/session_login/Logout.php";
+    private static final String PROFILE_URL ="http://192.168.4.211/trader/api/user_profile.php";
 
-    Context context;
 
     private BottomSheetDialog moreMenuSheet;
     private BottomSheetDialog supportSheet;
@@ -79,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout theme, profile_menu, openDematAccpunt, privacypolicy, termsOfuse, support, share, logout, menusback;
 
-    MaterialAlertDialogBuilder dialogBuilder;
+    TextView name_text, number_text;
+    String prof_pic, fname, mobile;
 
     String token;
     private ProgressDialog progressDialog;
@@ -94,22 +97,18 @@ public class MainActivity extends AppCompatActivity {
 
     String UserMail;
 
-    private Toolbar tlbar;
+    MenuItem menuItem;
+    TextView notification_count;
+    int pendingNotification = 999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font>"));
 
         SharedPreferences shared = getSharedPreferences("Log_cred", MODE_PRIVATE);
         UserMail = (shared.getString("mail", ""));
-
-        tlbar = findViewById(R.id.toolbar);
-        tlbar.setTitle("Trade Waale");
-        tlbar.setTitleTextColor(getResources().getColor(R.color.black));
-        setSupportActionBar(tlbar);
-
 
         FirebaseApp.initializeApp(this);
 
@@ -176,9 +175,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_more, menu);
         super.onCreateOptionsMenu(menu);
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_more, menu);
+
+        menuItem = menu.findItem(R.id.notification_bell);
+
+
+        if (pendingNotification == 0 ){
+            menuItem.setActionView(null);
+        }else {
+            menuItem.setActionView(R.layout.notification_counter);
+            View view = menuItem.getActionView();
+            notification_count = view.findViewById(R.id.notification_count);
+            notification_count.setText(String.valueOf(pendingNotification));
+        }
         return true;
     }
 
@@ -197,15 +207,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-//        if (item.getItemId() == R.id.more) {
-//            openBottomSheet();
-//            return true;
-//        }
-//
-//        if (item.getItemId() == R.id.notification_bell) {
-//
-//            return true;
-//        }
     }
 
     private void openBottomSheet() {
@@ -213,6 +214,8 @@ public class MainActivity extends AppCompatActivity {
         View loginSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet, findViewById(R.id.more_menu_sheet));
 
         circleImageView = loginSheetView.findViewById(R.id.profile_image);
+        name_text = loginSheetView.findViewById(R.id.username_txt);
+        number_text = loginSheetView.findViewById(R.id.mobile_txt);
 
         //theme = loginSheetView.findViewById(R.id.theme_menu);
 
@@ -224,7 +227,9 @@ public class MainActivity extends AppCompatActivity {
         share = loginSheetView.findViewById(R.id.share_menu);
         logout = loginSheetView.findViewById(R.id.logout_menu);
 
-
+        Picasso.get().load("http://192.168.90.211/trader/imageupload/" +prof_pic).into(circleImageView);
+        name_text.setText(fname);
+        number_text.setText(mobile);
 
         //theme switching
         /**
@@ -406,7 +411,54 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeListener, filter);
+        loadProfile();
         super.onStart();
+    }
+
+    private void loadProfile() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, PROFILE_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "onResponse: response from server:---> "+ response);
+
+                try {
+                    JSONArray jsonarray= new JSONArray(response);
+                    for(int i=0; i < jsonarray.length(); i++) {
+                        JSONObject jsonobject = jsonarray.getJSONObject(i);
+                        prof_pic = jsonobject.getString("profile_image");
+                        fname = jsonobject.getString("first_name");
+                        mobile = jsonobject.getString("phone");
+
+                        Log.d(TAG, "onResponse: prof_pic: " + prof_pic);
+                        Log.d(TAG, "onResponse: fname: " + fname);
+                        Log.d(TAG, "onResponse: mobile: " + mobile);
+                    }
+
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Something went wrong
+                Log.d(TAG, "onResponse: error from server:---> "+ error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                //Log.d(TAG, "getParams: check mail:---> " + mail);
+                params.put("email", UserMail);
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setShouldCache(false);
+        queue.add(stringRequest);
     }
 
     @Override

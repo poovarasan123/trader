@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,8 +74,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "profile activity";
 
-    private static final String UPLOAD_URL = "http://192.168.90.211/trader/imageupload/upload_profile.php";
-    private static final String PROFILE_URL ="http://192.168.90.211/trader/api/user_profile.php";
+    private static final String UPLOAD_URL = "http://192.168.4.211/trader/imageupload/upload_profile.php";
+    private static final String PROFILE_URL ="http://192.168.4.211/trader/api/user_profile.php";
 
     TextView musername, name, mob, umail, uplan, expire_at;
     LinearLayout exp;
@@ -103,6 +104,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + "Profile" + "</font>"));
 
         permission = new String[]{
                 Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -145,7 +147,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 save = view.findViewById(R.id.save_btn);
 
-                Picasso.get().load("http://192.168.90.211/trader/imageupload/" +prof_pic).into(profile);
+                Picasso.get().load("http://192.168.4.211/trader/imageupload/" +prof_pic).into(profile);
                 dialogFirstname.setText(fname);
                 dialogLastname.setText(lname);
                 dialogMobile.setText(mobile);

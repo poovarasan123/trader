@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="10"
+        android:elevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,10 +27,10 @@
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:background="@drawable/search_stroke"
-            android:drawableEnd="@drawable/ic_search"
+            android:drawableStart="@drawable/ic_search"
             android:drawablePadding="10dp"
-            android:hint="search"
-            android:padding="10dp"
+            android:hint="Search"
+            android:padding="8dp"
             android:singleLine="true" />
 
         <ImageView
@@ -60,77 +61,132 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/btnstoggle"
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:divider="@drawable/devider_space"
-                android:showDividers="middle"
-                app:singleSelection="true">
+                android:weightSum="1"
+                android:gravity="center"
+                android:id="@+id/radioGroup"
+                android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnL"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                <RadioButton
+                    android:id="@+id/intraday"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="LONG TERM" />
+                    android:layout_height="38dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/state_background"
+                    android:button="@android:color/transparent"
+                    android:elevation="4dp"
+                    android:padding="10dp"
+                    android:text="INTRADAY"
+                    android:textColor="@color/black" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnI"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                <RadioButton
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="INTRADAY" />
+                    android:layout_height="38dp"
+                    android:text="SHORT TERM"
+                    android:button="@android:color/transparent"
+                    android:padding="10dp"
+                    android:background="@drawable/state_background"
+                    android:textColor="@color/black"
+                    android:elevation="4dp"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/short_term"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnS"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                <RadioButton
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="SHORT TERM" />
+                    android:layout_height="38dp"
+                    android:text="MEDIUM TERM"
+                    android:button="@android:color/transparent"
+                    android:padding="10dp"
+                    android:background="@drawable/state_background"
+                    android:textColor="@color/black"
+                    android:elevation="4dp"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/medium_term"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnM"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                <RadioButton
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="MEDIUM TERM" />
+                    android:layout_height="38dp"
+                    android:text="LONG TERM"
+                    android:button="@android:color/transparent"
+                    android:padding="10dp"
+                    android:background="@drawable/state_background"
+                    android:textColor="@color/black"
+                    android:elevation="4dp"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/long_term"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnO"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                <RadioButton
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="open" />
+                    android:layout_height="38dp"
+                    android:text="OPEN"
+                    android:button="@android:color/transparent"
+                    android:padding="10dp"
+                    android:background="@drawable/state_background"
+                    android:textColor="@color/black"
+                    android:elevation="4dp"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/open"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnC"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                <RadioButton
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="close" />
+                    android:layout_height="38dp"
+                    android:text="CLOSE"
+                    android:button="@android:color/transparent"
+                    android:padding="10dp"
+                    android:background="@drawable/state_background"
+                    android:textColor="@color/black"
+                    android:elevation="4dp"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/close"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSell"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                <RadioButton
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="sell" />
+                    android:layout_height="38dp"
+                    android:text="BUY"
+                    android:button="@android:color/transparent"
+                    android:padding="10dp"
+                    android:background="@drawable/state_background"
+                    android:textColor="@color/black"
+                    android:elevation="4dp"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/buy"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnBuy"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                <RadioButton
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Buy" />
+                    android:layout_height="38dp"
+                    android:text="SELL"
+                    android:button="@android:color/transparent"
+                    android:padding="10dp"
+                    android:background="@drawable/state_background"
+                    android:textColor="@color/black"
+                    android:elevation="4dp"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/sell"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginEnd="20dp"/>
+            </RadioGroup>
 
-            </com.google.android.material.button.MaterialButtonToggleGroup>
 
         </LinearLayout>
     </HorizontalScrollView>

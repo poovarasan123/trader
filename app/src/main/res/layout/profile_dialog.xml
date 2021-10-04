@@ -172,8 +172,9 @@
 
     <Button
         android:id="@+id/save_btn"
-        android:layout_width="125dp"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="Save"
         app:backgroundTint="@null"
         android:background="@drawable/back_button"

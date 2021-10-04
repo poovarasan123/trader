@@ -8,6 +8,7 @@
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable-xxxhdpi/top_cornor_round.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/back_button.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/back_to_home.xml" value="0.2703125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/badge.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/bottom_curve_back.xml" value="0.2203125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/buy_stroke.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/close_icon.xml" value="0.2703125" />
@@ -37,11 +38,15 @@
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/net_connection_back.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/open_stroke.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/primimum_tag.xml" value="0.2703125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/redio_back_blue.xml" value="0.2703125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/redio_back_white.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/search_stroke.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/sell_stroke.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/side_nav_bar.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/splash_gradient.xml" value="0.2203125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/state_background.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/support_stroke.xml" value="0.2703125" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/unchecked_text_color.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/drawable/white_back.xml" value="0.2703125" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/activity_bookmark.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/activity_bookmark_news_extend.xml" value="0.25416666666666665" />
@@ -96,6 +101,7 @@
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/proflie_dialog.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/set_profile_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/support_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/test_layout.xml" value="0.31155778894472363" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/theme_switch.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/layout/theme_swith.xml" value="0.25416666666666665" />
         <entry key="..\:/Android projects/NavdrawerBottomnva/app/src/main/res/menu/activity_main_drawer.xml" value="0.25416666666666665" />
