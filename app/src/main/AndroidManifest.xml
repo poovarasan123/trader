@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".FastNetwork.FastNetwork"
@@ -18,10 +18,12 @@
         android:theme="@style/Theme.NavdrawerBottomnva"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-
+        <activity
+            android:name=".notification.NotifyListActivity"
+            android:exported="true" />
         <activity
             android:name=".profile.ProfileActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".register.RegisterActivity"
             android:exported="true" />
@@ -58,7 +60,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true"

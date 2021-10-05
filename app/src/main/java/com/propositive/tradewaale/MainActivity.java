@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
@@ -50,6 +51,7 @@ import com.propositive.tradewaale.connection.NetworkChangeListener;
 import com.propositive.tradewaale.home.bottomHomeFragment;
 import com.propositive.tradewaale.livefeed.bottomLiveFeedFragment;
 import com.propositive.tradewaale.market.bottomMarketFragment;
+import com.propositive.tradewaale.notification.NotifyListActivity;
 import com.propositive.tradewaale.openAccount.OpenAccountActivity;
 import com.propositive.tradewaale.privacypolicy.PrivacyPolicyActivity;
 import com.propositive.tradewaale.profile.ProfileActivity;
@@ -99,7 +101,9 @@ public class MainActivity extends AppCompatActivity {
 
     MenuItem menuItem;
     TextView notification_count;
-    int pendingNotification = 999;
+    int pendingNotification = 0;
+
+    View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
 
             switch (item.getItemId()) {
+
                 case R.id.bottomHomeFragment:
                     selectedFragment = new bottomHomeFragment();
                     break;
@@ -185,9 +190,16 @@ public class MainActivity extends AppCompatActivity {
             menuItem.setActionView(null);
         }else {
             menuItem.setActionView(R.layout.notification_counter);
-            View view = menuItem.getActionView();
+            view = menuItem.getActionView();
             notification_count = view.findViewById(R.id.notification_count);
             notification_count.setText(String.valueOf(pendingNotification));
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openNotification();
+                }
+            });
         }
         return true;
     }
@@ -197,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         switch(item.getItemId()){
 
             case R.id.notification_bell:
-                Toast.makeText(getApplicationContext(), "bell clicked!...", Toast.LENGTH_SHORT).show();
+                openNotification();
                 return true;
 
             case R.id.more:
@@ -207,6 +219,10 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void openNotification() {
+        startActivity(new Intent(this, NotifyListActivity.class));
     }
 
     private void openBottomSheet() {
@@ -227,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
         share = loginSheetView.findViewById(R.id.share_menu);
         logout = loginSheetView.findViewById(R.id.logout_menu);
 
-        Picasso.get().load("http://192.168.90.211/trader/imageupload/" +prof_pic).into(circleImageView);
+        Picasso.get().load("http://192.168.4.211/trader/imageupload/" +prof_pic).into(circleImageView);
         name_text.setText(fname);
         number_text.setText(mobile);
 
@@ -433,6 +449,8 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "onResponse: prof_pic: " + prof_pic);
                         Log.d(TAG, "onResponse: fname: " + fname);
                         Log.d(TAG, "onResponse: mobile: " + mobile);
+
+
                     }
 
                 } catch (JSONException e) {

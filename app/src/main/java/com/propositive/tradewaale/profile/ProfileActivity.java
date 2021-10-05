@@ -384,7 +384,8 @@ public class ProfileActivity extends AppCompatActivity {
                                 Log.d(TAG, "onResponse: exp_at: " + exp_date);
 
                                 musername.setText(fname);
-                                Picasso.get().load("http://192.168.90.211/trader/imageupload/" +prof_pic).into(profile_pic);
+
+                                Picasso.get().load("http://192.168.4.211/trader/imageupload/" +prof_pic).into(profile_pic);
                                 name.setText(fname + " " + lname);
                                 mob.setText(mobile);
                                 umail.setText(maile);
