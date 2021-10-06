@@ -38,6 +38,7 @@
                         android:background="@drawable/idea_notification"/>
 
                     <TextView
+                        android:id="@+id/title_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="New Intraday"
@@ -58,6 +59,7 @@
                     app:layout_constraintBottom_toBottomOf="parent">
 
                     <TextView
+                        android:id="@+id/date_text"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="05/10/2021 12:15 PM"
@@ -72,6 +74,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
+                android:id="@+id/body_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="BUY M&amp;M-EQ at 818.6 with target at 836.5 and Stop Loss at 809.25"
