@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     MenuItem menuItem;
     TextView notification_count;
-    int pendingNotification = 0;
+    String pendingNotification = "99+";
 
     View view;
 
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         menuItem = menu.findItem(R.id.notification_bell);
 
 
-        if (pendingNotification == 0 ){
+        if (pendingNotification.equals("0")){
             menuItem.setActionView(null);
         }else {
             menuItem.setActionView(R.layout.notification_counter);

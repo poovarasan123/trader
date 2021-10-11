@@ -3,6 +3,7 @@ package com.propositive.tradewaale;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -33,6 +34,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.propositive.tradewaale.FCMnotification.MySingleton;
 import com.propositive.tradewaale.FCMnotification.SharedPreference;
 import com.propositive.tradewaale.connection.NetworkChangeListener;
+import com.propositive.tradewaale.notification.NotifyListActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -152,6 +154,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 Log.e(TAG, "onResponse: password--->" + password );
 
                 if (response.equals("record found")){
+                    //startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
                     StoreCred(mail,password);

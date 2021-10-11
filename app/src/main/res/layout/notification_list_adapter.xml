@@ -11,7 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        android:layout_margin="5dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,6 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="New Intraday"
+                        android:textSize="15sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/open_sans_bold"
                         android:layout_marginStart="10dp"
@@ -77,15 +81,9 @@
                 android:id="@+id/body_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="BUY M&amp;M-EQ at 818.6 with target at 836.5 and Stop Loss at 809.25"
+                android:text="main notification message"
                 android:layout_marginTop="10dp"/>
 
         </LinearLayout>
-
-
-
     </androidx.cardview.widget.CardView>
-
-
-
 </LinearLayout>

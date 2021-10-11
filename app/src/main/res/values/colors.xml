@@ -36,6 +36,16 @@
 
     <color name="light_blue">#0288D1</color>
 
+    //subscription colors
+    <color name="normal">#1abc9c</color>
+    <color name="silver">#3498db</color>
+    <color name="platinum">#9b59b6</color>
+    <color name="gold">#f1c40f</color>
+
+
+
+
+
 
 
 </resources>

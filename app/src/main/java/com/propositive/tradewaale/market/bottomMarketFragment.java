@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.propositive.tradewaale.R;
@@ -25,13 +28,19 @@ public class bottomMarketFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bottom_market, container, false);
 
         webView = view.findViewById(R.id.webview);
-
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(URL);
+
+//        WebSettings webSettings = webView.getSettings();
+//        webSettings.setJavaScriptEnabled(true);
+//        webView.setWebViewClient(new WebViewClient());
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setUseWideViewPort(true);
 
         return view;
     }
+
+
 }

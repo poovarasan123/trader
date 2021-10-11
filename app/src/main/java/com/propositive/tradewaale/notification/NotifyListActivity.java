@@ -3,7 +3,9 @@ package com.propositive.tradewaale.notification;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -29,6 +31,8 @@ public class NotifyListActivity extends AppCompatActivity {
 
     private static final String TAG = "Notification Activity";
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
     ImageView image;
     RecyclerView recyclerView;
     List<NotificationModel> notifyList;
@@ -41,6 +45,22 @@ public class NotifyListActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         image = findViewById(R.id.no_record_img);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+
+        setData();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        recyclerView.setAdapter(adapter);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setData();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
 
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.red)));
@@ -52,10 +72,7 @@ public class NotifyListActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
+    private void setData() {
         Call<List<NotificationModel>> call = apiController
                 .getInstance()
                 .getapi()
