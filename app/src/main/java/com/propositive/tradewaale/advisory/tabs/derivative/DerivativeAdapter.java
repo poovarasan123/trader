@@ -56,7 +56,7 @@ public class DerivativeAdapter extends RecyclerView.Adapter<DerivativeAdapter.Vi
         int position = pos;
 
         //TODO: buy and sell color
-        if (data.get(position).getRate_status().equals("buy")){
+        if (data.get(position).getBuy_value().equals("buy")){
             holder.bsStatus.setTextColor(context.getResources().getColor(R.color.green));
             holder.bsStatus.setBackgroundResource(R.drawable.buy_stroke);
         }else{
@@ -64,13 +64,13 @@ public class DerivativeAdapter extends RecyclerView.Adapter<DerivativeAdapter.Vi
             holder.bsStatus.setBackgroundResource(R.drawable.sell_stroke);
         }
 
-        Log.d("TAG", "onBindViewHolder: " + data.get(position).getRate_status());
-        Log.d("TAG", "onBindViewHolder: " + data.get(position).getStock_status());
-        Log.d("TAG", "onBindViewHolder: end " + data.get(position).getTarget_value_end());
+        Log.d("TAG", "onBindViewHolder: " + data.get(position).getBuy_value());
+        Log.d("TAG", "onBindViewHolder: " + data.get(position).getCalls_method());
+        Log.d("TAG", "onBindViewHolder: " + data.get(position).getTarget2());
 
 
         //TODO: open and close status
-        if (data.get(position).getStock_status().equals("open")){
+        if (data.get(position).getCalls_method().equals("open")){
             holder.opStatus.setTextColor(context.getResources().getColor(R.color.orange));
             holder.tagStatus.setBackgroundColor(context.getResources().getColor(R.color.orange));
         }else{
@@ -78,33 +78,35 @@ public class DerivativeAdapter extends RecyclerView.Adapter<DerivativeAdapter.Vi
             holder.tagStatus.setBackgroundColor(context.getResources().getColor(R.color.red));
         }
 
-        holder.name_ltd.setText(data.get(position).getName());
-        holder.bsStatus.setText(data.get(position).getRate_status());
-        holder.opStatus.setText(data.get(position).getStock_status());
-        holder.reco_price.setText(String.valueOf(data.get(position).getReco_price()));
-        holder.tergetStart.setText(String.valueOf(data.get(position).getTarget_value_start()));
-        holder.targetEnd.setText(String.valueOf(data.get(position).getTarget_value_end()));
-        holder.stockloss.setText(String.valueOf(data.get(position).getStock_loss()));
+        holder.name_ltd.setText(data.get(position).getSymbol());
+        holder.bsStatus.setText(data.get(position).getBuy_value());
+        holder.opStatus.setText(data.get(position).getCalls_method());
+        holder.reco_price.setText(String.valueOf(data.get(position).getReco_pr()));
+        holder.tergetStart.setText(String.valueOf(data.get(position).getTarget()));
+        holder.targetEnd.setText(String.valueOf(data.get(position).getTarget2()));
+        holder.stockloss.setText(String.valueOf(data.get(position).getStop_loss()));
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "position :" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onClick: time ->" + data.get(holder.getAdapterPosition()).getPost_time());
-                Log.d(TAG, "onClick: date ->" + data.get(holder.getAdapterPosition()).getPost_date());
+                Log.d(TAG, "onClick: time ->" + data.get(holder.getAdapterPosition()).getSel_time());
+                Log.d(TAG, "onClick: date ->" + data.get(holder.getAdapterPosition()).getSel_date());
 
 
                 Intent i = new Intent(v.getContext(), DerivativeExtendViewActivity.class);
 
-                i.putExtra("name", data.get(position).getName());
-                i.putExtra("rateStatus", data.get(position).getRate_status());
-                i.putExtra("stockStatus", data.get(position).getStock_status());
-                i.putExtra("recoValue", data.get(position).getReco_price());
-                i.putExtra("tcValueStart", data.get(position).getTarget_value_start());
-                i.putExtra("tcValueEnd", data.get(position).getTarget_value_end());
-                i.putExtra("term", data.get(position).getTerms());
-                i.putExtra("date", data.get(position).getPost_date());
-                i.putExtra("time", data.get(position).getPost_time());
+                Log.d(TAG, "onClick: name testing " + data.get(position).getSymbol());
+
+                i.putExtra("name", data.get(position).getSymbol());
+                i.putExtra("rateStatus", data.get(position).getBuy_value());
+                i.putExtra("stockStatus", data.get(position).getCalls_method());
+                i.putExtra("recoValue", data.get(position).getReco_pr());
+                i.putExtra("tcValueStart", data.get(position).getTarget());
+                i.putExtra("tcValueEnd", data.get(position).getTarget2());
+                i.putExtra("term", data.get(position).getExp_term());
+                i.putExtra("date", data.get(position).getSel_date());
+                i.putExtra("time", data.get(position).getSel_time());
 
                 v.getContext().startActivity(i);
 

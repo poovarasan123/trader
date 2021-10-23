@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -32,6 +33,20 @@ public class DerivativeExtendViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_derivative_extend_view);
 
+        Intent intent = getIntent();
+
+        String namei = intent.getStringExtra("name");
+        String ratei = intent.getStringExtra("rateStatus");
+        String stocki = intent.getStringExtra("stockStatus");
+        float recopricei = intent.getFloatExtra("recoValue",0);
+        float targetopeni = intent.getFloatExtra("tcValueStart", 0);
+        float targetclosei = intent.getFloatExtra("tcValueEnd", 0);
+        String termi = intent.getStringExtra("term");
+        String datei = intent.getStringExtra("date");
+        String timei = intent.getStringExtra("time");
+
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\" >" + " Details " + "</font>"));
+
         tag = findViewById(R.id.tag_status_view);
 
         name = findViewById(R.id.name_ltd_txt);
@@ -55,18 +70,6 @@ public class DerivativeExtendViewActivity extends AppCompatActivity {
         tcValue2 = findViewById(R.id.reduce_value2);
         date = findViewById(R.id.dateText);
         time = findViewById(R.id.timeText);
-
-        Intent intent = getIntent();
-
-        String namei = intent.getStringExtra("name");
-        String ratei = intent.getStringExtra("rateStatus");
-        String stocki = intent.getStringExtra("stockStatus");
-        float recopricei = intent.getFloatExtra("recoValue",0);
-        float targetopeni = intent.getFloatExtra("tcValueStart", 0);
-        float targetclosei = intent.getFloatExtra("tcValueEnd", 0);
-        String termi = intent.getStringExtra("term");
-        String datei = intent.getStringExtra("date");
-        String timei = intent.getStringExtra("time");
 
         Log.d(TAG, "onCreate: name - " + namei);
         Log.d(TAG, "onCreate: rate - " + ratei);

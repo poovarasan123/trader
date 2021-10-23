@@ -20,12 +20,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.propositive.tradewaale.R;
 
 import java.util.ArrayList;
@@ -130,25 +127,25 @@ public class EquityFragment extends Fragment {
 
                     // TODO: filter intraday
                     case R.id.intraday:
-                        String intradayterm = "INTRADAY";
+                        String intradayterm = "intraday";
                         fliterTerm(intradayterm);
                         break;
 
                     // TODO: filter short term
                     case R.id.short_term:
-                        String shortterm = "SHORT TERM";
+                        String shortterm = "short_term";
                         fliterTerm(shortterm);
                         break;
 
                     // TODO: filter medium term
                     case R.id.medium_term:
-                        String monthterm = "MEDIUM TERM";
+                        String monthterm = "medium_term";
                         fliterTerm(monthterm);
                         break;
 
                     // TODO: filter long term
                     case R.id.long_term:
-                        String longTerm = "LONG TERM";
+                        String longTerm = "long_term";
                         fliterTerm(longTerm);
                         break;
 
@@ -186,7 +183,7 @@ public class EquityFragment extends Fragment {
     private void fliterrate(String buyterm) {
         List<EquityModel> rateList = new ArrayList<>();
         for (EquityModel term : data) {
-            if (term.getRate_status().contains(buyterm)) {
+            if (term.getBuy_value().contains(buyterm)) {
                 rateList.add(term);
             }
         }
@@ -197,7 +194,7 @@ public class EquityFragment extends Fragment {
     private void fliterstock(String openterm) {
         List<EquityModel> stockList = new ArrayList<>();
         for (EquityModel term : data) {
-            if (term.getStock_status().contains(openterm)) {
+            if (term.getCalls_method().contains(openterm)) {
                 stockList.add(term);
             }
         }
@@ -208,7 +205,7 @@ public class EquityFragment extends Fragment {
     private void fliterTerm(String longTerm) {
         List<EquityModel> termList = new ArrayList<>();
         for (EquityModel term : data) {
-            if (term.getFilter().contains(longTerm)) {
+            if (term.getExp_term().contains(longTerm)) {
                 termList.add(term);
             }
         }
@@ -220,7 +217,7 @@ public class EquityFragment extends Fragment {
     private void filter(String filter) {
         List<EquityModel> flist = new ArrayList<>();
         for (EquityModel ad : data) {
-            if (ad.getName().contains(filter)) {
+            if (ad.getSymbol().contains(filter)) {
                 flist.add(ad);
             }
         }

@@ -20,8 +20,6 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.propositive.tradewaale.R;
 
 import java.util.ArrayList;
@@ -188,7 +186,7 @@ public class DerivativeFragment extends Fragment {
     private void fliterrate(String buyterm) {
         List<DerivativeModel> rateList = new ArrayList<>();
         for (DerivativeModel term : data) {
-            if (term.getRate_status().contains(buyterm)) {
+            if (term.getBuy_value().contains(buyterm)) {
                 rateList.add(term);
             }
         }
@@ -199,7 +197,7 @@ public class DerivativeFragment extends Fragment {
     private void fliterstock(String openterm) {
         List<DerivativeModel> stockList = new ArrayList<>();
         for (DerivativeModel term : data) {
-            if (term.getStock_status().contains(openterm)) {
+            if (term.getCalls_method().contains(openterm)) {
                 stockList.add(term);
             }
         }
@@ -210,7 +208,7 @@ public class DerivativeFragment extends Fragment {
     private void fliterTerm(String longTerm) {
         List<DerivativeModel> termList = new ArrayList<>();
         for (DerivativeModel term : data) {
-            if (term.getTerms().contains(longTerm)) {
+            if (term.getExp_term().contains(longTerm)) {
                 termList.add(term);
             }
         }
@@ -222,7 +220,7 @@ public class DerivativeFragment extends Fragment {
     private void filter(String filter) {
         List<DerivativeModel> flist = new ArrayList<>();
         for (DerivativeModel ad : data) {
-            if (ad.getName().contains(filter)) {
+            if (ad.getSymbol().contains(filter)) {
                 flist.add(ad);
             }
         }

@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface apiset {
 
-    @GET("get_data_derivative.php")
+    @GET("get_derivative.php")
     Call<List<DerivativeModel>> getdata();
 
 }

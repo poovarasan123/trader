@@ -20,7 +20,7 @@ public class bottomMarketFragment extends Fragment {
 
     WebView webView;
 
-    @SuppressLint("SetJavaScriptEnabled")
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,8 +35,6 @@ public class bottomMarketFragment extends Fragment {
 //        WebSettings webSettings = webView.getSettings();
 //        webSettings.setJavaScriptEnabled(true);
 //        webView.setWebViewClient(new WebViewClient());
-
-        webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true);
 
         return view;

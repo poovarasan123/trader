@@ -1,32 +1,29 @@
 package com.propositive.tradewaale.home;
 
-import android.content.Context;
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.propositive.tradewaale.R;
-import com.propositive.tradewaale.home.apiController;
+import com.propositive.tradewaale.advisory.bottomAdvisoryActivity;
+import com.propositive.tradewaale.livefeed.EventActivity;
+import com.propositive.tradewaale.market.bottomMarketActivity;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
-
-public class bottomHomeFragment extends Fragment {
-
-    Context context;
+public class NewsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     newsAdapter adapter;
@@ -39,31 +36,67 @@ public class bottomHomeFragment extends Fragment {
 
     private static final String TAG = "News Activity";
 
+    BottomNavigationView bottomNavView;
+    MenuItem menuItem;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View root =inflater.inflate(R.layout.fragment_bottom_home, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_news);
 
-        recyclerView = root.findViewById(R.id.recyclerView);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
+        recyclerView = findViewById(R.id.recyclerView);
 
-        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        //newsList();
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+
+        newsList();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //newsList();
+                newsList();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
 
-        return root;
+        bottomNavView = findViewById(R.id.bottom_nav_bar);
+
+        bottomNavView.setSelectedItemId(R.id.bottomHomeFragment);
+
+        bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (menuItem.getItemId()){
+                    case R.id.bottomHomeFragment:
+                        Toast.makeText(getApplicationContext(), "main activity", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.bottomMarketFragment:
+                        Toast.makeText(getApplicationContext(), "market activity", Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(getApplicationContext(), bottomMarketActivity.class));
+//                    overridePendingTransition(0,0);
+                        return true;
+                    case R.id.bottomAdvisoryFragment:
+                        Toast.makeText(getApplicationContext(), "advisory activity", Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(getApplicationContext(), bottomAdvisoryActivity.class));
+//                    overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.bottomLiveFeedFragment:
+                        Toast.makeText(getApplicationContext(), "event activity", Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(getApplicationContext(), EventActivity.class));
+//                    overridePendingTransition(0,0);
+                        return true;
+                }
+
+                return false;
+            }
+        });
+
     }
 
-    /**
     public void newsList() {
 
         Call<List<newsModel>> call = apiController
@@ -81,19 +114,19 @@ public class bottomHomeFragment extends Fragment {
 
                 Log.d(TAG, "onResponse: " + newsList.size());
 
-                if (data.size() != 0) {
-                    recyclerView.setVisibility(View.VISIBLE);
-                    adapter = new DerivativeAdapter(data);
-
-                    imageView.setVisibility(View.GONE);
-
-                    adapter.notifyDataSetChanged();
-                    recyclerView.setAdapter(adapter);
-                    Collections.reverse(data);
-                } else {
-                    imageView.setVisibility(View.VISIBLE);
-                    recyclerView.setVisibility(View.GONE);
-                }
+//                if (data.size() != 0) {
+//                    recyclerView.setVisibility(View.VISIBLE);
+//                    adapter = new DerivativeAdapter(data);
+//
+//                    imageView.setVisibility(View.GONE);
+//
+//                    adapter.notifyDataSetChanged();
+//                    recyclerView.setAdapter(adapter);
+//                    Collections.reverse(data);
+//                } else {
+//                    imageView.setVisibility(View.VISIBLE);
+//                    recyclerView.setVisibility(View.GONE);
+//                }
 
                 Log.d(TAG, "onResponse: data " + newsList.toString());
                 Log.d(TAG, "onResponse: response " + response);
@@ -103,18 +136,17 @@ public class bottomHomeFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<List<newsModel>> call, @NonNull Throwable t) {
-                Toast.makeText(context.getApplicationContext(), "error" + t.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "error" + t.toString(), Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "onFailure:  t " + t.toString());
 
-                Toast.makeText(context.getApplicationContext(), "error" + call, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "error" + call, Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "onFailure: call " + call.toString());
             }
 
         });
     }
-     **/
 
 //    private void listNews() {
 //        RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -151,6 +183,5 @@ public class bottomHomeFragment extends Fragment {
 //
 //        queue.add(arrayRequest);
 //    }
-
 
 }

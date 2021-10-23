@@ -47,6 +47,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.propositive.tradewaale.Constants;
 import com.propositive.tradewaale.FCMnotification.MySingleton;
 import com.propositive.tradewaale.FCMnotification.SharedPreference;
 import com.propositive.tradewaale.R;
@@ -74,9 +75,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "profile activity";
 
-    private static final String UPLOAD_URL = "http://192.168.4.211/trader/imageupload/upload_profile.php";
-    private static final String PROFILE_URL ="http://192.168.4.211/trader/api/user_profile.php";
-
     TextView musername, name, mob, umail, uplan, expire_at;
     LinearLayout exp;
     CircleImageView profile_pic, profile;
@@ -91,20 +89,17 @@ public class ProfileActivity extends AppCompatActivity {
     Button save;
 
     FloatingActionButton fab;
-
-    private String[] permission;
-
-    private ProgressDialog progressDialog;
-
     AlertDialog.Builder dialogBuilder;
     View view;
     AlertDialog dialog;
+    private String[] permission;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + "Profile" + "</font>"));
+        //getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + "Profile" + "</font>"));
 
         permission = new String[]{
                 Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -136,7 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialogBuilder = new AlertDialog.Builder(ProfileActivity.this);
-                view = getLayoutInflater().inflate(R.layout.profile_dialog,null);
+                view = getLayoutInflater().inflate(R.layout.profile_dialog, null);
                 dialogBuilder.setView(view);
 
                 profile = view.findViewById(R.id.dialog_profile_image);
@@ -147,16 +142,21 @@ public class ProfileActivity extends AppCompatActivity {
 
                 save = view.findViewById(R.id.save_btn);
 
-                Picasso.get().load("http://192.168.4.211/trader/imageupload/" +prof_pic).into(profile);
+
+                //Picasso.get().load("http://192.168.29.40/trader/imageupload/" + prof_pic).into(profile);
+
+                Picasso.get().load(Constants.PROFILE_PATH + prof_pic).into(profile);
+
                 dialogFirstname.setText(fname);
                 dialogLastname.setText(lname);
                 dialogMobile.setText(mobile);
+
 
                 profile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        if (!hasPermissions(ProfileActivity.this, permission)){
+                        if (!hasPermissions(ProfileActivity.this, permission)) {
                             ActivityCompat.requestPermissions(ProfileActivity.this, permission, 1);
 
                         }
@@ -176,11 +176,11 @@ public class ProfileActivity extends AppCompatActivity {
                         Log.d(TAG, "onClick: save lname after edit:---> " + dlname);
                         Log.d(TAG, "onClick: save mob after edit:---> " + dmobile);
 
-                        if (!dfname.isEmpty() && !dlname.isEmpty() && !dmobile.isEmpty()){
-                            if (profUri != null){
+                        if (!dfname.isEmpty() && !dlname.isEmpty() && !dmobile.isEmpty()) {
+                            if (profUri != null) {
                                 File file = new File(profUri.getPath());
                                 progressDialog.show();
-                                AndroidNetworking.upload(UPLOAD_URL)
+                                AndroidNetworking.upload(Constants.UPLOAD_URL)
                                         .addMultipartFile("profile", file)
                                         .addMultipartParameter("id", id)
                                         .addMultipartParameter("fname", dfname)
@@ -193,7 +193,7 @@ public class ProfileActivity extends AppCompatActivity {
                                             @Override
                                             public void onProgress(long bytesUploaded, long totalBytes) {
                                                 float progress = bytesUploaded / totalBytes * 100;
-                                                progressDialog.setProgress((int)progress);
+                                                progressDialog.setProgress((int) progress);
 
                                             }
                                         }).getAsString(new StringRequestListener() {
@@ -205,7 +205,7 @@ public class ProfileActivity extends AppCompatActivity {
                                             JSONObject jsonObject = new JSONObject(response);
                                             int status = jsonObject.getInt("status");
                                             String message = jsonObject.getString("message");
-                                            if (status == 0 ){
+                                            if (status == 0) {
                                                 Toast.makeText(getApplicationContext(), "Unable to upload image:" + message, Toast.LENGTH_SHORT).show();
                                             } else {
                                                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
@@ -247,54 +247,54 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         SharedPreferences getmail = getSharedPreferences("Log_cred", MODE_PRIVATE);
-        mail = getmail.getString("mail","");
+        mail = getmail.getString("mail", "");
 
-        Log.d( TAG, "onCreate: saved mail:---> "+ mail );
+        Log.d(TAG, "onCreate: saved mail:---> " + mail);
 
-
-    }
-
-    private void UploadProfile(String id, String fname, String lname) {
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, "onResponse: response:---> " + response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "onResponse: response:---> " + error.getMessage());
-
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-
-//                String imageData = imageToString(bitmap);
-//                params.put("profile", imageData);
-                params.put("uid", id);
-                params.put("profile", profUri.toString());
-                params.put("fname", fname);
-                params.put("lname", lname);
-                params.put("mob", mobile);
-                params.put("modified_date", getDate());
-
-                Log.d(TAG, "getParams: id: " + id);
-                Log.d(TAG, "getParams: profile: " + profUri.toString());
-                Log.d(TAG, "getParams: fname: " + fname);
-                Log.d(TAG, "getParams: lname: " + lname);
-                Log.d(TAG, "getParams: mobile: " + mobile);
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(ProfileActivity.this);
-        requestQueue.add(stringRequest);
 
     }
+
+//    private void UploadProfile(String id, String fname, String lname) {
+//
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                Log.d(TAG, "onResponse: response:---> " + response);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d(TAG, "onResponse: response:---> " + error.getMessage());
+//
+//            }
+//        }) {
+//            @Nullable
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<>();
+//
+////                String imageData = imageToString(bitmap);
+////                params.put("profile", imageData);
+//                params.put("uid", id);
+//                params.put("profile", profUri.toString());
+//                params.put("fname", fname);
+//                params.put("lname", lname);
+//                params.put("mob", mobile);
+//                params.put("modified_date", getDate());
+//
+////                Log.d(TAG, "getParams: id: " + id);
+////                Log.d(TAG, "getParams: profile: " + profUri.toString());
+////                Log.d(TAG, "getParams: fname: " + fname);
+////                Log.d(TAG, "getParams: lname: " + lname);
+////                Log.d(TAG, "getParams: mobile: " + mobile);
+//                return params;
+//            }
+//        };
+//
+//        RequestQueue requestQueue = Volley.newRequestQueue(ProfileActivity.this);
+//        requestQueue.add(stringRequest);
+//
+//    }
 
     private void startCrop() {
         CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(this);
@@ -314,7 +314,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 Log.d("mainActivity", "onActivityResult: image : --> " + profUri);
 
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
                 Toast.makeText(getApplicationContext(), "" + error, Toast.LENGTH_SHORT).show();
             }
@@ -325,7 +325,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == 1){
+        if (requestCode == 1) {
 
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(getApplicationContext(), "Read storage permissions granted", Toast.LENGTH_SHORT).show();
@@ -354,16 +354,16 @@ public class ProfileActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, PROFILE_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.PROFILE_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d(TAG, "onResponse: response from server:---> "+ response);
+                        Log.d(TAG, "onResponse: response from server:---> " + response);
 
 
                         try {
-                            JSONArray jsonarray= new JSONArray(response);
-                            for(int i=0; i < jsonarray.length(); i++) {
+                            JSONArray jsonarray = new JSONArray(response);
+                            for (int i = 0; i < jsonarray.length(); i++) {
                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                                 id = jsonobject.getString("uid");
                                 prof_pic = jsonobject.getString("profile_image");
@@ -375,7 +375,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 exp_date = jsonobject.getString("expire_at");
 
                                 Log.d(TAG, "onResponse: uid: " + id);
-                                Log.d(TAG, "onResponse: prof_pic: " + prof_pic);
+                                Log.d(TAG, "onResponse: prof_pic: " + Constants.PROFILE_PATH + prof_pic);
                                 Log.d(TAG, "onResponse: fname: " + fname);
                                 Log.d(TAG, "onResponse: lname: " + lname);
                                 Log.d(TAG, "onResponse: mobile: " + mobile);
@@ -385,14 +385,14 @@ public class ProfileActivity extends AppCompatActivity {
 
                                 musername.setText(fname);
 
-                                Picasso.get().load("http://192.168.4.211/trader/imageupload/" +prof_pic).into(profile_pic);
+                                Picasso.get().load(Constants.PROFILE_PATH + prof_pic).into(profile_pic);
                                 name.setText(fname + " " + lname);
                                 mob.setText(mobile);
                                 umail.setText(maile);
                                 uplan.setText(plan);
-                                if (!plan.equals("Trial")) {
+                                if (!plan.equals("trial")) {
                                     expire_at.setText(exp_date);
-                                }else{
+                                } else {
                                     exp.setVisibility(View.GONE);
                                 }
 
@@ -408,9 +408,9 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // Something went wrong
-                Log.d(TAG, "onResponse: error from server:---> "+ error.getMessage());
+                Log.d(TAG, "onResponse: error from server:---> " + error.getMessage());
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -434,10 +434,10 @@ public class ProfileActivity extends AppCompatActivity {
         return dateFormat.format(date);
     }
 
-    private boolean hasPermissions(Context context, String... permission){
-        if (context != null && permission != null){
-            for (String PERMISSION: permission){
-                if (ActivityCompat.checkSelfPermission(context, PERMISSION) != PackageManager.PERMISSION_GRANTED){
+    private boolean hasPermissions(Context context, String... permission) {
+        if (context != null && permission != null) {
+            for (String PERMISSION : permission) {
+                if (ActivityCompat.checkSelfPermission(context, PERMISSION) != PackageManager.PERMISSION_GRANTED) {
                     return false;
                 }
             }

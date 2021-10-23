@@ -2,131 +2,109 @@ package com.propositive.tradewaale.advisory.tabs.derivative;
 
 public class DerivativeModel {
 
-    String name, rate_status, stock_status, tc_price_txt, ap_return_txt;
-    float stock_loss;
-    float reco_price;
-    float target_value_start;
-    final float target_value_end;
-    float ap_return;
-    String terms,post_date,post_time;
+    String symbol, buy_value, calls_method, stop_loss, reco_pr, target, target2, exp_term, returns, sel_date, sel_time;
 
-    public DerivativeModel(String name, String rate_status, String stock_status, String tc_price_txt, String ap_return_txt, float stock_loss, float reco_price, float target_value_start, float target_value_end, float ap_return, String terms, String post_date, String post_time) {
-        this.name = name;
-        this.rate_status = rate_status;
-        this.stock_status = stock_status;
-        this.tc_price_txt = tc_price_txt;
-        this.ap_return_txt = ap_return_txt;
-        this.stock_loss = stock_loss;
-        this.reco_price = reco_price;
-        this.target_value_start = target_value_start;
-        this.target_value_end = target_value_end;
-        this.ap_return = ap_return;
-        this.terms = terms;
-        this.post_date = post_date;
-        this.post_time = post_time;
+
+    public DerivativeModel(String symbol, String buy_value, String calls_method, String stop_loss, String reco_pr, String target, String target2, String exp_term, String returns, String sel_date, String sel_time) {
+        this.symbol = symbol;
+        this.buy_value = buy_value;
+        this.calls_method = calls_method;
+        this.stop_loss = stop_loss;
+        this.reco_pr = reco_pr;
+        this.target = target;
+        this.target2 = target2;
+        this.exp_term = exp_term;
+        this.returns = returns;
+        this.sel_date = sel_date;
+        this.sel_time = sel_time;
     }
 
-    public String getName() {
-        return name;
+    public String getSymbol() {
+        return symbol;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 
-    public String getRate_status() {
-        return rate_status;
+    public String getBuy_value() {
+        return buy_value;
     }
 
-    public void setRate_status(String rate_status) {
-        this.rate_status = rate_status;
+    public void setBuy_value(String buy_value) {
+        this.buy_value = buy_value;
     }
 
-    public String getStock_status() {
-        return stock_status;
+    public String getCalls_method() {
+        return calls_method;
     }
 
-    public void setStock_status(String stock_status) {
-        this.stock_status = stock_status;
+    public void setCalls_method(String calls_method) {
+        this.calls_method = calls_method;
     }
 
-    public String getTc_price_txt() {
-        return tc_price_txt;
+
+    public String getStop_loss() {
+        return stop_loss;
     }
 
-    public void setTc_price_txt(String tc_price_txt) {
-        this.tc_price_txt = tc_price_txt;
+    public void setStop_loss(String stop_loss) {
+        this.stop_loss = stop_loss;
     }
 
-    public String getAp_return_txt() {
-        return ap_return_txt;
+    public String getReco_pr() {
+        return reco_pr;
     }
 
-    public void setAp_return_txt(String ap_return_txt) {
-        this.ap_return_txt = ap_return_txt;
+    public void setReco_pr(String reco_pr) {
+        this.reco_pr = reco_pr;
     }
 
-    public float getStock_loss() {
-        return stock_loss;
+    public String getTarget() {
+        return target;
     }
 
-    public void setStock_loss(float stock_loss) {
-        this.stock_loss = stock_loss;
+    public void setTarget(String target) {
+        this.target = target;
     }
 
-    public float getReco_price() {
-        return reco_price;
+    public String getTarget2() {
+        return target2;
     }
 
-    public void setReco_price(float reco_price) {
-        this.reco_price = reco_price;
+    public void setTarget2(String target2) {
+        this.target2 = target2;
     }
 
-    public float getTarget_value_start() {
-        return target_value_start;
+    public String getExp_term() {
+        return exp_term;
     }
 
-    public void setTarget_value_start(float target_value_start) {
-        this.target_value_start = target_value_start;
+    public void setExp_term(String exp_term) {
+        this.exp_term = exp_term;
     }
 
-    public float getTarget_value_end() {
-        return target_value_end;
+    public String getReturns() {
+        return returns;
     }
 
-    public void setTarget_value_end(float target_value_end) {
-        target_value_end = target_value_end;
+    public void setReturns(String returns) {
+        this.returns = returns;
     }
 
-    public float getAp_return() {
-        return ap_return;
+    public String getSel_date() {
+        return sel_date;
     }
 
-    public void setAp_return(float ap_return) {
-        this.ap_return = ap_return;
+    public void setSel_date(String sel_date) {
+        this.sel_date = sel_date;
     }
 
-    public String getTerms() {
-        return terms;
+    public String getSel_time() {
+        return sel_time;
     }
 
-    public void setTerms(String terms) {
-        this.terms = terms;
-    }
-
-    public String getPost_date() {
-        return post_date;
-    }
-
-    public void setPost_date(String post_date) {
-        this.post_date = post_date;
-    }
-
-    public String getPost_time() {
-        return post_time;
-    }
-
-    public void setPost_time(String post_time) {
-        this.post_time = post_time;
+    public void setSel_time(String sel_time) {
+        this.sel_time = sel_time;
     }
 }

@@ -1,5 +1,6 @@
 package com.propositive.tradewaale;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -30,7 +31,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.propositive.tradewaale.FCMnotification.MySingleton;
 import com.propositive.tradewaale.FCMnotification.SharedPreference;
 import com.propositive.tradewaale.connection.NetworkChangeListener;
@@ -54,11 +58,9 @@ public class SplashScreenActivity extends AppCompatActivity {
     BottomSheetDialog loginSheet;
     ProgressBar progressBar;
     EditText uMail, uPassword;
-    final String HttpURL = "http://192.168.4.211/trader/session_login/user_Auth.php";
+
 
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
-
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,11 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         login = findViewById(R.id.login_btn);
         register = findViewById(R.id.register_btn);
+
+        SharedPreferences sharedPreferences  = getSharedPreferences("user_token", MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+
+        //Log.e(TAG, "onCreate: token " + token);
 
         top = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.splash_logo_anim);
         bottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.splash_text_anim);
@@ -134,7 +141,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 register.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://propositive.in/register"));
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.REGISTER_URL));
                         startActivity(browserIntent);
                     }
                 });
@@ -144,7 +151,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void FunLogin(String mail, String password) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpURL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.LOGIN_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -153,9 +160,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                 Log.e(TAG, "onResponse: username--->" + mail );
                 Log.e(TAG, "onResponse: password--->" + password );
 
+
                 if (response.equals("record found")){
                     //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("mail", mail);
+                    startActivity(intent);
                     finish();
                     StoreCred(mail,password);
                     //clearField();

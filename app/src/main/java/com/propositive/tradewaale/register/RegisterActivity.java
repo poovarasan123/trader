@@ -8,11 +8,10 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.propositive.tradewaale.Constants;
 import com.propositive.tradewaale.R;
 
 public class RegisterActivity extends AppCompatActivity {
-
-    final String URL = "http://propositive.in/register";
 
     WebView webView;
 
@@ -52,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        webView.loadUrl(URL);
+        webView.loadUrl(Constants.REGISTER_URL);
 
     }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.propositive.tradewaale.Constants;
 import com.propositive.tradewaale.R;
 
 public class PrivacyPolicyActivity extends AppCompatActivity {
@@ -48,6 +49,6 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
             }
         });
 
-        webView.loadUrl("https://tradewale.flycricket.io/privacy.html");
+        webView.loadUrl(Constants.PRIVACY_POLICY_URL);
     }
 }

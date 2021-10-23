@@ -1,16 +1,18 @@
 package com.propositive.tradewaale.advisory.tabs.equity;
 
+import com.propositive.tradewaale.Constants;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class apiController {
-    private static final String url = "http://192.168.4.211/trader/api/";
+
     private static apiController clientobject;
     private static Retrofit retrofit;
 
     apiController(){
         retrofit = new Retrofit.Builder()
-                .baseUrl(url)
+                .baseUrl(Constants.EQUITY_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

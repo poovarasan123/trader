@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -43,13 +44,18 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.propositive.tradewaale.FCMnotification.Constants;
 import com.propositive.tradewaale.FCMnotification.FcmVolley;
 import com.propositive.tradewaale.FCMnotification.MySingleton;
+import com.propositive.tradewaale.advisory.bottomAdvisoryActivity;
 import com.propositive.tradewaale.advisory.bottomAdvisoryFragment;
 import com.propositive.tradewaale.connection.NetworkChangeListener;
+import com.propositive.tradewaale.home.NewsActivity;
 import com.propositive.tradewaale.home.bottomHomeFragment;
+import com.propositive.tradewaale.livefeed.EventActivity;
 import com.propositive.tradewaale.livefeed.bottomLiveFeedFragment;
+import com.propositive.tradewaale.market.bottomMarketActivity;
 import com.propositive.tradewaale.market.bottomMarketFragment;
 import com.propositive.tradewaale.notification.NotifyListActivity;
 import com.propositive.tradewaale.openAccount.OpenAccountActivity;
@@ -69,10 +75,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    final String LogClear = "http://192.168.4.211/trader/session_login/Logout.php";
-    private static final String PROFILE_URL ="http://192.168.4.211/trader/api/user_profile.php";
-
 
     private BottomSheetDialog moreMenuSheet;
     private BottomSheetDialog supportSheet;
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
     MenuItem menuItem;
     TextView notification_count;
-    String pendingNotification = "99+";
+    String pendingNotification = "1";
 
     View view;
 
@@ -111,18 +113,65 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font>"));
 
-        SharedPreferences shared = getSharedPreferences("Log_cred", MODE_PRIVATE);
-        UserMail = (shared.getString("mail", ""));
-
-        FirebaseApp.initializeApp(this);
-
-        FirebaseInstallations.getInstance().getId().addOnSuccessListener(new OnSuccessListener<String>() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
-            public void onSuccess(String s) {
-                Log.d("TAG", "onSuccess: refreshed token:---> " + s);
-                //registerToken(s);
+            public void onComplete(@NonNull Task<String> task) {
+                if (!task.isSuccessful()){
+                    Log.d(TAG, "onComplete: task not success" + task);
+                }
+                String token = task.getResult();
+                Log.d(TAG, "onComplete: main activity token " + token);
+
+//                insertToken(token);
+
+                SharedPreferences sharedPreferences = getSharedPreferences("user_token", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("token",token);
             }
         });
+
+//        FirebaseMessaging.getInstance().subscribeToTopic("weather").addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        String msg = "msg_subscribed";
+//                        if (!task.isSuccessful()) {
+//                            msg = "msg_subscribe_failed";
+//                        }
+//                        Log.d(TAG, msg);
+//                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//        FirebaseMessaging.getInstance().subscribeToTopic("weather").addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        String msg = "msg_subscribed";
+//                        if (!task.isSuccessful()) {
+//                            msg = "msg_subscribe_failed";
+//                        }
+//                        Log.d(TAG, msg);
+//                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//        FirebaseMessaging.getInstance().subscribeToTopic("weather").addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        String msg = "msg_subscribed";
+//                        if (!task.isSuccessful()) {
+//                            msg = "msg_subscribe_failed";
+//                        }
+//                        Log.d(TAG, msg);
+//                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+
+        FirebaseMessaging.getInstance().subscribeToTopic("Calls");
+        FirebaseMessaging.getInstance().subscribeToTopic("News");
+        FirebaseMessaging.getInstance().subscribeToTopic("Notifications");
+
+        SharedPreferences shared = getSharedPreferences("Log_cred", MODE_PRIVATE);
+        UserMail = (shared.getString("mail", ""));
 
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
 
@@ -131,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
 
         loadFragment(new bottomHomeFragment());
         bottomNavView = findViewById(R.id.bottom_nav_bar);
+
+        bottomNavView.setSelectedItemId(R.id.bottomHomeFragment);
 
         bottomNavView.setOnNavigationItemSelectedListener(item -> {
             Fragment selectedFragment = null;
@@ -154,7 +205,74 @@ public class MainActivity extends AppCompatActivity {
             return loadFragment(selectedFragment);
         });
 
+//        bottomNavView.setSelectedItemId(R.id.bottomHomeFragment);
+//
+//        bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//
+//                switch (menuItem.getItemId()){
+//                    case R.id.bottomHomeFragment:
+//                        Toast.makeText(getApplicationContext(), "main activity", Toast.LENGTH_SHORT).show();
+//                        return true;
+//                case R.id.bottomMarketFragment:
+//                    Toast.makeText(getApplicationContext(), "market activity", Toast.LENGTH_SHORT).show();
+////                    startActivity(new Intent(getApplicationContext(), bottomMarketActivity.class));
+////                    overridePendingTransition(0,0);
+//                    return true;
+//                case R.id.bottomAdvisoryFragment:
+//                    Toast.makeText(getApplicationContext(), "advisory activity", Toast.LENGTH_SHORT).show();
+////                    startActivity(new Intent(getApplicationContext(), bottomAdvisoryActivity.class));
+////                    overridePendingTransition(0,0);
+//                    return true;
+//
+//                case R.id.bottomLiveFeedFragment:
+//                    Toast.makeText(getApplicationContext(), "event activity", Toast.LENGTH_SHORT).show();
+////                    startActivity(new Intent(getApplicationContext(), EventActivity.class));
+////                    overridePendingTransition(0,0);
+//                    return true;
+//                }
+//
+//                return false;
+//            }
+//        });
+
     }
+
+//    private void insertToken(String token) {
+//        SharedPreferences pref_Token = getSharedPreferences("user_token", MODE_PRIVATE);
+//        String tok = pref_Token.getString("token", "");
+//
+//        Log.e(TAG, "insertToken: tok+++++" + token );
+//        Intent i = getIntent();
+//
+//        String mail = i.getStringExtra("mail");
+//
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, com.propositive.tradewaale.Constants.REG_TOKEN_URL, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//
+//                Log.e(TAG, "onResponse: response:--->" + response );
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e(TAG, "onResponse: error response:--->" + error.getMessage() );
+//            }
+//        }){
+//            @Nullable
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<>();
+//                params.put("mail", mail);
+//                params.put("token", token);
+//                return params;
+//            }
+//        };
+//        MySingleton.getMySingleton(MainActivity.this).addToRequestQue(stringRequest);
+//
+//    }
 
     private boolean loadFragment(Fragment selectedFragment) {
         if(selectedFragment!=null){
@@ -243,7 +361,9 @@ public class MainActivity extends AppCompatActivity {
         share = loginSheetView.findViewById(R.id.share_menu);
         logout = loginSheetView.findViewById(R.id.logout_menu);
 
-        Picasso.get().load("http://192.168.4.211/trader/imageupload/" +prof_pic).into(circleImageView);
+        Log.e(TAG, "openBottomSheet: test constants: " + com.propositive.tradewaale.Constants.PROFILE_PATH + prof_pic );
+
+        Picasso.get().load(com.propositive.tradewaale.Constants.PROFILE_PATH + prof_pic).into(circleImageView);
         name_text.setText(fname);
         number_text.setText(mobile);
 
@@ -433,7 +553,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadProfile() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, PROFILE_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, com.propositive.tradewaale.Constants.PROFILE_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "onResponse: response from server:---> "+ response);
@@ -487,7 +607,7 @@ public class MainActivity extends AppCompatActivity {
 
     //TODO: Session Management
     private void UpdateSession(String userMail) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, LogClear, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, com.propositive.tradewaale.Constants.LOG_CLEAR , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //Toast.makeText(getApplicationContext(), "clear successfull "+ response, Toast.LENGTH_SHORT).show();
@@ -509,7 +629,6 @@ public class MainActivity extends AppCompatActivity {
         };
         MySingleton.getMySingleton(MainActivity.this).addToRequestQue(stringRequest);
     }
-
 
 //    public void openNotification(MenuItem item) {
 //        Toast.makeText(getApplicationContext(), "bell clicked!...", Toast.LENGTH_SHORT).show();

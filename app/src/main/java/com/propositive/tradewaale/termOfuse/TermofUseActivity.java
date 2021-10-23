@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.propositive.tradewaale.Constants;
 import com.propositive.tradewaale.R;
 
 public class TermofUseActivity extends AppCompatActivity {
@@ -46,6 +47,6 @@ public class TermofUseActivity extends AppCompatActivity {
             }
         });
 
-        webView.loadUrl("https://tradewale.flycricket.io/terms.html");
+        webView.loadUrl(Constants.TERM_URL);
     }
 }

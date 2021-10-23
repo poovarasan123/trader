@@ -1,111 +1,91 @@
 package com.propositive.tradewaale.advisory.tabs.equity;
 
 public class EquityModel {
-    String name, rate_status, stock_status, tc_price_txt, ap_return_txt;
-    float reco_value, tc_price, ap_return;
-    String filter,post_date,post_time;
+    String symbol, buy_value, calls_method, target, reco_pr, exp_term, sel_date, sel_time,returns;
 
     public EquityModel(){}
 
-    public EquityModel(String name, String rate_status, String stock_status, String tc_price_txt, String ap_return_txt, float reco_value, float tc_price, float ap_return, String filter, String post_date, String post_time) {
-        this.name = name;
-        this.rate_status = rate_status;
-        this.stock_status = stock_status;
-        this.tc_price_txt = tc_price_txt;
-        this.ap_return_txt = ap_return_txt;
-        this.reco_value = reco_value;
-        this.tc_price = tc_price;
-        this.ap_return = ap_return;
-        this.filter = filter;
-        this.post_date = post_date;
-        this.post_time = post_time;
+    public EquityModel(String symbol, String buy_value, String calls_method, String target, String reco_pr, String exp_term, String sel_date, String sel_time, String returns) {
+        this.symbol = symbol;
+        this.buy_value = buy_value;
+        this.calls_method = calls_method;
+        this.target = target;
+        this.reco_pr = reco_pr;
+        this.exp_term = exp_term;
+        this.sel_date = sel_date;
+        this.sel_time = sel_time;
+        this.returns = returns;
     }
 
-    public String getName() {
-        return name;
+    public String getSymbol() {
+        return symbol;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 
-    public String getRate_status() {
-        return rate_status;
+    public String getBuy_value() {
+        return buy_value;
     }
 
-    public void setRate_status(String rate_status) {
-        this.rate_status = rate_status;
+    public void setBuy_value(String buy_value) {
+        this.buy_value = buy_value;
     }
 
-    public String getStock_status() {
-        return stock_status;
+    public String getCalls_method() {
+        return calls_method;
     }
 
-    public void setStock_status(String stock_status) {
-        this.stock_status = stock_status;
+    public void setCalls_method(String calls_method) {
+        this.calls_method = calls_method;
     }
 
-    public String getTc_price_txt() {
-        return tc_price_txt;
+    public String getTarget() {
+        return target;
     }
 
-    public void setTc_price_txt(String tc_price_txt) {
-        this.tc_price_txt = tc_price_txt;
+    public void setTarget(String target) {
+        this.target = target;
     }
 
-    public String getAp_return_txt() {
-        return ap_return_txt;
+    public String getReco_pr() {
+        return reco_pr;
     }
 
-    public void setAp_return_txt(String ap_return_txt) {
-        this.ap_return_txt = ap_return_txt;
+    public void setReco_pr(String reco_pr) {
+        this.reco_pr = reco_pr;
     }
 
-    public float getReco_value() {
-        return reco_value;
+    public String getExp_term() {
+        return exp_term;
     }
 
-    public void setReco_value(float reco_value) {
-        this.reco_value = reco_value;
+    public void setExp_term(String exp_term) {
+        this.exp_term = exp_term;
     }
 
-    public float getTc_price() {
-        return tc_price;
+    public String getSel_time() {
+        return sel_time;
     }
 
-    public void setTc_price(float tc_price) {
-        this.tc_price = tc_price;
+    public String getSel_date() {
+        return sel_date;
     }
 
-    public float getAp_return() {
-        return ap_return;
+    public void setSel_date(String sel_date) {
+        this.sel_date = sel_date;
     }
 
-    public void setAp_return(float ap_return) {
-        this.ap_return = ap_return;
+    public void setSel_time(String sel_time) {
+        this.sel_time = sel_time;
     }
 
-    public String getFilter() {
-        return filter;
+    public String getReturns() {
+        return returns;
     }
 
-    public void setFilter(String filter) {
-        this.filter = filter;
-    }
-
-    public String getPost_time() {
-        return post_time;
-    }
-
-    public String getPost_date() {
-        return post_date;
-    }
-
-    public void setPost_date(String post_date) {
-        this.post_date = post_date;
-    }
-
-    public void setPost_time(String post_time) {
-        this.post_time = post_time;
+    public void setReturns(String returns) {
+        this.returns = returns;
     }
 }

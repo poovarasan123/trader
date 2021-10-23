@@ -56,7 +56,7 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
          int position = pos;
 
         //TODO: buy and sell color
-        if (data.get(position).getRate_status().equals("buy")){
+        if (data.get(position).getBuy_value().equals("buy")){
             holder.bsStatus.setTextColor(context.getResources().getColor(R.color.green));
             holder.bsStatus.setBackgroundResource(R.drawable.buy_stroke);
         }else{
@@ -64,12 +64,12 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
             holder.bsStatus.setBackgroundResource(R.drawable.sell_stroke);
         }
 
-        Log.d("TAG", "onBindViewHolder: " + data.get(position).getRate_status());
-        Log.d("TAG", "onBindViewHolder: " + data.get(position).getStock_status());
+//        Log.d("TAG", "onBindViewHolder: " + data.get(position).getBuy_value());
+//        Log.d("TAG", "onBindViewHolder: " + data.get(position).getCalls_method());
 
 
         //TODO: open and close status
-        if (data.get(position).getStock_status().equals("open")){
+        if (data.get(position).getCalls_method().equals("open")){
             holder.opStatus.setTextColor(context.getResources().getColor(R.color.orange));
             holder.tcTxt.setText("TARGET PRICE");
             holder.apTxt.setText("POTENTIAL RETURN");
@@ -81,46 +81,48 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
             holder.tagStatus.setBackgroundColor(context.getResources().getColor(R.color.red));
         }
 
-        holder.name_ltd.setText(data.get(position).getName());
-        holder.bsStatus.setText(data.get(position).getRate_status());
-        holder.opStatus.setText(data.get(position).getStock_status());
-        holder.reco_price.setText(String.valueOf(data.get(position).getReco_value()));
-        holder.tcValue.setText(String.valueOf(data.get(position).getTc_price()));
-        holder.term.setText(String.valueOf(data.get(position).getFilter()));
+        holder.name_ltd.setText(data.get(position).getSymbol());
+        holder.bsStatus.setText(data.get(position).getBuy_value());
+        holder.opStatus.setText(data.get(position).getCalls_method());
+        holder.reco_price.setText(String.valueOf(data.get(position).getReco_pr()));
+        holder.tcValue.setText(String.valueOf(data.get(position).getTarget()));
+        String old = String.valueOf(data.get(position).getExp_term());
+        String new_term = old.replace("_", " ");
+        holder.term.setText(new_term);
+        holder.apValue.setText(String.valueOf(data.get(position).getReturns()));
 
         //TODO: percentage calculation
-        float min = data.get(position).getTc_price() - data.get(position).getReco_value();
+//        float min = data.get(position).getTc_price() - data.get(position).getReco_value();
+//
+//        float total = min / data.get(position).getReco_value();
+//
+//        float percent = total * 100;
+//
+//        int percent_int = (int) percent;
 
-        float total = min / data.get(position).getReco_value();
-
-        float percent = total * 100;
-
-        int percent_int = (int) percent;
-
-        holder.apValue.setText(String.valueOf(percent_int));
+//        holder.apValue.setText(String.valueOf(percent_int));
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "position :" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onClick: time ->" + data.get(holder.getAdapterPosition()).getPost_time());
-                Log.d(TAG, "onClick: date ->" + data.get(holder.getAdapterPosition()).getPost_date());
+
+                Log.d(TAG, "onClick: time ->" + data.get(holder.getAdapterPosition()).getSel_time());
+                Log.d(TAG, "onClick:  equity adapter date ->" + data.get(holder.getAdapterPosition()).getSel_date());
 
                 Intent i = new Intent(v.getContext(), EquityExtendViewActivity.class);
 
-                i.putExtra("name", data.get(position).getName());
-                i.putExtra("rateStatus", data.get(position).getRate_status());
-                i.putExtra("stockStatus", data.get(position).getStock_status());
-                i.putExtra("recoValue", data.get(position).getReco_value());
-                i.putExtra("tcValue", data.get(position).getTc_price());
-                i.putExtra("term", data.get(position).getFilter());
-                i.putExtra("apValue", percent_int);
-                i.putExtra("date", data.get(position).getPost_date());
-                i.putExtra("time", data.get(position).getPost_time());
+                i.putExtra("name", data.get(position).getSymbol());
+                i.putExtra("rateStatus", data.get(position).getBuy_value());
+                i.putExtra("stockStatus", data.get(position).getCalls_method());
+                i.putExtra("recoValue", data.get(position).getReco_pr());
+                i.putExtra("tcValue", data.get(position).getTarget());
+                i.putExtra("term", data.get(position).getExp_term());
+                i.putExtra("apValue",data.get(position).getReturns());
+                i.putExtra("date", data.get(position).getSel_date());
+                i.putExtra("time", data.get(position).getSel_time());
 
                 v.getContext().startActivity(i);
-
-
             }
         });
 

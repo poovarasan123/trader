@@ -39,8 +39,13 @@
     //subscription colors
     <color name="normal">#1abc9c</color>
     <color name="silver">#3498db</color>
-    <color name="platinum">#9b59b6</color>
-    <color name="gold">#f1c40f</color>
+    <color name="platinum">#9B59B6</color>
+
+
+<!--    <color name="normal">#1abc9c</color>-->
+<!--    <color name="silver">#3498db</color>-->
+<!--    <color name="platinum">#9b59b6</color>-->
+<!--    <color name="gold">#f1c40f</color>-->
 
 
 
