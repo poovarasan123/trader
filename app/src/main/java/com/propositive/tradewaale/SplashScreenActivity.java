@@ -1,11 +1,8 @@
 package com.propositive.tradewaale;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -13,7 +10,6 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -24,27 +20,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.propositive.tradewaale.FCMnotification.MySingleton;
-import com.propositive.tradewaale.FCMnotification.SharedPreference;
 import com.propositive.tradewaale.connection.NetworkChangeListener;
-import com.propositive.tradewaale.notification.NotifyListActivity;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -128,7 +106,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 String mail = uMail.getText().toString();
                                 String password = uPassword.getText().toString();
 
-                                FunLogin(mail, password);
+                                //FunLogin(mail, password);
                                 loginSheet.dismiss();
 
                             }
@@ -150,64 +128,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         }, 2000);
     }
 
-    private void FunLogin(String mail, String password) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.LOGIN_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
 
-                Log.e(TAG, "onResponse: response -> " + response);
-
-                Log.e(TAG, "onResponse: username--->" + mail );
-                Log.e(TAG, "onResponse: password--->" + password );
-
-
-                if (response.equals("record found")){
-                    //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("mail", mail);
-                    startActivity(intent);
-                    finish();
-                    StoreCred(mail,password);
-                    //clearField();
-                }
-
-                if (response.equals("User already active")){
-                    Toast.makeText(getApplicationContext(), "User already active!...", Toast.LENGTH_SHORT).show();
-                }
-
-                if (response.equals("no record found")){
-                    Toast.makeText(getApplicationContext(), "Enter valid mail ID and password!...", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "onResponse: error ---> " + error.getMessage());
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", mail);
-                params.put("password", password);
-                return params;
-            }
-        };
-        MySingleton.getMySingleton(SplashScreenActivity.this).addToRequestQue(stringRequest);
-    }
-
-    private void StoreCred(String mail, String password) {
-        SharedPreferences sharedPreference = getSharedPreferences("Log_cred", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreference.edit();
-        editor.putString("mail",mail);
-        editor.putString("pass",password);
-        editor.apply();
-    }
-
-    private void clearField() {
-        uMail.setText("");
-        uPassword.setText("");
-    }
 
     @Override
     protected void onStart() {
@@ -215,26 +136,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         registerReceiver(networkChangeListener, filter);
         super.onStart();
 
-        checkCred();
-
     }
 
     @Override
     protected void onStop() {
         unregisterReceiver(networkChangeListener);
         super.onStop();
-    }
-
-    private void checkCred() {
-        SharedPreferences shared = getSharedPreferences("Log_cred", MODE_PRIVATE);
-        String UserMail = (shared.getString("mail", ""));
-        String UserPass = (shared.getString("pass", ""));
-
-        Log.e(TAG, "checkCred: share_user" + UserMail );
-        Log.e(TAG, "checkCred: share_pass" + UserPass );
-
-        if (!UserMail.isEmpty() && !UserPass.isEmpty()){
-            FunLogin(UserMail, UserPass);
-        }
     }
 }

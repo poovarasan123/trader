@@ -2,6 +2,7 @@ package com.propositive.tradewaale;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -14,18 +15,16 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -36,26 +35,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.propositive.tradewaale.FCMnotification.Constants;
-import com.propositive.tradewaale.FCMnotification.FcmVolley;
-import com.propositive.tradewaale.FCMnotification.MySingleton;
-import com.propositive.tradewaale.advisory.bottomAdvisoryActivity;
 import com.propositive.tradewaale.advisory.bottomAdvisoryFragment;
 import com.propositive.tradewaale.connection.NetworkChangeListener;
-import com.propositive.tradewaale.home.NewsActivity;
 import com.propositive.tradewaale.home.bottomHomeFragment;
-import com.propositive.tradewaale.livefeed.EventActivity;
 import com.propositive.tradewaale.livefeed.bottomLiveFeedFragment;
-import com.propositive.tradewaale.market.bottomMarketActivity;
+import com.propositive.tradewaale.login.LoginActivity;
 import com.propositive.tradewaale.market.bottomMarketFragment;
 import com.propositive.tradewaale.notification.NotifyListActivity;
 import com.propositive.tradewaale.openAccount.OpenAccountActivity;
@@ -81,19 +69,21 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavView;
 
-    CircleImageView circleImageView, setPic;
+    CircleImageView circleImageView;
 
     LinearLayout theme, profile_menu, openDematAccpunt, privacypolicy, termsOfuse, support, share, logout, menusback;
 
+    ImageView moremenu;
+
     TextView name_text, number_text;
-    String prof_pic, fname, mobile;
+    String id, prof_pic, fname, mobile;
 
     String token;
     private ProgressDialog progressDialog;
     private static final String TAG = "Main Activity";
 
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+//    private SharedPreferences sharedPreferences;
+//    private SharedPreferences.Editor editor;
 
     private final int STORAGE_PERMISSION_CODE = 23;
 
@@ -173,10 +163,13 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences shared = getSharedPreferences("Log_cred", MODE_PRIVATE);
         UserMail = (shared.getString("mail", ""));
 
+        moremenu = findViewById(R.id.more);
+
+
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
 
-        sharedPreferences = this.getSharedPreferences("themes", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+//        sharedPreferences = this.getSharedPreferences("themes", Context.MODE_PRIVATE);
+//        editor = sharedPreferences.edit();
 
         loadFragment(new bottomHomeFragment());
         bottomNavView = findViewById(R.id.bottom_nav_bar);
@@ -204,38 +197,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return loadFragment(selectedFragment);
         });
-
-//        bottomNavView.setSelectedItemId(R.id.bottomHomeFragment);
-//
-//        bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//
-//                switch (menuItem.getItemId()){
-//                    case R.id.bottomHomeFragment:
-//                        Toast.makeText(getApplicationContext(), "main activity", Toast.LENGTH_SHORT).show();
-//                        return true;
-//                case R.id.bottomMarketFragment:
-//                    Toast.makeText(getApplicationContext(), "market activity", Toast.LENGTH_SHORT).show();
-////                    startActivity(new Intent(getApplicationContext(), bottomMarketActivity.class));
-////                    overridePendingTransition(0,0);
-//                    return true;
-//                case R.id.bottomAdvisoryFragment:
-//                    Toast.makeText(getApplicationContext(), "advisory activity", Toast.LENGTH_SHORT).show();
-////                    startActivity(new Intent(getApplicationContext(), bottomAdvisoryActivity.class));
-////                    overridePendingTransition(0,0);
-//                    return true;
-//
-//                case R.id.bottomLiveFeedFragment:
-//                    Toast.makeText(getApplicationContext(), "event activity", Toast.LENGTH_SHORT).show();
-////                    startActivity(new Intent(getApplicationContext(), EventActivity.class));
-////                    overridePendingTransition(0,0);
-//                    return true;
-//                }
-//
-//                return false;
-//            }
-//        });
 
     }
 
@@ -452,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.clear();
                 editor.apply();
                 UpdateSession(UserMail);
-                startActivity(new Intent(MainActivity.this, SplashScreenActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
             }
         });
@@ -478,6 +439,7 @@ public class MainActivity extends AppCompatActivity {
         supportSheet.show();
     }
 
+    /**
     public void registerToken(String token) {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Registering Device...");
@@ -530,6 +492,7 @@ public class MainActivity extends AppCompatActivity {
         };
         FcmVolley.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
+     **/
 
     private String getToken() {
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
@@ -562,10 +525,12 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray jsonarray= new JSONArray(response);
                     for(int i=0; i < jsonarray.length(); i++) {
                         JSONObject jsonobject = jsonarray.getJSONObject(i);
+                        id = jsonobject.getString("uid");
                         prof_pic = jsonobject.getString("profile_image");
                         fname = jsonobject.getString("first_name");
                         mobile = jsonobject.getString("phone");
 
+                        Log.d(TAG, "onResponse: id: " + id);
                         Log.d(TAG, "onResponse: prof_pic: " + prof_pic);
                         Log.d(TAG, "onResponse: fname: " + fname);
                         Log.d(TAG, "onResponse: mobile: " + mobile);

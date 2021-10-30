@@ -7,8 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/loginBottomSheet"
-    android:background="@drawable/top_cornor_round"
-    tools:context=".login.LoginActivity">
+    android:background="@drawable/top_cornor_round">
 
     <TextView
         android:id="@+id/register_text"

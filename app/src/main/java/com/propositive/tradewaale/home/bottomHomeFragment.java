@@ -13,11 +13,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.propositive.tradewaale.R;
 import com.propositive.tradewaale.home.apiController;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,7 +39,9 @@ public class bottomHomeFragment extends Fragment {
 
     SwipeRefreshLayout swipeRefreshLayout;
 
-    //List<newsModel> newsList = new ArrayList<>();
+    LinearLayout imageView;
+
+    List<newsModel> newsList = new ArrayList<>();
 
     private static final String TAG = "News Activity";
 
@@ -46,16 +52,18 @@ public class bottomHomeFragment extends Fragment {
 
         recyclerView = root.findViewById(R.id.recyclerView);
 
+        imageView = root.findViewById(R.id.no_record_image_layout);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
 
         swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
 
-        //newsList();
+        newsList();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //newsList();
+                newsList();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -63,7 +71,7 @@ public class bottomHomeFragment extends Fragment {
         return root;
     }
 
-    /**
+
     public void newsList() {
 
         Call<List<newsModel>> call = apiController
@@ -81,15 +89,15 @@ public class bottomHomeFragment extends Fragment {
 
                 Log.d(TAG, "onResponse: " + newsList.size());
 
-                if (data.size() != 0) {
+                if (newsList.size() != 0) {
                     recyclerView.setVisibility(View.VISIBLE);
-                    adapter = new DerivativeAdapter(data);
+                    adapter = new newsAdapter(newsList);
 
                     imageView.setVisibility(View.GONE);
 
                     adapter.notifyDataSetChanged();
                     recyclerView.setAdapter(adapter);
-                    Collections.reverse(data);
+                    Collections.reverse(newsList);
                 } else {
                     imageView.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
@@ -114,7 +122,6 @@ public class bottomHomeFragment extends Fragment {
 
         });
     }
-     **/
 
 //    private void listNews() {
 //        RequestQueue queue = Volley.newRequestQueue(getContext());

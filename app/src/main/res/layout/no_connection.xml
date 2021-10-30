@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
     android:background="@color/inter_color2">
 
     <ImageView
@@ -47,7 +48,7 @@
         android:background="@drawable/net_connection_back"
         android:text="Retry"
         android:textAllCaps="true"
-        android:textColor="@color/white" />
+        android:textColor="@color/inter_color3" />
 
 
 </LinearLayout>

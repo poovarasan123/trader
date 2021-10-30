@@ -2,12 +2,12 @@ package com.propositive.tradewaale;
 
 public class Constants {
 
-    /**
+
     //TODO: Equity getdata
-    //public static final String EQUITY_URL = "http://192.168.29.40/trader/api/";
+    public static final String EQUITY_URL = "http://android.propositive.in/";
 
     //TODO: Derivative get data
-    //public static final String DERIVATIVE_URL = "http://192.168.29.40/trader/api/";
+    public static final String DERIVATIVE_URL = "http://android.propositive.in/";
 
     //TODO: Home get data
     public static final String HOME_URL = "http://192.168.29.40/trader/api/";
@@ -31,7 +31,7 @@ public class Constants {
     public static final String REG_TOKEN_URL = "http://192.168.29.40/trader/api/insert_token.php";
 
     //TODO: User login
-    //public static final String LOGIN_URL = "http://192.168.29.40/trader/session_login/user_Auth.php";
+    public static final String LOGIN_URL = "http://192.168.29.40/trader/session_login/user_Auth.php";
 
     //TODO: Resigter
     public static final String REGISTER_URL = "http://propositive.in/register";
@@ -47,9 +47,16 @@ public class Constants {
 
     //TODO: Privacy Policy
     public static final String PRIVACY_POLICY_URL = "https://tradewale.flycricket.io/privacy.html";
-    **/
+
+    //TODO: Plan History
+    public static final String PLAN_HISTORY= "http://192.168.29.40/trader/api/get_plan_history.php";
+
+    //TODO: forgot password
+    public static final String FORGOT_PASSWORD = "http://tradewaale.com/forgotpassword";
 
 
+
+    /**
     //TODO: Equity getdata
     public static final String EQUITY_URL = "http://android.propositive.in/";
 
@@ -95,5 +102,10 @@ public class Constants {
     //TODO: Resigter
     public static final String REGISTER_URL = "http://propositive.in/register";
 
+    //TODO: Plan History
+    public static final String PLAN_HISTORY= "http://192.168.29.40/trader/api/get_plan_history.php";
+    //public static final String PLAN_HISTORY= "http://android.propositive.in/get_plan_history.php";
+
+     **/
 
 }

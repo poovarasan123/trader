@@ -1,4 +1,4 @@
-package com.propositive.tradewaale.FCMnotification;
+package com.propositive.tradewaale;
 
 import android.content.Context;
 

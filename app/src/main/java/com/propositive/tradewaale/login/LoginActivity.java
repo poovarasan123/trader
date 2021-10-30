@@ -1,106 +1,83 @@
 package com.propositive.tradewaale.login;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.propositive.tradewaale.Constants;
+import com.propositive.tradewaale.MySingleton;
+import com.propositive.tradewaale.MainActivity;
 import com.propositive.tradewaale.R;
+import com.propositive.tradewaale.connection.NetworkChangeListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String TAG = "LoginActivity";
-    private static final String CHANNEL_ID = "101";
-    TextInputEditText mail, pass;
-    Button login;
-    TextView register, forgot, loginText;
-    String token;
-    private ProgressDialog progressDialog;
+    private static final String TAG = "login Activity";
 
-    BottomSheetDialog loginSheet;
+    EditText uMail, uPassword;
+    TextView forgot, register;
+    Button login;
+
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
-
-        mail = findViewById(R.id.username);
-        pass = findViewById(R.id.pass);
-
-        login = findViewById(R.id.loginbtn);
 
         forgot = findViewById(R.id.forgottxt);
 
-        loginText = findViewById(R.id.register_text);
+
+        uMail = findViewById(R.id.username);
+        uPassword = findViewById(R.id.pass);
+
+        login = findViewById(R.id.login_btn);
+        register = findViewById(R.id.register_text);
+
+
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.FORGOT_PASSWORD));
+                startActivity(browserIntent);
+
+//                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+//                View view = getLayoutInflater().inflate(R.layout.forgot_password_layout, null);
+//                dialogBuilder.setView(view);
+//
+//                AlertDialog alertDialog = dialogBuilder.create();
+//                alertDialog.show();
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                String mail = uMail.getText().toString();
+                String password = uPassword.getText().toString();
 
-//                progressDialog = new ProgressDialog(LoginActivity.this);
-//                progressDialog.setMessage("Registering Device...");
-//                progressDialog.show();
-//
-//                //final String token = SharedPreference.getInstance(getApplicationContext()).getDeviceToken();
-//                final String token = getToken();
-//                final String email = mail.getText().toString();
-//
-//                Log.e(TAG, "onClick: mail from input " + email);
-//                Log.e(TAG, "onClick: token new fcm --->" + token);
-//
-//                if (token == null) {
-//                    progressDialog.dismiss();
-//                    Toast.makeText(LoginActivity.this, "Token not generated", Toast.LENGTH_LONG).show();
-//                    return;
-//                }
-//
-//                StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REGISTER_DEVICE,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                Log.e("error from response1", response);
-//                                progressDialog.dismiss();
-//                                try {
-//                                    JSONObject obj = new JSONObject(response);
-//                                    Toast.makeText(LoginActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-//                                Log.e("error from response2", response);
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                progressDialog.dismiss();
-//                                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-//                                Log.e(TAG, "onErrorResponse: volley error" + error.getMessage());
-//                            }
-//                        }) {
-//
-//                    @Override
-//                    protected Map<String, String> getParams() throws AuthFailureError {
-//                        Map<String, String> params = new HashMap<>();
-//                        params.put("email", email);
-//                        params.put("token", token);
-//                        return params;
-//                    }
-//                };
-//                FcmVolley.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+                FunLogin(mail, password);
 
             }
         });
@@ -108,33 +85,103 @@ public class LoginActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                Toast.makeText(LoginActivity.this, "under construction!...", Toast.LENGTH_SHORT).show();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.REGISTER_URL));
+                startActivity(browserIntent);
             }
         });
 
-        forgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "under construction!...", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
-    private void ResetPassword() {
-        Toast.makeText(getApplicationContext(), "Under construction!...", Toast.LENGTH_SHORT).show();
+    private void FunLogin(String mail, String password) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.LOGIN_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Log.e(TAG, "onResponse: response -> " + response);
+
+                Log.e(TAG, "onResponse: username--->" + mail );
+                Log.e(TAG, "onResponse: password--->" + password );
+
+
+                if (response.equals("record found")){
+                    //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("mail", mail);
+                    startActivity(intent);
+                    finish();
+                    StoreCred(mail,password);
+                    //clearField();
+                }
+
+                if (response.equals("Mail ID and password is empty!...")){
+                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                }
+
+                if (response.equals("User already active")){
+                    Toast.makeText(getApplicationContext(), "User already active!...", Toast.LENGTH_SHORT).show();
+                }
+
+                if (response.equals("no record found")){
+                    Toast.makeText(getApplicationContext(), "Enter valid mail ID and password!...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "onResponse: error ---> " + error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", mail);
+                params.put("password", password);
+                return params;
+            }
+        };
+        MySingleton.getMySingleton(LoginActivity.this).addToRequestQue(stringRequest);
     }
 
-    private String getToken() {
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                token = task.getResult();
-                Log.d(TAG, "onComplete: token: --->" + token);
-            }
+    private void StoreCred(String mail, String password) {
+        SharedPreferences sharedPreference = getSharedPreferences("Log_cred", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreference.edit();
+        editor.putString("mail",mail);
+        editor.putString("pass",password);
+        editor.apply();
+    }
 
-        });
-        return token;
+    private void clearField() {
+        uMail.setText("");
+        uPassword.setText("");
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+
+        checkCred();
+
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
+
+    private void checkCred() {
+        SharedPreferences shared = getSharedPreferences("Log_cred", MODE_PRIVATE);
+        String UserMail = (shared.getString("mail", ""));
+        String UserPass = (shared.getString("pass", ""));
+
+        Log.e(TAG, "checkCred: share_user" + UserMail );
+        Log.e(TAG, "checkCred: share_pass" + UserPass );
+
+        if (!UserMail.isEmpty() && !UserPass.isEmpty()){
+            FunLogin(UserMail, UserPass);
+        }
     }
 
 }
