@@ -75,11 +75,11 @@
             android:name=".test"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <activity
@@ -87,13 +87,14 @@
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
+
         <activity
             android:name=".subscription.SubscriptionActivity"
             android:exported="false" />
@@ -118,19 +119,23 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".profile.ProfileActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".register.RegisterActivity"
             android:exported="true" />
 
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false" /> <!-- <activity -->
+            android:required="false" />
+        <!-- <activity -->
         <!-- android:name=".login.LoginActivity" -->
         <!-- android:exported="true" /> -->
+
         <activity
             android:name=".openAccount.WebviewActivity"
             android:exported="true"
