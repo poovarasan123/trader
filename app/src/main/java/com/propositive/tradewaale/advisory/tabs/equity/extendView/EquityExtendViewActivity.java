@@ -1,29 +1,63 @@
 package com.propositive.tradewaale.advisory.tabs.equity.extendView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.propositive.tradewaale.Constants;
+import com.propositive.tradewaale.MySingleton;
 import com.propositive.tradewaale.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EquityExtendViewActivity extends AppCompatActivity {
 
     TextView name, rate, stock, tcTxet, apText, recoValue, tcValue, apValue;
     TextView opc, term, dateDetails, targetDetails, date, time;
     TextView opcl, name2, reduceValue, tcText2, tcValue2, date2, time2;
+    TextView historyTitleTop;
+
+    ImageView status_indicator;
 
     View tag;
 
     int targetDay;
+
+    int showMore = 0;
+
+    RecyclerView recyclerView;
+    //LinearLayout show_more_layout, noCallHistory;
+
+    List<EquityCallHistoryModel> datalist = new ArrayList<>();
+    EquityCallHistoryAdapter adapter;
 
     private static final String TAG = "equity extend activity";
 
@@ -32,7 +66,21 @@ public class EquityExtendViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equity_extend_view);
 
+//        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\" >" + " Details " + "</font>"));
+
         tag = findViewById(R.id.tag_status_view);
+
+        recyclerView = findViewById(R.id.call_history);
+        //show_more_layout = findViewById(R.id.show_more);
+
+        status_indicator = findViewById(R.id.status_indicator);
+        historyTitleTop = findViewById(R.id.history_top_title);
+        //noCallHistory = findViewById(R.id.no_calls_found_image);
+
+        //noCallHistory.setVisibility(View.GONE);
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         name = findViewById(R.id.name_ltd_txt);
         rate = findViewById(R.id.buy_or_sell);
@@ -59,12 +107,13 @@ public class EquityExtendViewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        String rid = intent.getStringExtra("rid");
         String namei = intent.getStringExtra("name");
         String ratei = intent.getStringExtra("rateStatus");
         String stocki = intent.getStringExtra("stockStatus");
-        float recopricei = intent.getFloatExtra("recoValue",0);
-        float targetclosei = intent.getFloatExtra("tcValue", 0);
-        int apvaluei = intent.getIntExtra("apValue",0);
+        String recopricei = intent.getStringExtra("recoValue");
+        String targetclosei = intent.getStringExtra("tcValue");
+        String apvaluei = intent.getStringExtra("apValue");
         String termi = intent.getStringExtra("term");
         String datei = intent.getStringExtra("date");
         String timei = intent.getStringExtra("time");
@@ -109,17 +158,21 @@ public class EquityExtendViewActivity extends AppCompatActivity {
         if (stocki.equals("open")){
             stock.setText(stocki);
             opcl.setText(stocki);
+            historyTitleTop.setText("Add");
             stock.setTextColor(getResources().getColor(R.color.orange));
             opcl.setTextColor(getResources().getColor(R.color.orange));
             tag.setBackgroundColor(getResources().getColor(R.color.orange));
+            status_indicator.setImageResource(R.drawable.round_open);
             tcTxet.setText("TARGET PRICE");
             apText.setText("POTENTIAL RETURN");
         }else{
             stock.setText(stocki);
             opcl.setText(stocki);
+            historyTitleTop.setText("Exit");
             stock.setTextColor(getResources().getColor(R.color.red));
             opcl.setTextColor(getResources().getColor(R.color.red));
             tag.setBackgroundColor(getResources().getColor(R.color.red));
+            status_indicator.setImageResource(R.drawable.round_close);
             tcTxet.setText("CLOSED PRICE");
             apText.setText("ACTUAL RETURN");
         }
@@ -156,12 +209,94 @@ public class EquityExtendViewActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: date target" + targetDay);
 
-        term.setText(termi);
-        date.setText(dateChanger(datei));
-        time.setText(timeChanger(timei));
-        date2.setText(dateChanger(datei));
-        time2.setText(timeChanger(timei));
 
+        String new_term = termi.replace("_", " ");
+
+        term.setText(new_term);
+        date.setText(dateChanger(datei));
+        time.setText(timei);
+        date2.setText(dateChanger(datei));
+        time2.setText(timei);
+
+        loadCallHistory(rid);
+
+//        show_more_layout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                showMore++;
+//                if (showMore % 2 != 0) {
+//                    recyclerView.getLayoutParams().width = RecyclerView.LayoutParams.MATCH_PARENT;
+//                    recyclerView.setVisibility(View.VISIBLE);
+//                    loadCallHistory(rid);
+//                    if (datalist.size() == 0) {
+//                        noCallHistory.setVisibility(View.VISIBLE);
+//                    }
+//                } else {
+//                    recyclerView.setVisibility(View.GONE);
+//                    noCallHistory.setVisibility(View.GONE);
+//                }
+//            }
+//        });
+
+    }
+
+    private void loadCallHistory(String rid) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.CALL_HISTORY, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Log.e(TAG, "onResponse: call history response: " + response);
+
+                if (!response.equals("No response")){
+                    try {
+                        JSONArray call_history = new JSONArray(response);
+
+                        for (int i=0; i<call_history.length(); i++){
+                            JSONObject jsonObject = call_history.getJSONObject(i);
+
+                            datalist.add(new EquityCallHistoryModel(
+                                    jsonObject.getString("h_symbol"),
+                                    jsonObject.getString("h_buy_value"),
+                                    jsonObject.getString("h_calls_method"),
+                                    jsonObject.getString("h_reco_pr"),
+                                    jsonObject.getString("h_target"),
+                                    jsonObject.getString("h_updated"),
+                                    jsonObject.getString("h_sel_time")
+                            ));
+
+                        }
+
+                        Log.e(TAG, "onResponse: equity datalist size: " + datalist.size() );
+
+                        adapter = new EquityCallHistoryAdapter(EquityExtendViewActivity.this, datalist);
+                        recyclerView.setAdapter(adapter);
+
+//                    if (datalist.size() != 0) {
+//                        noCallHistory.setVisibility(View.GONE);
+//                    }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "onResponse: call history error: " + error.getMessage());
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("hid", rid);
+                Log.d(TAG, "getParams: response rid:" + rid);
+                return params;
+            }
+        };
+        MySingleton.getMySingleton(EquityExtendViewActivity.this).addToRequestQue(stringRequest);
     }
 
     public String dateChanger(String time) {

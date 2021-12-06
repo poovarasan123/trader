@@ -2,10 +2,11 @@ package com.propositive.tradewaale.advisory.tabs.derivative;
 
 public class DerivativeModel {
 
-    String symbol, buy_value, calls_method, stop_loss, reco_pr, target, target2, exp_term, returns, sel_date, sel_time;
+    String rid, symbol, buy_value, calls_method, stop_loss, reco_pr, target, target2, exp_term, returns, sel_date, sel_time;
 
 
-    public DerivativeModel(String symbol, String buy_value, String calls_method, String stop_loss, String reco_pr, String target, String target2, String exp_term, String returns, String sel_date, String sel_time) {
+    public DerivativeModel(String rid, String symbol, String buy_value, String calls_method, String stop_loss, String reco_pr, String target, String target2, String exp_term, String returns, String sel_date, String sel_time) {
+        this.rid = rid;
         this.symbol = symbol;
         this.buy_value = buy_value;
         this.calls_method = calls_method;
@@ -17,6 +18,14 @@ public class DerivativeModel {
         this.returns = returns;
         this.sel_date = sel_date;
         this.sel_time = sel_time;
+    }
+
+    public String getRid() {
+        return rid;
+    }
+
+    public void setRid(String rid) {
+        this.rid = rid;
     }
 
     public String getSymbol() {

@@ -105,13 +105,14 @@ public class EquityAdapter extends RecyclerView.Adapter<EquityAdapter.ViewHolder
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "position :" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(v.getContext(), "position :" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "onClick: time ->" + data.get(holder.getAdapterPosition()).getSel_time());
                 Log.d(TAG, "onClick:  equity adapter date ->" + data.get(holder.getAdapterPosition()).getSel_date());
 
                 Intent i = new Intent(v.getContext(), EquityExtendViewActivity.class);
 
+                i.putExtra("rid", data.get(position).getRid());
                 i.putExtra("name", data.get(position).getSymbol());
                 i.putExtra("rateStatus", data.get(position).getBuy_value());
                 i.putExtra("stockStatus", data.get(position).getCalls_method());

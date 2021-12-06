@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -81,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     String token;
     private ProgressDialog progressDialog;
     private static final String TAG = "Main Activity";
+    private static final String SHARE_CONTENT = "Check out Tradewaale app. Get access to SEBI-Registered Trading Ideas, Live Intraday Screeners, All-Day Expert Market Analysis and more! " + "\n" + "ahjrgbahbdfgashdfbg\n" + "https://marketfeed.app/ \n";
 
 //    private SharedPreferences sharedPreferences;
 //    private SharedPreferences.Editor editor;
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
     MenuItem menuItem;
     TextView notification_count;
-    String pendingNotification = "1";
+    String pendingNotification = "0";
 
     View view;
 
@@ -102,6 +106,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font>"));
+
+        Log.e(TAG, "onCreate: device id:" + android.os.Build.ID );
+        Log.e(TAG, "onCreate: device:" + Build.DEVICE );
+        Log.e(TAG, "onCreate: device brand:" + android.os.Build.BRAND );
+        Log.e(TAG, "onCreate: device model:" + android.os.Build.MODEL );
+        Log.e(TAG, "onCreate: device serial:" + android.os.Build.SERIAL );
+        Log.e(TAG, "onCreate: device user:" + android.os.Build.USER );
+        Log.e(TAG, "onCreate: device host:" + android.os.Build.HOST );
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
@@ -308,9 +320,9 @@ public class MainActivity extends AppCompatActivity {
         moreMenuSheet = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialogTheme);
         View loginSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet, findViewById(R.id.more_menu_sheet));
 
-        circleImageView = loginSheetView.findViewById(R.id.profile_image);
-        name_text = loginSheetView.findViewById(R.id.username_txt);
-        number_text = loginSheetView.findViewById(R.id.mobile_txt);
+//        circleImageView = loginSheetView.findViewById(R.id.profile_image);
+//        //name_text = loginSheetView.findViewById(R.id.username_txt);
+//        number_text = loginSheetView.findViewById(R.id.mobile_txt);
 
         //theme = loginSheetView.findViewById(R.id.theme_menu);
 
@@ -325,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e(TAG, "openBottomSheet: test constants: " + com.propositive.tradewaale.Constants.PROFILE_PATH + prof_pic );
 
         Picasso.get().load(com.propositive.tradewaale.Constants.PROFILE_PATH + prof_pic).into(circleImageView);
-        name_text.setText(fname);
+        //name_text.setText(fname);
         number_text.setText(mobile);
 
         //theme switching
@@ -397,7 +409,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT,"Share for testing!....");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, SHARE_CONTENT);
                 sendIntent.setType("text/plain");
                 Intent.createChooser(sendIntent,"Share via");
                 startActivity(sendIntent);
@@ -427,6 +439,17 @@ public class MainActivity extends AppCompatActivity {
         View supportSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.support_layout, findViewById(R.id.support_sheet));
 
         LinearLayout closeBox = supportSheetView.findViewById(R.id.close_img);
+
+        LinearLayout mail = supportSheetView.findViewById(R.id.mail_us);
+        LinearLayout whatsapp = supportSheetView.findViewById(R.id.talk_to_us);
+
+        whatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=+91 95665 65278 &text= Hi, I am " + fname + "\n" +"I am using Tradewaale android app and I have a query. \n"));
+                startActivity(i);
+            }
+        });
 
         closeBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -534,7 +557,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "onResponse: prof_pic: " + prof_pic);
                         Log.d(TAG, "onResponse: fname: " + fname);
                         Log.d(TAG, "onResponse: mobile: " + mobile);
-
 
                     }
 

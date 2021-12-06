@@ -25,6 +25,8 @@ import com.propositive.tradewaale.MySingleton;
 import com.propositive.tradewaale.MainActivity;
 import com.propositive.tradewaale.R;
 import com.propositive.tradewaale.connection.NetworkChangeListener;
+import com.propositive.tradewaale.openAccount.WebviewActivity;
+import com.propositive.tradewaale.test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -77,7 +79,13 @@ public class LoginActivity extends AppCompatActivity {
                 String mail = uMail.getText().toString();
                 String password = uPassword.getText().toString();
 
-                FunLogin(mail, password);
+                if (!mail.isEmpty() && !password.isEmpty()){
+                    FunLogin(mail, password);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Email ID and Password is empty!...", Toast.LENGTH_SHORT).show();
+                }
+
+
 
             }
         });
@@ -105,12 +113,16 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (response.equals("record found")){
                     //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), test.class);
                     intent.putExtra("mail", mail);
                     startActivity(intent);
                     finish();
                     StoreCred(mail,password);
                     //clearField();
+                }
+
+                if (response.equals("User not exist!...")){
+                    Toast.makeText(getApplicationContext(), "User not exist!...", Toast.LENGTH_SHORT).show();
                 }
 
                 if (response.equals("Mail ID and password is empty!...")){
@@ -121,14 +133,14 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "User already active!...", Toast.LENGTH_SHORT).show();
                 }
 
-                if (response.equals("no record found")){
+                if (response.equals("Password Incorrect!...")){
                     Toast.makeText(getApplicationContext(), "Enter valid mail ID and password!...", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "onResponse: error ---> " + error.getMessage());
+                Log.d(TAG, "onResponse: error 123---> " + error.getMessage());
             }
         }) {
             @Override
@@ -184,4 +196,15 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    public void open_policy(View view) {
+        Intent intent = new Intent(LoginActivity.this, WebviewActivity.class);
+        intent.putExtra("url",Constants.PRIVACY_POLICY_URL);
+        startActivity(intent);
+    }
+
+    public void open_term(View view) {
+        Intent intent = new Intent(LoginActivity.this, WebviewActivity.class);
+        intent.putExtra("url",Constants.TERM_URL);
+        startActivity(intent);
+    }
 }

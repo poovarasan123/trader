@@ -149,6 +149,7 @@
 
 
         <LinearLayout
+            android:id="@+id/talk_to_us"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

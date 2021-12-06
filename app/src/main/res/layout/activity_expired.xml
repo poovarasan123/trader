@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="225dp"
+        android:layout_height="225dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/plan_expired" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Your plan has expired!..."
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:fontFamily="@font/open_sans_bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your plan validity has been expired. To access the data please subscribe now"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:fontFamily="@font/open_sans_light"/>
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="30dp"
+        android:text="View Plan"
+        android:onClick="go_to_plans"
+        android:textColor="@color/white"
+        android:background="@drawable/plan_button_gradient"/>
+</LinearLayout>

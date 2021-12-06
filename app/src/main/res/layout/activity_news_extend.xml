@@ -19,15 +19,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="225dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                 />
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="225dp"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                 />-->
 
             <TextView
                 android:id="@+id/titletxt"
@@ -36,7 +36,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-
+                android:text="Title"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-
+                    android:text="01/11/2021"
                     android:textAlignment="textEnd"
                     android:textSize="12sp" />
 
@@ -68,8 +68,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="30dp"
-
-                android:textSize="14sp" />
+                android:text="full news..............."
+                android:textSize="15sp" />
 
 
         </LinearLayout>
@@ -114,27 +114,27 @@
 
 <!--            </LinearLayout>-->
 
-<!--&lt;!&ndash;            <LinearLayout&ndash;&gt;-->
-<!--&lt;!&ndash;                android:id="@+id/comment_layout"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_height="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:orientation="vertical"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:gravity="center"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_weight="1">&ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/comment_layout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_weight="1">-->
 
-<!--&lt;!&ndash;                <ImageView&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_width="26dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_height="26dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:src="@drawable/ic_chat"/>&ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:layout_width="26dp"-->
+<!--                    android:layout_height="26dp"-->
+<!--                    android:src="@drawable/ic_chat"/>-->
 
-<!--&lt;!&ndash;                <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:text="Comments"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textSize="12sp"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textAlignment="center"/>&ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Comments"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textAlignment="center"/>-->
 
-<!--&lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+<!--            </LinearLayout>-->
 
 <!--            <LinearLayout-->
 <!--                android:layout_width="match_parent"-->

@@ -356,7 +356,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 mobile = jsonobject.getString("phone");
                                 maile = jsonobject.getString("email_id");
                                 plan = jsonobject.getString("plan");
-                                exp_date = jsonobject.getString("expire_at");
+                                //exp_date = jsonobject.getString("expire_at");
 
                                 Log.d(TAG, "onResponse: uid: " + id);
                                 Log.d(TAG, "onResponse: prof_pic: " + Constants.PROFILE_PATH + prof_pic);
@@ -365,7 +365,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 Log.d(TAG, "onResponse: mobile: " + mobile);
                                 Log.d(TAG, "onResponse: mail: " + maile);
                                 Log.d(TAG, "onResponse: plan: " + plan);
-                                Log.d(TAG, "onResponse: exp_at: " + exp_date);
+                                //Log.d(TAG, "onResponse: exp_at: " + exp_date);
 
                                 musername.setText(fname);
 

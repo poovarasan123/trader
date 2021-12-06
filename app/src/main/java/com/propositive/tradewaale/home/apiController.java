@@ -12,7 +12,7 @@ public class apiController {
 
     apiController(){
         retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.HOME_URL)
+                .baseUrl(Constants.PLANS)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

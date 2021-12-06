@@ -1,11 +1,12 @@
 package com.propositive.tradewaale.advisory.tabs.equity;
 
 public class EquityModel {
-    String symbol, buy_value, calls_method, target, reco_pr, exp_term, sel_date, sel_time,returns;
+    String rid, symbol, buy_value, calls_method, target, reco_pr, exp_term, sel_date, sel_time,returns;
 
     public EquityModel(){}
 
-    public EquityModel(String symbol, String buy_value, String calls_method, String target, String reco_pr, String exp_term, String sel_date, String sel_time, String returns) {
+    public EquityModel(String rid, String symbol, String buy_value, String calls_method, String target, String reco_pr, String exp_term, String sel_date, String sel_time, String returns) {
+        this.rid = rid;
         this.symbol = symbol;
         this.buy_value = buy_value;
         this.calls_method = calls_method;
@@ -15,6 +16,14 @@ public class EquityModel {
         this.sel_date = sel_date;
         this.sel_time = sel_time;
         this.returns = returns;
+    }
+
+    public String getRid() {
+        return rid;
+    }
+
+    public void setRid(String rid) {
+        this.rid = rid;
     }
 
     public String getSymbol() {

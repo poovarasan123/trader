@@ -3,14 +3,15 @@ package com.propositive.tradewaale.home;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.propositive.tradewaale.R;
 
@@ -21,17 +22,29 @@ public class NewsExtendActivity extends AppCompatActivity {
     BottomSheetDialog comSheet;
 
     TextView title, full_discription, date;
-    ImageView news_image;
+    //ImageView news_image;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_extend);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + "Daily Feed" + "</font>"));
 
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Drawable backArrow = getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(getDrawable(R.drawable.ic_arrow_back));
+        
 //        comment = findViewById(R.id.comment_layout);
-        //bookmark = findViewById(R.id.bookmark);
+//        bookmark = findViewById(R.id.bookmark);
 
-        news_image = findViewById(R.id.imageView);
+        //news_image = findViewById(R.id.imageView);
         title = findViewById(R.id.titletxt);
         full_discription = findViewById(R.id.desctxt);
         date = findViewById(R.id.datetxt);
@@ -43,7 +56,8 @@ public class NewsExtendActivity extends AppCompatActivity {
         String message = i.getStringExtra("message");
         String Date = i.getStringExtra("date");
 
-        Glide.with(news_image.getContext()).load("http://1192.168.90.211/trader/images/" + image).into(news_image);
+        //Glide.with(news_image.getContext()).load("http://1192.168.90.211/trader/images/" + image).into(news_image);
+
         title.setText(Title);
         full_discription.setText(message);
         date.setText(Date);

@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:fontFamily="@font/open_sans_semibold"
+                        android:fontFamily="@font/open_sans_bold"
                         android:text="Plan name"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
@@ -83,7 +83,7 @@
                         android:layout_marginTop="5dp"
                         android:textColor="@color/black"
                         android:layout_marginBottom="5dp"
-                        android:fontFamily="@font/open_sans"
+                        android:fontFamily="@font/open_sans_semibold"
                         android:text="Plan duration"/>
 
                 </LinearLayout>
@@ -153,8 +153,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/open_sans"
+                        android:fontFamily="@font/open_sans_bold"
                         android:textAlignment="textEnd"
+                        android:textStyle="bold"
                         android:text="Plan Cost"/>
 
 
@@ -181,8 +182,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/open_sans"
+                        android:fontFamily="@font/open_sans_bold"
                         android:textAlignment="textEnd"
+                        android:textStyle="bold"
                         android:text="id"/>
 
 
@@ -233,6 +235,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp">
 
@@ -240,8 +243,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_weight="1"
-                        android:layout_marginTop="10dp">
+                        android:layout_weight="1">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -256,14 +258,15 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/open_sans"
+                            android:fontFamily="@font/open_sans_bold"
                             android:textAlignment="textEnd"
+                            android:textStyle="bold"
                             android:text="25/10/21"/>
 
 
                     </LinearLayout>
 
-                    <Space
+                    <View
                         android:layout_width="10dp"
                         android:layout_height="match_parent"/>
 
@@ -271,8 +274,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_weight="1"
-                        android:layout_marginTop="10dp">
+                        android:layout_weight="1">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -287,7 +289,8 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/open_sans"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:textStyle="bold"
                             android:textAlignment="textEnd"
                             android:text="25/10/21"/>
 
@@ -312,9 +315,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="description"
+                    android:singleLine="true"
                     android:textColor="@color/black"
                     android:scrollHorizontally="true"
-                    android:fontFamily="@font/open_sans"
+                    android:fontFamily="@font/open_sans_bold"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="10dp"

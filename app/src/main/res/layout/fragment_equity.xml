@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:scrollbars="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -184,9 +184,25 @@
                     android:layout_marginTop="3dp"
                     android:layout_marginBottom="3dp"
                     android:layout_marginEnd="20dp"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:text="Date Range"
+                    android:button="@android:color/transparent"
+                    android:padding="10dp"
+                    android:background="@drawable/state_background"
+                    android:textColor="@color/black"
+                    android:elevation="4dp"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/date_range"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginEnd="20dp"/>
             </RadioGroup>
 
         </LinearLayout>
+
     </HorizontalScrollView>
 
 <!--    <LinearLayout-->

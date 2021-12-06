@@ -123,7 +123,7 @@ public class EquityFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                switch(checkedId){
+                switch (checkedId) {
 
                     // TODO: filter intraday
                     case R.id.intraday:
@@ -171,6 +171,10 @@ public class EquityFragment extends Fragment {
                     case R.id.buy:
                         String buyterm = "buy";
                         fliterrate(buyterm);
+                        break;
+
+                    case R.id.date_range:
+
                         break;
                 }
             }

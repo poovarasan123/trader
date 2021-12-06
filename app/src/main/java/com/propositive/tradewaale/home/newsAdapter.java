@@ -78,24 +78,17 @@ public class newsAdapter extends RecyclerView.Adapter<newsAdapter.ViewHolder> {
                 Toast.makeText(context.getApplicationContext(), "share under construction!...", Toast.LENGTH_SHORT).show();
             }
         });
-//
-//        holder.bookmark.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Snackbar.make(v,"share bookmark construction!", Snackbar.LENGTH_SHORT).show();
-//            }
-//        });
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), NewsExtendActivity.class);
-                i.putExtra("image", image);
+                //i.putExtra("image", image);
                 i.putExtra("title", title);
                 i.putExtra("message", message);
                 i.putExtra("date", date);
                 context.startActivity(i);
-                Toast.makeText(context.getApplicationContext(), "position :" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context.getApplicationContext(), "position :" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
             }
         });
 

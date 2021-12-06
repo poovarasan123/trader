@@ -61,40 +61,6 @@ public class NewsActivity extends AppCompatActivity {
             }
         });
 
-        bottomNavView = findViewById(R.id.bottom_nav_bar);
-
-        bottomNavView.setSelectedItemId(R.id.bottomHomeFragment);
-
-        bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (menuItem.getItemId()){
-                    case R.id.bottomHomeFragment:
-                        Toast.makeText(getApplicationContext(), "main activity", Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.bottomMarketFragment:
-                        Toast.makeText(getApplicationContext(), "market activity", Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(getApplicationContext(), bottomMarketActivity.class));
-//                    overridePendingTransition(0,0);
-                        return true;
-                    case R.id.bottomAdvisoryFragment:
-                        Toast.makeText(getApplicationContext(), "advisory activity", Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(getApplicationContext(), bottomAdvisoryActivity.class));
-//                    overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.bottomLiveFeedFragment:
-                        Toast.makeText(getApplicationContext(), "event activity", Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(getApplicationContext(), EventActivity.class));
-//                    overridePendingTransition(0,0);
-                        return true;
-                }
-
-                return false;
-            }
-        });
-
     }
 
     public void newsList() {

@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -49,6 +51,11 @@ public class SubscriptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + "Plan History" + "</font>"));
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
         recyclerView = findViewById(R.id.recyclerView);

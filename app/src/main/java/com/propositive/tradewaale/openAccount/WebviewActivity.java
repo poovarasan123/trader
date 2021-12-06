@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -13,6 +14,7 @@ import com.propositive.tradewaale.R;
 
 public class WebviewActivity extends AppCompatActivity {
 
+    private static final String TAG = "WebViewActivity";
     WebView webView;
 
     Activity activity;
@@ -34,6 +36,10 @@ public class WebviewActivity extends AppCompatActivity {
 
         String url = intent.getStringExtra("url");
 
+        Log.e(TAG, "onCreate: url :" + url);
+
+
+        webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);

@@ -57,37 +57,6 @@ public class bottomAdvisoryActivity extends AppCompatActivity {
             }
         });
 
-        bottomNavView = findViewById(R.id.bottom_nav_bar);
-
-        bottomNavView.setSelectedItemId(R.id.bottomAdvisoryFragment);
-
-        bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (menuItem.getItemId()){
-                    case R.id.bottomHomeFragment:
-                        startActivity(new Intent(getApplicationContext(), NewsActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.bottomMarketFragment:
-                        startActivity(new Intent(getApplicationContext(), bottomMarketActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.bottomAdvisoryFragment:
-
-                        return true;
-
-                    case R.id.bottomLiveFeedFragment:
-                        startActivity(new Intent(getApplicationContext(), EventActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-
-                return false;
-            }
-        });
-
     }
 
     private void setUpViewPager(ViewPager viewPager) {

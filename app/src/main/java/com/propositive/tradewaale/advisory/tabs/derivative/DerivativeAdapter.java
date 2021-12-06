@@ -89,7 +89,7 @@ public class DerivativeAdapter extends RecyclerView.Adapter<DerivativeAdapter.Vi
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "position :" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(v.getContext(), "position :" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "onClick: time ->" + data.get(holder.getAdapterPosition()).getSel_time());
                 Log.d(TAG, "onClick: date ->" + data.get(holder.getAdapterPosition()).getSel_date());
 
@@ -98,6 +98,7 @@ public class DerivativeAdapter extends RecyclerView.Adapter<DerivativeAdapter.Vi
 
                 Log.d(TAG, "onClick: name testing " + data.get(position).getSymbol());
 
+                i.putExtra("rid", data.get(position).getRid());
                 i.putExtra("name", data.get(position).getSymbol());
                 i.putExtra("rateStatus", data.get(position).getBuy_value());
                 i.putExtra("stockStatus", data.get(position).getCalls_method());
