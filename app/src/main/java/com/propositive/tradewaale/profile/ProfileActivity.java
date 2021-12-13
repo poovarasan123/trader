@@ -380,7 +380,6 @@ public class ProfileActivity extends AppCompatActivity {
                                     exp.setVisibility(View.GONE);
                                 }
 
-
                             }
 
                         } catch (JSONException e) {

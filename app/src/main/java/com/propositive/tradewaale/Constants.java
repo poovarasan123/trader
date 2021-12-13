@@ -137,7 +137,10 @@ public class Constants {
     public static final String PLANS = "http://192.168.29.178/test/get_plans.php/";
 
     //TODO: Plans
-    public static final String NSE_HOLIDAYS = "http://localhost/test/check_holidays.php";
+    public static final String NSE_HOLIDAYS = "http://192.168.29.178/test/check_holidays.php";
+
+    //TODO: Payment insert
+    public static final String PAYMENT_INSERT = "http://192.168.29.178/test/insert_payment_history.php";
 
 
 

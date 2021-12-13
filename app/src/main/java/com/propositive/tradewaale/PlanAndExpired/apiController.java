@@ -13,7 +13,7 @@ public class apiController {
 
     apiController(){
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.29.192/test/get_plans.php/")
+                .baseUrl("http://192.168.29.178/test/get_plans.php/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

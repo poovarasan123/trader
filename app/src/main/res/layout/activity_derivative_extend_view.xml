@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".advisory.tabs.equity.extendView.EquityExtendViewActivity">
 
     <ScrollView
@@ -14,15 +13,58 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="10dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/logo"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="start"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/tradewaale" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="Tradewaale"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/logo"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.appcompat.widget.Toolbar>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_adapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                app:cardBackgroundColor="#eee"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="5dp"
+                app:cardBackgroundColor="#eee">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -48,9 +90,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="15dp"
-                            android:singleLine="true"
-                            android:fontFamily="@font/open_sans_bold"
                             android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:singleLine="true"
                             android:text="Indian Railway Ctrng nd Trsm Corp Ltd"
                             android:textAllCaps="true"
                             android:textColor="@color/black"
@@ -75,9 +117,9 @@
                             android:id="@+id/open_or_close"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans"
                             android:padding="7dp"
                             android:text="closed"
-                            android:fontFamily="@font/open_sans"
                             android:textAllCaps="true"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -87,9 +129,9 @@
                             android:id="@+id/buy_or_sell"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/open_sans"
                             android:padding="5dp"
                             android:text="BUY"
-                            android:fontFamily="@font/open_sans"
                             android:textAllCaps="true"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -120,39 +162,39 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/open_sans"
                                 android:text="reco. price"
                                 android:textAlignment="center"
-                                android:fontFamily="@font/open_sans"
-                                android:textAllCaps="true"/>
+                                android:textAllCaps="true" />
 
                             <TextView
                                 android:id="@+id/reco_value"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
+                                android:fontFamily="@font/open_sans"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:fontFamily="@font/open_sans"
-                                android:textColor="@color/black"
-                                android:textStyle="bold"
                                 android:textAllCaps="true"
-                                android:textSize="16sp" />
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginStart="5dp"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/target_start_txt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Target One"
                                 android:fontFamily="@font/open_sans"
+                                android:text="Target One"
                                 android:textAlignment="center"
                                 android:textAllCaps="true" />
 
@@ -161,30 +203,30 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
-                                android:text="0"
                                 android:fontFamily="@font/open_sans"
-                                android:textStyle="bold"
-                                android:textColor="@color/black"
+                                android:text="0"
                                 android:textAlignment="center"
                                 android:textAllCaps="true"
-                                android:textSize="16sp" />
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginStart="5dp"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/target_end_txt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Target Two"
                                 android:fontFamily="@font/open_sans"
                                 android:singleLine="true"
+                                android:text="Target Two"
                                 android:textAlignment="center"
                                 android:textAllCaps="true" />
 
@@ -199,14 +241,14 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
-                                    android:text="0"
                                     android:layout_weight="2"
                                     android:fontFamily="@font/open_sans"
-                                    android:textColor="@color/black"
-                                    android:textStyle="bold"
+                                    android:text="0"
                                     android:textAlignment="center"
                                     android:textAllCaps="true"
-                                    android:textSize="16sp" />
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
 
                                 <!--                                <TextView-->
                                 <!--                                    android:layout_width="match_parent"-->
@@ -250,19 +292,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Details"
                     android:fontFamily="@font/open_sans"
+                    android:text="Details"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="110dp"
                     android:layout_height="1dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="9dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@android:color/darker_gray" />
 
             </LinearLayout>
@@ -276,110 +318,109 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp">
+                    android:paddingBottom="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Call Status"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/open_sans"/>
+                        android:fontFamily="@font/open_sans"
+                        android:text="Call Status" />
 
                     <TextView
                         android:id="@+id/op_or_cl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="open"
-                        android:gravity="end"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/open_sans"/>
+                        android:fontFamily="@font/open_sans"
+                        android:gravity="end"
+                        android:text="open"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp">
+                    android:paddingBottom="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Holding Period"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/open_sans"/>
+                        android:fontFamily="@font/open_sans"
+                        android:text="Holding Period" />
 
                     <TextView
                         android:id="@+id/term_days"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="term"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:gravity="end"
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/open_sans"/>
+                        android:fontFamily="@font/open_sans"
+                        android:gravity="end"
+                        android:text="term"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp">
+                    android:paddingBottom="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Recommended Date and Time"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/open_sans"/>
+                        android:fontFamily="@font/open_sans"
+                        android:text="Recommended Date and Time" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/dateText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="15sp"
-                            android:text="date"
-                            android:gravity="end"
+                            android:layout_marginStart="15dp"
                             android:layout_marginEnd="15dp"
+                            android:gravity="end"
+                            android:text="date"
                             android:textColor="@color/black"
-                            android:layout_marginStart="15dp"/>
-
+                            android:textSize="15sp" />
 
 
                         <TextView
                             android:id="@+id/timeText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="time"
-                            android:textSize="15sp"
-                            android:gravity="end"
+                            android:layout_marginStart="15dp"
                             android:layout_marginEnd="15dp"
+                            android:gravity="end"
+                            android:text="time"
                             android:textColor="@color/black"
-                            android:layout_marginStart="15dp"/>
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -388,31 +429,31 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp">
+                    android:paddingBottom="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Target Date"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/open_sans"/>
+                        android:fontFamily="@font/open_sans"
+                        android:text="Target Date" />
 
                     <TextView
                         android:id="@+id/target_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="time"
-                        android:gravity="end"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/open_sans"/>
+                        android:fontFamily="@font/open_sans"
+                        android:gravity="end"
+                        android:text="time"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -424,78 +465,82 @@
                 android:layout_height="1dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="9dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
 
             <TextView
                 android:id="@+id/call_history_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
                 android:text="Call History"
-                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/line"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line" />
 
             <LinearLayout
                 android:id="@+id/newone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/call_history_txt"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/call_history_txt">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/some_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="15dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="10dp"
-                    app:layout_constraintTop_toBottomOf="@+id/call_history_txt"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/call_history_txt">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:layout_width="15dp"
+                            android:id="@+id/status_indicator"
+                            android:layout_width="12dp"
                             android:layout_height="15dp"
-                            android:src="@drawable/ic_circle"/>
+                            android:src="@drawable/ic_circle" />
 
                         <TextView
+                            android:id="@+id/history_top_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
                             android:text="Reduce"
                             android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:layout_marginStart="10dp"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/op_or_cl2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/open_sans"
                         android:text="close"
                         android:textSize="16sp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_gravity="end"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -503,19 +548,20 @@
                     android:id="@+id/name_reduce_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="20dp"
-                    app:layout_constraintTop_toBottomOf="@+id/some_details"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/some_details">
 
                     <TextView
                         android:id="@+id/name_ltd_txt2"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="15dp"
-                        android:singleLine="true"
+                        android:layout_weight="1"
                         android:fontFamily="@font/open_sans_bold"
+                        android:singleLine="true"
                         android:text="Indian Railway Ctrng nd Trsm Corp Ltd"
                         android:textAllCaps="true"
                         android:textColor="@color/black"
@@ -525,13 +571,14 @@
                         android:id="@+id/reduce_value"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:singleLine="true"
-                        android:fontFamily="@font/open_sans_bold"
-                        android:text="1234.02"
                         android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/open_sans_bold"
                         android:gravity="end"
-                        android:textSize="16sp"
+                        android:singleLine="true"
+                        android:text="1234.02"
                         android:textColor="@color/black"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -540,206 +587,95 @@
                     android:id="@+id/tc_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="10dp"
-                    app:layout_constraintTop_toBottomOf="@+id/name_reduce_value"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/name_reduce_value">
 
                     <TextView
                         android:id="@+id/tc_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="15dp"
-                        android:singleLine="true"
-                        android:fontFamily="@font/open_sans"
                         android:layout_weight="1"
+                        android:fontFamily="@font/open_sans"
+                        android:singleLine="true"
                         android:text="target"
-                        android:textAllCaps="true"/>
+                        android:textAllCaps="true" />
 
                     <TextView
                         android:id="@+id/reduce_value2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:singleLine="true"
+                        android:layout_marginEnd="20dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/open_sans_bold"
-                        android:text="1234.02"
-                        android:textSize="16sp"
                         android:gravity="end"
-                        android:layout_marginEnd="20dp"
+                        android:singleLine="true"
+                        android:text="1234.02"
                         android:textColor="@color/black"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
 
-
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/newone">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/some_details5"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/dateText2"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp">
+                        android:fontFamily="@font/open_sans"
+                        android:text="date" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent">
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@android:color/darker_gray" />
 
-                            <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:src="@drawable/ic_circle"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Reduce"
-                                android:textColor="@color/black"
-                                android:textStyle="bold"
-                                android:layout_marginStart="10dp"/>
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/op_or_cl25"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="open"
-                            android:textColor="@color/green"
-                            android:textSize="16sp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_gravity="end"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <LinearLayout
-                        android:id="@+id/name_reduce_value5"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/timeText2"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="20dp"
-                        app:layout_constraintTop_toBottomOf="@+id/some_details"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <TextView
-                            android:id="@+id/name_ltd_txt25"
-                            android:layout_width="150dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:singleLine="true"
-                            android:fontFamily="@font/open_sans_bold"
-                            android:text="Indian Railway Ctrng nd Trsm Corp Ltd"
-                            android:textAllCaps="true"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/reduce_value5"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:singleLine="true"
-                            android:fontFamily="@font/open_sans_bold"
-                            android:text="1234.02"
-                            android:layout_marginEnd="20dp"
-                            android:gravity="end"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tc_value5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintTop_toBottomOf="@+id/name_reduce_value"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <TextView
-                            android:id="@+id/tc_text5"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:singleLine="true"
-                            android:fontFamily="@font/open_sans"
-                            android:layout_weight="1"
-                            android:text="target"
-                            android:textAllCaps="true"/>
-
-                        <TextView
-                            android:id="@+id/reduce_value25"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:singleLine="true"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/open_sans_bold"
-                            android:text="1234.02"
-                            android:textSize="16sp"
-                            android:gravity="end"
-                            android:layout_marginEnd="20dp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/open_sans"
+                        android:text="time" />
 
                 </LinearLayout>
-
 
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/name_reduce_value5"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/newone">
+                app:layout_constraintTop_toBottomOf="@+id/some_details">
 
-                <TextView
-                    android:id="@+id/dateText2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:text="date" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@android:color/darker_gray" />
-
-                <TextView
-                    android:id="@+id/timeText2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="time"
-                    android:layout_marginStart="15dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/call_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
+
         </LinearLayout>
     </ScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

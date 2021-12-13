@@ -26,6 +26,8 @@ import com.propositive.tradewaale.MainActivity;
 import com.propositive.tradewaale.R;
 import com.propositive.tradewaale.connection.NetworkChangeListener;
 import com.propositive.tradewaale.openAccount.WebviewActivity;
+import com.propositive.tradewaale.privacypolicy.PrivacyPolicyActivity;
+import com.propositive.tradewaale.termOfuse.TermofUseActivity;
 import com.propositive.tradewaale.test;
 
 import java.util.HashMap;
@@ -197,13 +199,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void open_policy(View view) {
-        Intent intent = new Intent(LoginActivity.this, WebviewActivity.class);
+        Intent intent = new Intent(LoginActivity.this, PrivacyPolicyActivity.class);
         intent.putExtra("url",Constants.PRIVACY_POLICY_URL);
         startActivity(intent);
     }
 
     public void open_term(View view) {
-        Intent intent = new Intent(LoginActivity.this, WebviewActivity.class);
+        Intent intent = new Intent(LoginActivity.this, TermofUseActivity.class);
         intent.putExtra("url",Constants.TERM_URL);
         startActivity(intent);
     }

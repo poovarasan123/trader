@@ -52,7 +52,6 @@ import com.propositive.tradewaale.privacypolicy.PrivacyPolicyActivity;
 import com.propositive.tradewaale.profile.ProfileActivity;
 import com.propositive.tradewaale.termOfuse.TermofUseActivity;
 import com.razorpay.Checkout;
-import com.razorpay.PaymentResultListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,7 +76,7 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
-public class test extends AppCompatActivity implements PaymentResultListener {
+public class test extends AppCompatActivity {
 
     String holiday;
     String UserMail;
@@ -89,9 +88,9 @@ public class test extends AppCompatActivity implements PaymentResultListener {
     int moremenu = 0;
 
     String amount;
-    String plan_status;
+    String current_plan_status;
     String date;
-    String token, niftyTickData, bankNiftyTickData;
+    String token;
 
     Button pay;
 
@@ -101,13 +100,11 @@ public class test extends AppCompatActivity implements PaymentResultListener {
     private BottomSheetDialog moreMenuSheet;
     private BottomSheetDialog supportSheet;
 
-    LinearLayout profile_menu, openDematAccpunt, privacypolicy, termsOfuse, support, share, logout, menusback;
+    LinearLayout menusback;
 
     private static final String SHARE_CONTENT = "Check out Tradewaale app. Get access to SEBI-Registered Trading Ideas, Live Intraday Screeners, All-Day Expert Market Analysis and more! " + "\n" + "ahjrgbahbdfgashdfbg\n" + "https://marketfeed.app/ \n";
 
     TextView nifty, banknifty;
-
-    String niftydata, bankniftydata;
 
     String nifty_Close, banknifty_Close;
 
@@ -141,8 +138,7 @@ public class test extends AppCompatActivity implements PaymentResultListener {
         prev_day();
         Nifty_prev_close("");
         BankNifty_prev_close("");
-
-        socketData();
+        //socketData();
 
         Log.e(TAG, "onCreate: today = " + getToday() );
 
@@ -170,43 +166,22 @@ public class test extends AppCompatActivity implements PaymentResultListener {
 
         df = new DecimalFormat("0.00");
 
-        moreMenus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        moreMenus.setOnClickListener(v -> {
 
-                moremenu++;
-                if (moremenu % 2 == 1) {
-                    menusback.setVisibility(View.VISIBLE);
-                } else {
-                    menusback.setVisibility(View.INVISIBLE);
-                }
+            moremenu++;
+            if (moremenu % 2 == 1) {
+                menusback.setVisibility(View.VISIBLE);
+            } else {
+                menusback.setVisibility(View.INVISIBLE);
             }
         });
-
-//        pay = findViewById(R.id.razarpay_btn);
-//        Checkout.preload(getApplicationContext());
-
-        amount = "999";
-        netAmout = Math.round(Float.parseFloat(amount) * 100);
-
-//        pay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //makepayment();
-//                try {
-//                    pey();
-//                } catch (UnsupportedEncodingException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
 
         webView = findViewById(R.id.seven_days_trede);
         loadSevenDaysTrend();
 
     }
 
-    private void loadProfile(String mail) {
+    private void ValidatePlan(String mail) {
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, com.propositive.tradewaale.Constants.PROFILE_URL, new Response.Listener<String>() {
             @Override
@@ -217,9 +192,9 @@ public class test extends AppCompatActivity implements PaymentResultListener {
                     JSONArray jsonarray = new JSONArray(response);
                     for (int i = 0; i < jsonarray.length(); i++) {
                         JSONObject jsonobject = jsonarray.getJSONObject(i);
-                        plan_status = jsonobject.getString("user_plan_status");
+                        current_plan_status = jsonobject.getString("user_plan_status");
 
-                        Log.d(TAG, "onResponse: id: " + plan_status);
+                        Log.d(TAG, "onResponse: id: " + current_plan_status);
 
                     }
 
@@ -228,7 +203,7 @@ public class test extends AppCompatActivity implements PaymentResultListener {
                     e.printStackTrace();
                 }
 
-                if (plan_status.equals("expired")) {
+                if (current_plan_status.equals("expired")) {
                     startActivity(new Intent(test.this, Expired.class));
                     finish();
                 }
@@ -254,80 +229,6 @@ public class test extends AppCompatActivity implements PaymentResultListener {
         stringRequest.setShouldCache(false);
         queue.add(stringRequest);
     }
-
-    /**
-     * private void pey() throws UnsupportedEncodingException {
-     * <p>
-     * checkout  = new Checkout();
-     * <p>
-     * String text = "12345";
-     * <p>
-     * byte[] data = text.getBytes("UTF-8");
-     * String base64 = Base64.encodeToString(data, Base64.NO_CLOSE);
-     * <p>
-     * <p>
-     * String new_term = base64.replace("=", "");
-     * <p>
-     * Toast.makeText(getApplicationContext(), "order_" + new_term, Toast.LENGTH_SHORT).show();
-     * <p>
-     * checkout.setKeyID("rzp_test_7Btns3DGHiIpYd");//
-     * checkout.setImage(R.drawable.propositive);
-     * <p>
-     * JSONObject jsonObject = new JSONObject();
-     * final Activity activity = this;
-     * <p>
-     * try{
-     * jsonObject.put("name", "portal checking");
-     * jsonObject.put("description", "test payment");
-     * jsonObject.put("order_id", "order_");
-     * jsonObject.put("theme.color", "#0093DD");
-     * jsonObject.put("currency", "INR");
-     * jsonObject.put("amount", netAmout);
-     * jsonObject.put("prefill.contact", "0123456789");
-     * jsonObject.put("prefill.email", "examlpe@gmail.com");
-     * <p>
-     * checkout.open(activity, jsonObject);
-     * }catch (JSONException e){
-     * e.printStackTrace();
-     * }
-     * <p>
-     * }
-     * <p>
-     * <p>
-     * private void makepayment() {
-     * <p>
-     * Log.e(TAG, "makepayment: netamount: " + netAmout );
-     * <p>
-     * <p>
-     * Checkout checkout = new Checkout();
-     * checkout.setKeyID("rzp_test_cxNUI0uCsNzTVg"); //"rzp_test_cxNUI0uCsNzTVg",
-     * <p>
-     * checkout.setImage(R.drawable.propositive);
-     * final Activity activity = this;
-     * try {
-     * JSONObject options = new JSONObject();
-     * <p>
-     * options.put("name", "Propositive");
-     * options.put("description", "Reference No. #123456");
-     * //            options.put("image", R.drawable.propositive);
-     * //            options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
-     * //            options.put("theme.color", "#3399cc");
-     * options.put("currency", "INR");
-     * options.put("amount", netAmout);//pass amount in currency subunits
-     * options.put("prefill.email", "example@example.com");
-     * options.put("prefill.contact","0123456789");
-     * JSONObject retryObj = new JSONObject();
-     * retryObj.put("enabled", true);
-     * retryObj.put("max_count", 4);
-     * options.put("retry", retryObj);
-     * <p>
-     * checkout.open(activity, options);
-     * <p>
-     * } catch(Exception e) {
-     * Log.e(TAG, "Error in starting Razorpay Checkout", e);
-     * }
-     * }
-     **/
 
     @Override
     public void onBackPressed() {
@@ -361,6 +262,9 @@ public class test extends AppCompatActivity implements PaymentResultListener {
         super.onStart();
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeListener, filter);
+
+        UserId();
+        ValidatePlan(UserMail);
 
         if (d.getDay() == 0 || d.getDay() == 6) {
             //no morket saturday and sunday
@@ -406,9 +310,22 @@ public class test extends AppCompatActivity implements PaymentResultListener {
                     JSONArray jsonarray = new JSONArray(response);
                     for (int i = 0; i < jsonarray.length(); i++) {
                         JSONObject jsonobject = jsonarray.getJSONObject(i);
-                        plan_status = jsonobject.getString("uid");
 
-                        Log.d(TAG, "onResponse: id: " + plan_status);
+                        current_plan_status = jsonobject.getString("uid");
+
+                        SharedPreferences.Editor sharedPreferences = getSharedPreferences("user_cred", MODE_PRIVATE).edit();
+                        sharedPreferences.putString("userId", jsonobject.getString("uid"));
+                        sharedPreferences.putString("userfname", jsonobject.getString("first_name"));
+                        sharedPreferences.putString("userlname", jsonobject.getString("last_name"));
+                        sharedPreferences.putString("usermail", jsonobject.getString("email_id"));
+                        sharedPreferences.putString("usernumber", jsonobject.getString("phone"));
+                        sharedPreferences.apply();
+
+                        Log.d(TAG, "onResponse: current plan status: " + current_plan_status);
+                        Log.d(TAG, "onResponse: current fname: " +  jsonobject.getString("first_name"));
+                        Log.d(TAG, "onResponse: current lname: " +  jsonobject.getString("last_name"));
+                        Log.d(TAG, "onResponse: current mail: " +  jsonobject.getString("email_id"));
+                        Log.d(TAG, "onResponse: current phone: " +  jsonobject.getString("phone"));
 
                     }
 
@@ -417,7 +334,7 @@ public class test extends AppCompatActivity implements PaymentResultListener {
                     e.printStackTrace();
                 }
 
-                checkPlanValidity(plan_status);
+                //checkPlanValidity(current_plan_status);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -560,23 +477,9 @@ public class test extends AppCompatActivity implements PaymentResultListener {
         startActivity(intent);
     }
 
-    @Override
-    public void onPaymentSuccess(String s) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Payment ID");
-        alert.setMessage(s);
-        alert.show();
-    }
-
-    @Override
-    public void onPaymentError(int i, String s) {
-        Toast.makeText(getApplicationContext(), "error: " + s, Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "onPaymentError: error: " + i + " string: " + s);
-    }
-
-    private void openBottomSheet() {
+    public void openBottomSheet(View view) {
         moreMenuSheet = new BottomSheetDialog(test.this, R.style.BottomSheetDialogTheme);
-        View loginSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet, findViewById(R.id.more_menu_sheet));
+        View loginSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.follow_us, findViewById(R.id.more_menu_sheet));
 
 //        circleImageView = loginSheetView.findViewById(R.id.profile_image);
 //        name_text = loginSheetView.findViewById(R.id.username_txt);
@@ -584,108 +487,111 @@ public class test extends AppCompatActivity implements PaymentResultListener {
 
         //theme = loginSheetView.findViewById(R.id.theme_menu);
 
-        profile_menu = loginSheetView.findViewById(R.id.profile_menu);
-        openDematAccpunt = loginSheetView.findViewById(R.id.open_account_menu);
-        privacypolicy = loginSheetView.findViewById(R.id.privacy_menu);
-        termsOfuse = loginSheetView.findViewById(R.id.term_menu);
-        support = loginSheetView.findViewById(R.id.support_menu);
-        share = loginSheetView.findViewById(R.id.share_menu);
-        logout = loginSheetView.findViewById(R.id.logout_menu);
-
-//        Log.e(TAG, "openBottomSheet: test constants: " + com.propositive.tradewaale.Constants.PROFILE_PATH + prof_pic );
+//        profile_menu = loginSheetView.findViewById(R.id.profile_menu);
+//        openDematAccpunt = loginSheetView.findViewById(R.id.open_account_menu);
+//        privacypolicy = loginSheetView.findViewById(R.id.privacy_menu);
+//        termsOfuse = loginSheetView.findViewById(R.id.term_menu);
+//        support = loginSheetView.findViewById(R.id.support_menu);
+//        share = loginSheetView.findViewById(R.id.share_menu);
+//        logout = loginSheetView.findViewById(R.id.logout_menu);
 //
-//        Picasso.get().load(com.propositive.tradewaale.Constants.PROFILE_PATH + prof_pic).into(circleImageView);
-//        name_text.setText(fname);
-//        number_text.setText(mobile);
-
-//       theme switching
-        /**
-         themeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-        if (buttonView.isChecked()) {
-        Toast.makeText(getApplicationContext(), "checked!...", Toast.LENGTH_SHORT).show();
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        editor.putBoolean("state",isChecked);
-        editor.commit();
-        moreMenuSheet.dismiss();
-        MainActivity.this.recreate();
-        }else {
-        Toast.makeText(getApplicationContext(), "not checked!...", Toast.LENGTH_SHORT).show();
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        editor.putBoolean("state",isChecked);
-        editor.commit();
-        moreMenuSheet.dismiss();
-        MainActivity.this.recreate();
-        }
-        }
-        });
-         **/
-
-        profile_menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(test.this, ProfileActivity.class));
-                moreMenuSheet.dismiss();
-            }
-        });
-
-        openDematAccpunt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(test.this, OpenAccountActivity.class));
-                moreMenuSheet.dismiss();
-            }
-        });
-
-        privacypolicy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(test.this, PrivacyPolicyActivity.class));
-                moreMenuSheet.dismiss();
-            }
-        });
-
-        termsOfuse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(test.this, TermofUseActivity.class));
-                moreMenuSheet.dismiss();
-            }
-        });
-
-        support.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SupportSheet();
-            }
-        });
-
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, SHARE_CONTENT);
-                sendIntent.setType("text/plain");
-                Intent.createChooser(sendIntent, "Share via");
-                startActivity(sendIntent);
-            }
-        });
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                moreMenuSheet.dismiss();
-                SharedPreferences sharedpreferences = getSharedPreferences("Log_cred", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.clear();
-                editor.apply();
-                UpdateSession(UserMail);
-                startActivity(new Intent(test.this, LoginActivity.class));
-                finish();
-            }
-        });
+////        Log.e(TAG, "openBottomSheet: test constants: " + com.propositive.tradewaale.Constants.PROFILE_PATH + prof_pic );
+////
+////        Picasso.get().load(com.propositive.tradewaale.Constants.PROFILE_PATH + prof_pic).into(circleImageView);
+////        name_text.setText(fname);
+////        number_text.setText(mobile);
+//
+////       theme switching
+//        /**
+//         themeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//        @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//        if (buttonView.isChecked()) {
+//        Toast.makeText(getApplicationContext(), "checked!...", Toast.LENGTH_SHORT).show();
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//        editor.putBoolean("state",isChecked);
+//        editor.commit();
+//        moreMenuSheet.dismiss();
+//        MainActivity.this.recreate();
+//        }else {
+//        Toast.makeText(getApplicationContext(), "not checked!...", Toast.LENGTH_SHORT).show();
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        editor.putBoolean("state",isChecked);
+//        editor.commit();
+//        moreMenuSheet.dismiss();
+//        MainActivity.this.recreate();
+//        }
+//        }
+//        });
+//         **/
+//
+//        profile_menu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(test.this, ProfileActivity.class));
+//                moreMenuSheet.dismiss();
+//            }
+//        });
+//
+//        openDematAccpunt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(test.this, OpenAccountActivity.class));
+//                moreMenuSheet.dismiss();
+//            }
+//        });
+//
+//        privacypolicy.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(test.this, PrivacyPolicyActivity.class));
+//                moreMenuSheet.dismiss();
+//            }
+//        });
+//
+//        termsOfuse.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(test.this, TermofUseActivity.class));
+//                moreMenuSheet.dismiss();
+//            }
+//        });
+//
+//        support.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SupportSheet();
+//            }
+//        });
+//
+//        share.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent sendIntent = new Intent();
+//                sendIntent.setAction(Intent.ACTION_SEND);
+//                sendIntent.putExtra(Intent.EXTRA_TEXT, SHARE_CONTENT);
+//                sendIntent.setType("text/plain");
+//                Intent.createChooser(sendIntent, "Share via");
+//                startActivity(sendIntent);
+//            }
+//        });
+//
+//        logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                moreMenuSheet.dismiss();
+//                SharedPreferences sharedpreferences = getSharedPreferences("Log_cred", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedpreferences.edit();
+//                editor.clear();
+//                editor.apply();
+//                SharedPreferences.Editor sharedPreferences2 = getSharedPreferences("socket_token", Context.MODE_PRIVATE).edit();
+//                sharedPreferences2.clear();
+//                sharedPreferences2.apply();
+//                UpdateSession(UserMail);
+//                startActivity(new Intent(test.this, LoginActivity.class));
+//                finish();
+//            }
+//        });
 
         moreMenuSheet.setContentView(loginSheetView);
         moreMenuSheet.show();
@@ -738,11 +644,18 @@ public class test extends AppCompatActivity implements PaymentResultListener {
     }
 
     public void openPolicy(View view) {
-        startActivity(new Intent(test.this, PrivacyPolicyActivity.class));
+        Intent intent = new Intent(test.this, PrivacyPolicyActivity.class);
+        intent.putExtra("url", Constants.PRIVACY_POLICY_URL);
+        startActivity(intent);
+        //startActivity(new Intent(test.this, PrivacyPolicyActivity.class));
     }
 
     public void openTerm(View view) {
-        startActivity(new Intent(test.this, TermofUseActivity.class));
+        Intent intent = new Intent(test.this, TermofUseActivity.class);
+        intent.putExtra("url", Constants.TERM_URL);
+        startActivity(intent);
+
+        //startActivity(new Intent(test.this, TermofUseActivity.class));
     }
 
     public void openSupport(View view) {
@@ -760,105 +673,6 @@ public class test extends AppCompatActivity implements PaymentResultListener {
 
     public void go_to_indices(View view) {
         startActivity(new Intent(getApplicationContext(), IndicesActivity.class));
-    }
-
-    public class NiftyData extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(Void unused) {
-            super.onPostExecute(unused);
-
-            if (niftydata != null) {
-                String new_val = niftydata.replace(",", "");
-
-                float val = Float.parseFloat(new_val) - Float.parseFloat(nifty_Close);
-
-                float res = val / Float.parseFloat(nifty_Close);
-
-                float persent = res * 100;
-
-                Log.e(TAG, "onPostExecute: nifty val " + val);
-                Log.e(TAG, "onPostExecute: nifty res " + res);
-                Log.e(TAG, "onPostExecute: nifty present " + persent);
-
-                nifty.setText(niftydata);
-                StoreNiftyData(niftydata);
-                niftyDayCalc.setText(df.format(val));
-                niftyPersent.setText("( " + df.format(persent) + "% )");
-
-                if (val > 0) {
-                    NiftyTrend.setImageResource(R.drawable.ic_arrow_drop_up);
-                    niftyDayCalc.setTextColor(getResources().getColor(R.color.green));
-                    niftyPersent.setTextColor(getResources().getColor(R.color.green));
-                } else {
-                    NiftyTrend.setImageResource(R.drawable.ic_arrow_drop_down);
-                    niftyDayCalc.setTextColor(getResources().getColor(R.color.red));
-                    niftyPersent.setTextColor(getResources().getColor(R.color.red));
-                }
-            } else {
-
-                SharedPreferences sharedPreferences = getSharedPreferences("nifty_data", MODE_PRIVATE);
-
-                String share_nifty_data = sharedPreferences.getString("close_nifty_data", "");
-
-                String new_val = share_nifty_data.replace(",", "");
-
-                float val = Float.parseFloat(new_val) - Float.parseFloat(share_nifty_data);
-
-                float res = val / Float.parseFloat(banknifty_Close);
-
-                float persent = res * 100;
-
-                Log.e(TAG, "onPostExecute: nifty val " + val);
-                Log.e(TAG, "onPostExecute: banknifty res " + res);
-                Log.e(TAG, "onPostExecute: banknifty present " + persent);
-
-                nifty.setText(share_nifty_data);
-                niftyDayCalc.setText(df.format(val));
-                niftyPersent.setText("( " + df.format(persent) + "% )");
-
-                if (val > 0) {
-                    NiftyTrend.setImageResource(R.drawable.ic_arrow_drop_up);
-                    niftyDayCalc.setTextColor(getResources().getColor(R.color.green));
-                    niftyPersent.setTextColor(getResources().getColor(R.color.green));
-                } else {
-                    NiftyTrend.setImageResource(R.drawable.ic_arrow_drop_down);
-                    niftyDayCalc.setTextColor(getResources().getColor(R.color.red));
-                    niftyPersent.setTextColor(getResources().getColor(R.color.red));
-                }
-            }
-        }
-
-        @Override
-        protected void onCancelled(Void unused) {
-            super.onCancelled(unused);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                String url = "https://www.google.com/search?q=nse+nifty+live+data&rlz=1C1CHBF_enIN981IN981&oq=nse+nifty+live+data&aqs=chrome..69i57j33i22i29i30l9.5530j1j7&sourceid=chrome&ie=UTF-8&google_abuse=GOOGLE_ABUSE_EXEMPTION%3DID%3Dbc45a89145a33d30:TM%3D1638261415:C%3Dr:IP%3D2405:201:e018:2071:c509:4d08:50fc:afff-:S%3DZ1TMxLtgjs5GReGWVl7ZFdg%3B+path%3D/%3B+domain%3Dgoogle.com%3B+expires%3DTue,+30-Nov-2021+11:36:55+GMT";
-                Document doc = Jsoup.connect(url).get();
-
-                Elements webData1 = doc.select("div.PZPZlf");
-
-                niftydata = webData1.select("div.PZPZlf")
-                        .select("span")
-                        .text().substring(0, 9);
-
-                Log.d(TAG, "doInBackground: nifty 50 data:" + niftydata);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
     }
 
     //TODO: previous close value
@@ -921,7 +735,6 @@ public class test extends AppCompatActivity implements PaymentResultListener {
                 } else {
                     params.put("date", prev_day());
                 }
-
 
                 return params;
             }
@@ -988,12 +801,12 @@ public class test extends AppCompatActivity implements PaymentResultListener {
         return minTwoDay;
     }
 
-    private String StoreNiftyData(String data) {
-        SharedPreferences.Editor sharedPreferences = getSharedPreferences("nifty_data", MODE_PRIVATE).edit();
-        sharedPreferences.putString("close_nifty_data", data);
-        sharedPreferences.apply();
-        return data;
-    }
+//    private String StoreNiftyData(String data) {
+//        SharedPreferences.Editor sharedPreferences = getSharedPreferences("nifty_data", MODE_PRIVATE).edit();
+//        sharedPreferences.putString("close_nifty_data", data);
+//        sharedPreferences.apply();
+//        return data;
+//    }
 
     private String StoreBankNiftyData(String data) {
         SharedPreferences.Editor sharedPreferences = getSharedPreferences("banknifty_data", MODE_PRIVATE).edit();
@@ -1048,71 +861,32 @@ public class test extends AppCompatActivity implements PaymentResultListener {
 
             String res = response.body().string();
 
-            try {
-                JSONObject call_history = new JSONObject(res);
+            Log.e(TAG, "socketData: res: " + res );
 
-                token = call_history.getString("access_token");
+            if (res.substring(0, 15) != "<!DOCTYPE html>"){
+                try {
+                    JSONObject call_history = new JSONObject(res);
 
-                SharedPreferences.Editor sharedPreferences = getSharedPreferences("socket_token", MODE_PRIVATE).edit();
-                sharedPreferences.putString("token", token);
-                sharedPreferences.apply();
-                //Log.e(TAG, "socketData: token from response " + token);
+                    token = call_history.getString("access_token");
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                    SharedPreferences.Editor sharedPreferences = getSharedPreferences("socket_token", MODE_PRIVATE).edit();
+                    sharedPreferences.putString("token", token);
+                    sharedPreferences.apply();
+                    //Log.e(TAG, "socketData: token from response " + token);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else{
+                Toast.makeText(getApplicationContext(), "Live date not connected...", Toast.LENGTH_SHORT).show();
             }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return token;
-    }
-
-
-    private void BankNiftyTickData() {
-        Log.e(TAG, "TickData: token: " + token);
-        if (!token.isEmpty()){
-            OkHttpClient client = new OkHttpClient().newBuilder().build();
-            okhttp3.Request request = new okhttp3.Request.Builder()
-                    .url("https://history.truedata.in/getticks?symbol=BANKNIFTY-I&from=" + getBankNiftyToday() + "T09:15:00&to=" + getBankNiftyToday() + "T15:30:00&response=json&bidask=1")
-                    .method("GET", null)
-                    .addHeader("Authorization", "Bearer " + token)
-                    .build();
-            try {
-                okhttp3.Response response = client.newCall(request).execute();
-                String s = response.body().string();
-                ObjectMapper mapper = new ObjectMapper();
-                try {
-                    Map map = mapper.readValue(s, Map.class);
-                    List<List> recordsList = (List<List>) map.get("Records");
-                    Collections.reverse(recordsList);
-                    Log.e(TAG, "TickData: " + recordsList.get(0).get(1));
-                    String bn = String.valueOf(recordsList.get(0).get(1));
-                    float val = Float.parseFloat(bn) - Float.parseFloat(banknifty_Close);
-                    float res = val / Float.parseFloat(banknifty_Close);
-                    float persent = res * 100;
-                    banknifty.setText(bn);
-                    bankNiftyDayClac.setText(df.format(val));
-                    bankniftyPersent.setText("( " + df.format(persent) + "% )");
-                    if (val > 0) {
-                        BankNiftyTrend.setImageResource(R.drawable.ic_arrow_drop_up);
-                        bankNiftyDayClac.setTextColor(getResources().getColor(R.color.green));
-                        bankniftyPersent.setTextColor(getResources().getColor(R.color.green));
-                    } else {
-                        BankNiftyTrend.setImageResource(R.drawable.ic_arrow_drop_down);
-                        bankNiftyDayClac.setTextColor(getResources().getColor(R.color.red));
-                        bankniftyPersent.setTextColor(getResources().getColor(R.color.red));
-                    }
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            socketData();
-            BankNiftyTickData();
-        }
     }
 
     private void refresh(int i) {
@@ -1139,7 +913,7 @@ public class test extends AppCompatActivity implements PaymentResultListener {
         @Override
         public void run() {
 
-            if (!token.isEmpty()){
+            if (token != null){
 
                 //TODO: Nifty live data
                 OkHttpClient client = new OkHttpClient().newBuilder().build();
@@ -1275,7 +1049,7 @@ public class test extends AppCompatActivity implements PaymentResultListener {
         @Override
         public void run() {
 
-            if (!token.isEmpty()){
+            if (token != null){
 
                 //TODO: Nifty live data
                 OkHttpClient client = new OkHttpClient().newBuilder().build();

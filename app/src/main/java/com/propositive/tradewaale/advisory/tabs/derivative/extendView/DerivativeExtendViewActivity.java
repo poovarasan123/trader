@@ -88,7 +88,7 @@ public class DerivativeExtendViewActivity extends AppCompatActivity {
 
 //        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\" >" + " Details " + "</font>"));
 
-        recyclerView = findViewById(R.id.call_history);
+        recyclerView =findViewById(R.id.call_history);
         //show_more_layout = findViewById(R.id.show_more);
 
         //noCallHistory = findViewById(R.id.no_calls_found_image);
@@ -263,7 +263,7 @@ public class DerivativeExtendViewActivity extends AppCompatActivity {
                                    jsonObject.getString("h_reco_pr"),
                                    jsonObject.getString("h_target"),
                                    jsonObject.getString("h_updated"),
-                                   jsonObject.getString("h_updated_time;")
+                                   jsonObject.getString("h_updated_time")
                            ));
 
                        }
